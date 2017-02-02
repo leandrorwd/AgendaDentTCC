@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">AgendaDent</string>
+    <string name="email">Email</string>
+    <string name="nome">Nome</string>
+    <string name="sobreNome">Sobrenome</string>
+    <string name="senha">Senha</string>
+    <string name="senhaRepita">Repita a senha</string>
+    <string name="Cep">Cep</string>
+    <string name="senha2">Repita a Senha</string>
+    <string name="rua">Rua</string>
+    <string name="Numero">Numero</string>
+    <string name="Complemento">Complemento</string>
+    <string name="bairro">Bairro</string>
+    <string name="cidade">Cidade</string>
+    <string name="estado">Estado</string>
+    <string name="inscricaoCRO">Inscrição CRO</string>
+    <string name="FotoPerfil">Foto Perfil</string>
+    <string name="Pais">Pais</string>
+    <string name="tipoUser">Tipo Usuario</string>
+    <string name="ok">Ok</string>
+    <string name="Aviso">Aviso</string>
+    <string name="Sair">Sair</string>
+    <string name="sim">Sim</string>
+    <string name="Aguarde">Aguarde</string>
+    <string name="Carregando">Carregando</string>
+    <string name="nao">Não</string>
+    <string name="BuscarCEP">Buscar pelo CEP</string>
+    <string name="PerguntaBuscarCEP">Você deseja buscar as informações através do CEP?</string>
+    <string name="erro">Erro</string>
+    <string name="cepInvalido"><![CDATA[>O campo \\\"Cep\\\" está inválido.]]></string>
+    <string name="CEPNaoencontrado">Cep não encontrado.</string>
+    <string name="headerDialogFoto">Tirar Foto</string>
+    <string name="subTitleDialogFoto">Selecionar da galeria</string>
+    <string name="cancelDialogFoto">cancelar</string>
+    <string name="titleDialogFoto">Adicionar Imagem</string>
+    <string-array name="picker_Estado">
+        <item> </item>
+        <item>AC</item>
+        <item>AL</item>
+        <item>AP</item>
+        <item>AM</item>
+        <item>BA</item>
+        <item>CE</item>
+        <item>DF</item>
+        <item>ES</item>
+        <item>GO</item>
+        <item>MA</item>
+        <item>MT</item>
+        <item>MS</item>
+        <item>MG</item>
+        <item>PA</item>
+        <item>PB</item>
+        <item>PR</item>
+        <item>PE</item>
+        <item>PI</item>
+        <item>RJ</item>
+        <item>RN</item>
+        <item>RS</item>
+        <item>RO</item>
+        <item>RR</item>
+        <item>SC</item>
+        <item>SP</item>
+        <item>SE</item>
+        <item>TO</item>
+    </string-array>
+    <string-array name="tipo_user">
+        <item>Paciente</item>
+        <item>Dentista</item>
+    </string-array>
+
+</resources>

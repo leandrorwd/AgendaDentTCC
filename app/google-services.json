@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "805633339164",
+    "firebase_url": "https://agenda-dent.firebaseio.com",
+    "project_id": "agenda-dent",
+    "storage_bucket": "agenda-dent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805633339164:android:573b49fa88e01497",
+        "android_client_info": {
+          "package_name": "tcc.agendadent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805633339164-gkjl6ntdo61fghcrdbg86f1pei2sn2af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe8grPM1-ulM1FU0dQwzXX_1irwTqHNy4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
