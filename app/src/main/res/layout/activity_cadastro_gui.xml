@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:id="@+id/idCadastroNome"
+                    android:inputType="textCapWords"
                     android:hint="@string/nome"
                     />
 
@@ -68,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:id="@+id/idCadastraSobreNome"
+                    android:inputType="textCapWords"
                     android:hint="@string/sobreNome"
                     />
 
