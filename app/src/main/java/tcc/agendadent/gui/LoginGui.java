@@ -38,6 +38,7 @@ public class LoginGui extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     ///Teste
+    //Leandro
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
