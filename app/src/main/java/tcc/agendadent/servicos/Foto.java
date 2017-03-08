@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,8 +73,10 @@ public class Foto {
         {
             e.printStackTrace();
         }
-        if (activity.getLocalClassName().equals("gui.CadastroGui.")) {
+        if (activity.getLocalClassName().equals("gui.CadastroGui")) {
             CadastroController.getInstance().setImagemPerfilDentista(thumbnail);
+            ImageView aux = (ImageView) activity.findViewById(R.id.fotoTela);
+            aux.setTag("concluiu");
         }
     }
 
@@ -93,6 +96,8 @@ public class Foto {
         }
         if (activity.getLocalClassName().equals("gui.CadastroGui")) {
             CadastroController.getInstance().setImagemPerfilDentista(bm);
+            ImageView aux = (ImageView) activity.findViewById(R.id.fotoTela);
+            aux.setTag("concluiu");
         }
     }
 

@@ -3,6 +3,7 @@ package tcc.agendadent.servicos;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.ImageView;
 
 /**
  * Created by natha on 02/02/2017.
@@ -59,6 +60,12 @@ public class ValidationTest {
         return cpf.equals(cpf.substring(0,9) + digito1.toString() + digito2.toString());
     }
 
+    public static boolean validaCep(String cep){
+        if(!validaString(cep)) return false;
+        if(cep.contains("-")) return cep.length()==9;
+        return cep.length()==8;
+    }
+
     public static boolean verifica3G(Context context) {
         try{
             ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,5 +88,22 @@ public class ValidationTest {
 
     public static boolean verificaInternet(Context context) {
         return verificaWifi(context) || verifica3G(context);
+    }
+
+    public static boolean validaNumeroPuro(String numero) {
+        try{
+            int controle = Integer.parseInt(numero);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validaFotoTirada(ImageView perfil) {
+        if(perfil.getTag()==null || perfil.getTag().equals("default"))
+            return false;
+        else
+            return true;
     }
 }

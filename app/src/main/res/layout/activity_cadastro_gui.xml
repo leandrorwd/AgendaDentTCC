@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/idCadastroEmail"
+                    android:fontFamily="sans-serif-light"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress" />
 
@@ -51,6 +52,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
                     android:id="@+id/idCadastroNome"
                     android:hint="@string/nome"
                     />
@@ -64,6 +66,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
                     android:id="@+id/idCadastraSobreNome"
                     android:hint="@string/sobreNome"
                     />
@@ -76,6 +79,7 @@
                 <EditText android:id="@+id/idCadastroSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
                     android:inputType="textPassword"
                     android:hint="@string/senha"/>
             </android.support.design.widget.TextInputLayout>
@@ -86,9 +90,25 @@
                 >
                 <EditText android:id="@+id/idCadastroSenha2"
                     android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="@string/senha2"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/idCelular"
+                    android:fontFamily="sans-serif-light"
+                    android:inputType="phone"
+                    android:maxLength="15"
+                    android:hint="@string/celular"
+                    />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -105,6 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/idCadastroCRO"
+                        android:fontFamily="sans-serif-light"
                         android:inputType="numberDecimal"
                         android:hint="@string/inscricaoCRO"
                         />
@@ -142,133 +163,145 @@
                         android:layout_marginStart="50dp" />
                 </RelativeLayout>
 
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@drawable/divider_relative"
+                    android:showDividers="middle"
+                    android:orientation="vertical">
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroPais"
+                            android:enabled="false"
+                            android:fontFamily="sans-serif-light"
+                            android:maxLength="9"
+                            android:hint="@string/Pais"
+                            android:text="Brasil"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroCep"
+                            android:clickable="true"
+                            android:maxLength="9"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:hint="@string/Cep"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/estado"
+                        />
+
+                    <Spinner
+                        android:id="@+id/idCadastroSpinnerEstado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawSelectorOnTop="true"
+                        android:fontFamily="sans-serif-light"
+                        android:entries="@array/picker_Estado"
+                        />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroCidade"
+                            android:inputType="textCapSentences"
+                            android:fontFamily="sans-serif-light"
+                            android:hint="@string/cidade"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroBairro"
+                            android:clickable="true"
+                            android:inputType="textCapSentences"
+                            android:fontFamily="sans-serif-light"
+                            android:hint="@string/bairro"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroRua"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/rua"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroNumero"
+                            android:clickable="true"
+                            android:maxLength="7"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:hint="@string/Numero"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/idCadastroComplemento"
+                            android:clickable="true"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/Complemento"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@drawable/divider_relative"
-                android:showDividers="middle"
-                android:orientation="vertical">
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroPais"
-                        android:enabled="false"
-                        android:maxLength="9"
-                        android:hint="@string/Pais"
-                        android:text="Brasil"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroCep"
-                        android:clickable="true"
-                        android:maxLength="9"
-                        android:inputType="number"
-                        android:hint="@string/Cep"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/estado"
-                    />
-
-                <Spinner
-                    android:id="@+id/idCadastroSpinnerEstado"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/picker_Estado"
-                    />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroCidade"
-                        android:inputType="textCapSentences"
-                        android:hint="@string/cidade"
-                        />
-                </android.support.design.widget.TextInputLayout>
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroBairro"
-                        android:clickable="true"
-                        android:inputType="textCapSentences"
-                        android:hint="@string/bairro"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroRua"
-                        android:inputType="textCapSentences"
-                        android:hint="@string/rua"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroNumero"
-                        android:clickable="true"
-                        android:maxLength="7"
-                        android:inputType="number"
-                        android:hint="@string/Numero"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/idCadastroComplemento"
-                        android:clickable="true"
-                        android:inputType="textCapSentences"
-                        android:hint="@string/Complemento"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-
-
-            </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/botaoCadastro"
-                android:background="@color/colorPrimary"
                 android:textColor="@color/backgroundWhite"
+                android:background="@color/corBotao"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"

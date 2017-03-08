@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#12b183</color>
     <color name="backgroundWhite">#FFFFFF</color>
+    <color name="red">#d6000b</color>
+    <color name="corBotao">#12b183</color>
+
+
 
 </resources>

@@ -42,7 +42,7 @@ public class Endereco implements Serializable {
     }
 
     public Endereco(JSONObject jsonObject) throws JSONException {
-        this.pais = "";
+        this.pais = "Brasil";
         this.estado = jsonObject.getString("uf");
         this.cidade = jsonObject.getString("localidade");
         this.bairro = jsonObject.getString("bairro");

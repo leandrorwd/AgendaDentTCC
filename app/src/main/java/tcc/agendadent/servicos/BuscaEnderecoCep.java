@@ -61,14 +61,14 @@ public class BuscaEnderecoCep {
                 } catch (JSONException e) {
                     endereco = null;
                     if(activity.getLocalClassName().equals("gui.CadastroGui") ){
-                        //controllerContatos.SetCep(activity, endereco, loadingDialog);
+                        //TODO Deu merda
                     }
                 }
             }
 
             @Override
             public void onRetry(int retryNo) {
-                // called when request is retried
+
             }
         });
     }

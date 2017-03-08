@@ -10,12 +10,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
 import tcc.agendadent.R;
 
-
-/**
- * Created by dalbem on 24/01/2017.
- */
 
 public class DialogAux {
     public static ProgressDialog loadingDialog;
@@ -83,7 +83,24 @@ public class DialogAux {
     }
 
 
-
+    public static void dialogExcecoesFirebase(Activity tela,Exception excep,String email){
+        String erro = tela.getResources().getString(R.string.erro);
+        try {
+            throw excep;
+        } catch(FirebaseAuthWeakPasswordException e) {
+            dialogOkSimples(tela,erro,tela.getResources().getString(R.string.senhaFracaFireBase));
+            dialogCarregandoSimplesDismiss();
+        } catch(FirebaseAuthInvalidCredentialsException e) {
+            dialogOkSimples(tela,erro,tela.getResources().getString(R.string.emailInvalido));
+            dialogCarregandoSimplesDismiss();
+        } catch(FirebaseAuthUserCollisionException e) {
+            dialogOkSimples(tela,erro,tela.getResources().getString(R.string.emailCadastrado,email));
+            dialogCarregandoSimplesDismiss();
+        } catch(Exception e) {
+            dialogOkSimples(tela,erro,tela.getResources().getString(R.string.erroCadastroGenerico));
+            dialogCarregandoSimplesDismiss();
+        }
+    }
 
 }
 

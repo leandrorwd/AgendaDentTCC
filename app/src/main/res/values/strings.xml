@@ -8,7 +8,7 @@
     <string name="Cep">Cep</string>
     <string name="senha2">Repita a Senha</string>
     <string name="rua">Rua</string>
-    <string name="Numero">Numero</string>
+    <string name="Numero">Número</string>
     <string name="Complemento">Complemento</string>
     <string name="bairro">Bairro</string>
     <string name="cidade">Cidade</string>
@@ -27,7 +27,7 @@
     <string name="BuscarCEP">Buscar pelo CEP</string>
     <string name="PerguntaBuscarCEP">Você deseja buscar as informações através do CEP?</string>
     <string name="erro">Erro</string>
-    <string name="cepInvalido"><![CDATA[>O campo \\\"Cep\\\" está inválido.]]></string>
+    <string name="cepInvalido">O campo \"Cep\" está inválido.</string>
     <string name="CEPNaoencontrado">Cep não encontrado.</string>
     <string name="headerDialogFoto">Tirar Foto</string>
     <string name="subTitleDialogFoto">Selecionar da galeria</string>
@@ -67,5 +67,63 @@
         <item>Paciente</item>
         <item>Dentista</item>
     </string-array>
+    <string name="nomeVazio">O campo \"Nome\" não está preenchido.</string>
+    <string name="emailVazio">O campo \"Email\" não está preenchido.</string>
+    <string name="senhaVazio">O campo \"Senha\" não está preenchido.</string>
+    <string name="senhaVazio2">O campo \"Confirma Senha\" não está preenchido.</string>
+    <string name="cpfVazio">O campo \"CPF\" não está preenchido.</string>
+    <string name="emailInvalido">O campo \"Email\" está preenchido de forma incorreta.</string>
+    <string name="senhaDiferen">Os campos de \"Senha\" estão diferentes.</string>
+    <string name="senha6Caracter">O campo \"Senha\" deve possuir ao menos seis caracteres.</string>
+    <string name="celularVazio">O campo \"Telefone Celular\" não está preenchido.</string>
+    <string name="celulaInvalido">O campo \"Telefone Celular\" está preenchido de forma incorreta.</string>
+    <string name="cpfInvalido">O campo \"CPF\" está preenchido de forma incorreta.</string>
+    <string name="emailCadastrado">O email: %1$s \nJá está cadastrado no sistema.</string>
+    <string name="Sucesso">Sucesso</string>
+    <string name="emailConfirmacaoEnviado">Um email de confirmação foi enviado para seu email, ative sua conta antes de usar o sistema.</string>
+    <string name="senhaFracaFireBase">A senha digitada possui um nivel de segurança muito baixo.</string>
+    <string name="erroCadastroGenerico">Um erro ocorreu ao realizar o cadastro.</string>
+    <string name="internetSemConexao">Não existe conexão com a internet</string>
+    <string name="Salvar">Salvar</string>
+    <string name="salvarMensagem">Você deseja salvar?</string>
+    <string name="celular">Telefone Celular</string>
+    <string name="cepVazio">O campo \"Cep\" não está preenchido.</string>
+    <string name="estadoVazio">O campo \"Estado\" não está preenchido.</string>
+    <string name="cidadeVazio">O campo \"Cidade\" não está preenchido.</string>
+    <string name="bairroVazio">O campo \"Bairro\" não está preenchido.</string>
+    <string name="ruaVazio">O campo \"Rua\" não está preenchido.</string>
+    <string name="numeroVazio">O campo \"Número\" não está preenchido.</string>
+    <string name="numeroInvalido">O campo \"Número\" não está preenchido.</string>
+    <string name="erroEmailConfirmacao">Ocorreu um erro ao enviar o email de confirmação.</string>
+    <string name="sobreNomeVazio">O campo \"Sobrenome\" não está preenchido.</string>
+    <string name="fotoNaoRetirada">Nenhuma foto de perfil foi inserida.</string>
+    <string name="inscricaoCROVazio">O campo \"Inscrição CRO\" não está preenchido.</string>
+    <string name="LembrarEmail">Lembrar Email</string>
+    <string name="loginProximo">Próximo</string>
+    <string name="login">Login</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="esqueciSenha">Esqueci a senha</string>
+    <string name="recuperarSenha">Recuperar Senha</string>
+    <string name="trocarSenhaDialog">Você deseja trocar a senha do email:\"</string>
+    <string name="emailRecuperacao">Email de recuperação de senha enviado com sucesso.</string>
+    <string name="emailRecuperacaoErro">Ocorreu um problema ao enviar o email de recuperação.</string>
+    <string name="emailNaoConfirmadoMsg">Seu email ainda não foi confirmado, deseja reenviar o email de confirmação?</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="cadastropendente">Seu cadastro será avaliado, ao ser aceito enviaremos um email de confirmação.</string>
+    <string name="emailNaoConfirmadoMsgDentista">Seu email ainda não foi aprovado pela adminstração.</string>
+    <string name="title_activity_config_agenda_adiciona">ConfigAgendaAdiciona</string>
+    <string name="Segunda">Segunda-Feira</string>
+    <string name="Terca">Terça-Feira</string>
+    <string name="quarta">Quarta-Feira</string>
+    <string name="quinta">Quinta-Feira</string>
+    <string name="sexta">Sexta-Feira</string>
+    <string name="sabado">Sábado</string>
+    <string name="Domingo">Domingo</string>
+    <string name="horario_de_termino">Horario de Termino:</string>
+    <string name="horario_de_inicio">Horario de Inicio:</string>
+    <string name="tempoDeConsulta">Tempo de Consulta</string>
+    <string name="Adicionar">Adicionar</string>
+    <string name="horarioColidiu">O horario colidiu com outro horario pré-existente.</string>
+
 
 </resources>
