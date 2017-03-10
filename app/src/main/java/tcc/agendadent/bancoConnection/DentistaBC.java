@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -20,12 +21,14 @@ import com.google.firebase.storage.UploadTask;
 import org.joda.time.DateTime;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AutentificacaoController;
 import tcc.agendadent.controllers.CadastroController;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
@@ -152,4 +155,43 @@ public class DentistaBC {
             }
     }
 
+    public void setDentista(Activity activity, UsuarioDentista usuario) {
+            try{
+                firebaseDatabaseReference
+                        .child("dentistas")
+                        .child(String.valueOf(usuario.getIdDentista()))
+                        .setValue(usuario);
+                DentistaController.getInstance().setDentista(activity,usuario,true);
+            }catch (Exception e){
+                String s = "fufu";
+            }
+    }
+
+    public void getHorarios(final Activity activity, final UsuarioDentista usuario) {
+        final ArrayList<Horario> aux = new ArrayList<>();
+        try{
+            firebaseDatabaseReference
+                    .child("dentistas")
+                    .child(String.valueOf(usuario.getIdDentista()))
+                    .child("agenda")
+                    .child("horarios")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                aux.add(new Horario(child));
+                            }
+                            DentistaController.getInstance().getDentistaLogado().getAgenda().setHorarios(aux);
+                            DentistaController.getInstance().carregaHorarios(activity,usuario,true);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
+        catch (Exception e ){
+            String l ="lala";
+        }
+    }
 }

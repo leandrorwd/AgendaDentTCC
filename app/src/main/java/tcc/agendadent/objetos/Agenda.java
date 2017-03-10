@@ -1,5 +1,7 @@
 package tcc.agendadent.objetos;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 
 /**
@@ -9,11 +11,26 @@ import java.util.ArrayList;
 public class Agenda {
     private ArrayList<Horario> horarios;
 
+    public Agenda() {
+        this.horarios = new ArrayList<>();
+    }
+
     public ArrayList<Horario> getHorarios() {
         return horarios;
     }
 
     public void setHorarios(ArrayList<Horario> horarios) {
         this.horarios = horarios;
+    }
+
+    public void addHorario(Horario h){
+        horarios.add(h);
+    }
+
+    public Agenda(DataSnapshot dataSnapshot){
+        ArrayList<Horario> horarios = new ArrayList<Horario>();
+        for (DataSnapshot child : dataSnapshot.child("agenda").getChildren()) {
+            horarios.add(dataSnapshot.child("agenda").getValue(Horario.class));
+        }
     }
 }

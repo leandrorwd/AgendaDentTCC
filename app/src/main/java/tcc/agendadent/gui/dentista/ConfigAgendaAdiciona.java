@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.layout_auxiliares.TimePickerFragment;
@@ -85,16 +89,19 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
 
 
                 boolean[] statusDias = {domingo.isChecked(),segunda.isChecked(),terca.isChecked(),
-                quarta.isChecked(),quinta.isChecked(),sexta.isChecked(),sabado.isChecked()};
+                        quarta.isChecked(),quinta.isChecked(),sexta.isChecked(),sabado.isChecked()};
+                List<Boolean> lista  = new ArrayList<Boolean>();
+                lista = Arrays.asList(domingo.isChecked(),segunda.isChecked(),terca.isChecked(),
+                        quarta.isChecked(),quinta.isChecked(),sexta.isChecked(),sabado.isChecked());
                 Horario horarioNovo = new Horario (textoHorarioInicial.getText().toString(),
                         textoHorarioFinal.getText().toString(),textoHorarioDuracao.getText().toString(),
-                        statusDias);
+                        lista);
                 if(DentistaController.getInstance().verificaHorario(horarioNovo)){
-                    //TODO Salvar
+                    DentistaController.getInstance().addHorarioAgenda(horarioNovo,ConfigAgendaAdiciona.this);
                 }
                 else{
                     Activity tela = ConfigAgendaAdiciona.this;
-                    DialogAux.dialogOkSimples(tela,tela.getResources().getString(R.string.internetSemConexao),
+                    DialogAux.dialogOkSimples(tela,tela.getResources().getString(R.string.erro),
                             tela.getResources().getString(R.string.horarioColidiu));
                 }
             }
