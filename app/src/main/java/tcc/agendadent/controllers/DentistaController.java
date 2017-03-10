@@ -2,9 +2,15 @@ package tcc.agendadent.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
+import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.gui.dentista.AgendaDiaria;
+import tcc.agendadent.gui.dentista.ConfigAgenda;
+import tcc.agendadent.gui.layout_auxiliares.Template_card_horario;
 import tcc.agendadent.objetos.Agenda;
 import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.objetos.UsuarioDentista;
@@ -22,11 +28,12 @@ public class DentistaController {
     private boolean horarioInicio;
     private boolean horarioTermino;
     private boolean horarioDuracao;
-
+    private ArrayList<Horario> horariosTemporarios;
     private Activity telaAuxiliar;
 
     private DentistaController() {
         dentistaBC = new DentistaBC();
+        horariosTemporarios = new ArrayList<>();
     }
 
     public static DentistaController getInstance(){
@@ -41,7 +48,6 @@ public class DentistaController {
         DialogAux.dialogCarregandoSimplesDismiss();
         activity.startActivity(new Intent(activity, AgendaDiaria.class));
     }
-
 
     public boolean isHorarioInicio() {
         return horarioInicio;
@@ -79,7 +85,7 @@ public class DentistaController {
         for (Horario h : getAgenda().getHorarios()){
             int i = 0;
             while(i<7){
-                if((horarioNovo.getDiasSemana()[i]==h.getDiasSemana()[i]) && horarioNovo.getDiasSemana()[i])
+                if((horarioNovo.getDiasSemana().get(i)==h.getDiasSemana().get(i)) && horarioNovo.getDiasSemana().get(i))
                 {
                     String[] parts =  horarioNovo.getHoraInicial().split(":");
                     int horaInicial = Integer.parseInt(parts[0])*60+Integer.parseInt(parts[1]);
@@ -107,6 +113,51 @@ public class DentistaController {
     }
 
     public Agenda getAgenda(){
-        return null;
+        return dentistaLogado.getAgenda();
+    }
+
+    public void addHorarioAgenda(Horario horarioNovo,Activity tela) {
+        horariosTemporarios.add(horarioNovo);
+        getAgenda().addHorario(horarioNovo);
+        tela.finish();
+    }
+
+    public ArrayList<Horario> getHorariosTemporarios() {
+        return horariosTemporarios;
+    }
+
+    public void setDentista(Activity activity, UsuarioDentista usuario,boolean bancoChamada){
+        if(bancoChamada){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            activity.finish();
+        }
+        else{
+            DialogAux.dialogCarregandoSimples(activity);
+            dentistaBC.setDentista(activity,usuario);
+        }
+    }
+
+    public UsuarioDentista getDentistaLogado() {
+        return dentistaLogado;
+    }
+
+    public void setDentistaLogado(UsuarioDentista dentistaLogado) {
+        this.dentistaLogado = dentistaLogado;
+    }
+
+    public void carregaHorarios(Activity configAgenda, UsuarioDentista dentistaLogado, boolean banco) {
+        if(banco){
+            LinearLayout main =(LinearLayout)configAgenda.findViewById(R.id.layoutPrincipalConfigAgenda);
+            main.removeAllViews();
+            for(Horario h : DentistaController.getInstance().getAgenda().getHorarios()){
+                Template_card_horario t1 = new Template_card_horario(configAgenda,configAgenda,h);
+                main.addView(t1);
+            }
+            DialogAux.dialogCarregandoSimplesDismiss();
+        }
+        else{
+           DialogAux.dialogCarregandoSimples(configAgenda);
+           dentistaBC.getHorarios(configAgenda,dentistaLogado);
+        }
     }
 }

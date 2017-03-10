@@ -15,7 +15,7 @@ public class UsuarioDentista {
     private long idDentista;
     private Endereco endereco;
     private boolean status;
-    //Falta Agenda
+    private Agenda agenda;
 
     public UsuarioDentista() {
     }
@@ -29,7 +29,10 @@ public class UsuarioDentista {
         this.endereco = dataSnapshot.child("endereco").getValue(Endereco.class);
         this.status = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("status").getValue()));
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));
-        //Agenda
+        this.agenda = dataSnapshot.child("agenda").getValue(Agenda.class);
+        if(agenda ==null){
+            agenda = new Agenda();
+        }
     }
 
     public UsuarioDentista(String email, String nome, String sobreNome, String inscricaoCRO, String urlFotoPerfil, Endereco endereco) {
@@ -125,4 +128,7 @@ public class UsuarioDentista {
 
     }
 
+    public Agenda getAgenda() {
+        return agenda;
+    }
 }

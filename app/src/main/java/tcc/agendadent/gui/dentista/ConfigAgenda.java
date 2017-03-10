@@ -1,5 +1,6 @@
 package tcc.agendadent.gui.dentista;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,12 +16,21 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.gui.layout_auxiliares.Template_card_horario;
+import tcc.agendadent.objetos.Horario;
+import tcc.agendadent.servicos.ValidationTest;
+
+import static tcc.agendadent.servicos.DialogAux.dialogOkSimples;
 
 public class ConfigAgenda extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FloatingActionButton botaoAdd;
+    FloatingActionButton botaoSave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +38,20 @@ public class ConfigAgenda extends AppCompatActivity implements NavigationView.On
         configuraMenu();
         instanciaArtefatos();
         setEventos();
+    }
+
+
+    public void onResume(){
+        super.onResume();
+        if(!ValidationTest.verificaInternet(ConfigAgenda.this)){
+            dialogOkSimples(ConfigAgenda.this,"Erro",ConfigAgenda.this.getResources().getString(R.string.internetSemConexao));
+            return;
+        }
+        carregaHorarios();
+    }
+
+    private void carregaHorarios() {
+        DentistaController.getInstance().carregaHorarios(ConfigAgenda.this,DentistaController.getInstance().getDentistaLogado(),false);
     }
 
     private void setEventos() {
@@ -38,10 +62,16 @@ public class ConfigAgenda extends AppCompatActivity implements NavigationView.On
 
             }
         });
+        botaoSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DentistaController.getInstance().setDentista(ConfigAgenda.this,DentistaController.getInstance().getDentistaLogado(),false);
+            }
+        });
     }
 
     private void instanciaArtefatos() {
-
+        botaoSave =(FloatingActionButton) findViewById(R.id.botaoSave);
         botaoAdd = (FloatingActionButton) findViewById(R.id.botaoAdd);
     }
 
@@ -77,7 +107,12 @@ public class ConfigAgenda extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            DentistaController.getInstance().getAgenda().getHorarios().removeAll(DentistaController.getInstance().getHorariosTemporarios());
+            DentistaController.getInstance().getHorariosTemporarios().clear();
             super.onBackPressed();
+
         }
     }
+
+
 }
