@@ -214,8 +214,6 @@ public class AutentificacaoController {
                 });
     }
     public void emailNaoVerificado(final Activity tela, final String login, String senha) {
-
-        DialogAux.dialogCarregandoSimplesDismiss();
         DentistaBC dentista = new DentistaBC();
         dentista.getDentistaViaEmailLogin(login,tela,false,senha);
     }
