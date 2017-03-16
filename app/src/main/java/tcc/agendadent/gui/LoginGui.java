@@ -1,9 +1,13 @@
 package tcc.agendadent.gui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +40,7 @@ public class LoginGui extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private PackageManager manager;
 
     ///Teste
     //Leandro
@@ -47,6 +52,18 @@ public class LoginGui extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        manager = LoginGui.this.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = manager.getPackageInfo(LoginGui.this.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        TextView text = (TextView) findViewById(R.id.idVersion);
+        text.setText(info.versionName);
+
         instanciaArtefatos();
         setEventos();
     }
@@ -139,7 +156,6 @@ public class LoginGui extends AppCompatActivity {
         senhaLoginExterno = (TextInputLayout) findViewById(R.id.idSenhaLoginExterno);
         editor = getSharedPreferences("Salva", MODE_PRIVATE).edit();
     }
-
 
     public void onBackPressed() {
         finish();
