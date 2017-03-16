@@ -93,10 +93,10 @@ public class DentistaController {
                     String[] parts2 =  horarioNovo.getHoraFinal().split(":");
                     int horaFinal = Integer.parseInt(parts2[0])*60+Integer.parseInt(parts2[1]);
 
-                    String[] parts3 =  horarioNovo.getHoraInicial().split(":");
+                    String[] parts3 =  h.getHoraInicial().split(":");
                     int hInicial = Integer.parseInt(parts3[0])*60+Integer.parseInt(parts3[1]);
 
-                    String[] parts4 =  horarioNovo.getHoraFinal().split(":");
+                    String[] parts4 =  h.getHoraFinal().split(":");
                     int hFInal = Integer.parseInt(parts4[0])*60+Integer.parseInt(parts4[1]);
 
                     if(horaInicial> hInicial && horaInicial< hFInal){
