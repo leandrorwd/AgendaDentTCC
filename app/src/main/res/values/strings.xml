@@ -33,6 +33,7 @@
     <string name="subTitleDialogFoto">Selecionar da galeria</string>
     <string name="cancelDialogFoto">cancelar</string>
     <string name="titleDialogFoto">Adicionar Imagem</string>
+    <string name="buscar">Buscar</string>
     <string-array name="picker_Estado">
         <item> </item>
         <item>AC</item>
