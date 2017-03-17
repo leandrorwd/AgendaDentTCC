@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Agenda {
     private ArrayList<Horario> horarios;
+    private ArrayList<Long> semestreAno;
 
     public Agenda() {
         this.horarios = new ArrayList<>();
@@ -32,5 +33,13 @@ public class Agenda {
         for (DataSnapshot child : dataSnapshot.child("agenda").getChildren()) {
             horarios.add(dataSnapshot.child("agenda").getValue(Horario.class));
         }
+    }
+
+    public ArrayList<Long> getSemestreAno() {
+        return semestreAno;
+    }
+
+    public void setSemestreAno(ArrayList<Long> semestreAno) {
+        this.semestreAno = semestreAno;
     }
 }

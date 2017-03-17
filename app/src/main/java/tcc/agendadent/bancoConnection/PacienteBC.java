@@ -72,7 +72,7 @@ public class PacienteBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                paciente[0] = new UsuarioPaciente(child);
+                            paciente[0] = new UsuarioPaciente(child);
                             }
 
                             if(activity.getLocalClassName().equals("gui.LoginGui")){// Nome da  a qual deseja testar para chamar o método de retorno do controller

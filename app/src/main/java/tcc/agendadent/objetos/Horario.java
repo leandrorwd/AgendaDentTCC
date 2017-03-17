@@ -9,7 +9,7 @@ import java.util.List;
  * Created by natha on 01/03/2017.
  */
 
-public class Horario {
+public class Horario implements Comparable<Horario>{
     private String horaInicial;
     private String horaFinal;
     private String duracao;
@@ -68,5 +68,20 @@ public class Horario {
 
     public void setDiasSemana(List<Boolean> diasSemana) {
         this.diasSemana = diasSemana;
+    }
+
+
+    @Override
+    public int compareTo(Horario o) {
+
+        String[] parts =  this.getHoraInicial().split(":");
+        int horaInicial1 = Integer.parseInt(parts[0])*60+Integer.parseInt(parts[1]);
+
+        String[] parts3 =  o.getHoraInicial().split(":");
+        int horaInicial2 = Integer.parseInt(parts3[0])*60+Integer.parseInt(parts3[1]);
+
+        if(horaInicial1<horaInicial2) return -1;
+        else return 1;
+
     }
 }

@@ -25,7 +25,7 @@
         <activity android:name=".gui.dentista.AgendaDiaria" />
         <activity android:name=".gui.paciente.MenuPaciente" />
         <activity android:name=".gui.dentista.ConfigAgenda" />
-        <activity android:name=".gui.dentista.ConfigAgendaAdiciona"></activity>
+        <activity android:name=".gui.dentista.ConfigAgendaAdiciona" />
     </application>
 
 </manifest>
