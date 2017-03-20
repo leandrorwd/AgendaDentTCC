@@ -40,9 +40,8 @@ public class ConfigAgenda extends AppCompatActivity implements NavigationView.On
         instanciaArtefatos();
         setEventos();
 
-        TextView email = (TextView) findViewById(R.id.textView);
-        email.setText("leandro");
-
+        ///TextView email = (TextView) findViewById(R.id.textView);
+        //email.setText("leandro");
     }
 
 
