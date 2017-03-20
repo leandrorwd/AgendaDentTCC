@@ -1,70 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
     android:id="@+id/activity_login"
-    android:background="@color/backgroundWhite">
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/backgroundWhite"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
+        android:paddingTop="20dp"
         android:weightSum="1">
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/botaoDentista"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:background="@color/corBotao"
+                android:fontFamily="sans-serif-light"
+                android:text="Dentista"
+                android:textColor="@color/backgroundWhite" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/botaoPaciente"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/corBotao"
+                android:fontFamily="sans-serif-light"
+                android:text="Paciente"
+                android:textColor="@color/backgroundWhite" />
+
+
+
+
+        </LinearLayout>
+
+
+        <TextView
             android:id="@+id/idVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.21"
             android:textAlignment="textEnd" />
 
-        <ImageView android:src="@mipmap/ic_logonew"
+        <ImageView
             android:id="@+id/idImgLogo"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.39" />
+            android:layout_marginBottom="24dp"
+            android:layout_weight="0.39"
+            android:src="@mipmap/ic_logonew" />
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/idEmailLoginExterno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idEmailLoginExterno"
-            android:layout_marginTop="8dp"
-            >
-            <EditText android:id="@+id/idEmailLogin"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/idEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:text="nathan.dalben.flores@gmail.com"
                 android:fontFamily="sans-serif-light"
-                android:hint="@string/email" />
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="nathan.dalben.flores@gmail.com" />
         </android.support.design.widget.TextInputLayout>
 
         <CheckBox
             android:id="@+id/idCheckBoxLembraEmail"
             android:layout_width="wrap_content"
-            android:text="@string/LembrarEmail"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:text="@string/LembrarEmail" />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
             android:id="@+id/idSenhaLoginExterno"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/idSenhaLogin"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/idSenhaLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:fontFamily="sans-serif-light"
-                android:text="123456"
-                android:hint="@string/senha"/>
+                android:hint="@string/senha"
+                android:inputType="textPassword"
+                android:text="123456" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -72,32 +107,32 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/backgroundWhite"
             android:background="@color/corBotao"
-            android:text="@string/login"/>
+            android:fontFamily="sans-serif-light"
+            android:padding="12dp"
+            android:text="@string/login"
+            android:textColor="@color/backgroundWhite" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/botaoCadastro"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/backgroundWhite"
             android:background="@color/corBotao"
-            android:text="@string/cadastro"/>
+            android:fontFamily="sans-serif-light"
+            android:padding="12dp"
+            android:text="@string/cadastro"
+            android:textColor="@color/backgroundWhite" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/botaoEsqueciSenha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
             android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:textColor="@color/backgroundWhite"
             android:background="@color/corBotao"
-            android:text="@string/esqueciSenha"/>
+            android:fontFamily="sans-serif-light"
+            android:padding="12dp"
+            android:text="@string/esqueciSenha"
+            android:textColor="@color/backgroundWhite" />
     </LinearLayout>
 </ScrollView>

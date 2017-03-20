@@ -1,187 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_menu_paciente"
+    android:id="@+id/BuscaDentista"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="20dp"
-    tools:context="tcc.agendadent.gui.paciente.MenuPaciente">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <LinearLayout
+    <include
+        layout="@layout/activity_busca_dentista"
         android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view_paciente"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/cabecalho_paciente"
+        app:menu="@menu/menu_paciente" />
 
-        <TextView
-            android:id="@+id/idTextPesquisa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.29"
-            android:text="Pesquisa"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            android:gravity="center_vertical"
-            android:textColor="@color/cardview_dark_background" />
+</android.support.v4.widget.DrawerLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/idEmailLoginExterno"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:weightSum="1">
-
-            <EditText
-                android:id="@+id/idNomeDentista"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="Nome Dentista"
-                android:inputType="textPersonName"
-                android:textColor="@android:color/darker_gray" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idTextPlanoSaude"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="Plano de Saúde"
-                android:textSize="18sp" />
-
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idTextEspecialidade"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:text="Especialidade"
-                android:textSize="18sp" />
-
-            <Spinner
-                android:id="@+id/spinnerEspecialidade"
-                android:layout_width="227dp"
-                android:layout_height="match_parent"
-                android:spinnerMode="dialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idTextBuscaEstado"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.59"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:text="Estado"
-                android:textSize="18sp" />
-
-            <Spinner
-                android:id="@+id/spinnerBuscaEstado"
-                android:layout_width="227dp"
-                android:layout_height="match_parent"
-                android:spinnerMode="dialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idTextBuscaCidade"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:text="Cidade"
-                android:textSize="18sp" />
-
-            <Spinner
-                android:id="@+id/spinnerBuscaCidade"
-                android:layout_width="227dp"
-                android:layout_height="match_parent"
-                android:spinnerMode="dialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/idTextBuscaDistancia"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.23"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:text="Distância"
-                android:textSize="18sp" />
-
-            <SeekBar
-                android:id="@+id/seekBarBuscaDistancia"
-                style="@style/Widget.AppCompat.SeekBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.85"
-                android:max="5"
-                android:progress="3" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_weight="1"
-                android:background="@color/corBotao"
-                android:fontFamily="sans-serif-light"
-                android:padding="12dp"
-                android:text="@string/buscar"
-                android:textColor="@color/backgroundWhite" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-</ScrollView>

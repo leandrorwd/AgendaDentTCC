@@ -32,6 +32,8 @@ public class LoginGui extends AppCompatActivity {
     private Button botaoCadastro;
     private Button botaoLogin;
     private Button botaoRecuperar;
+    private Button botaoDentista; //temporario
+    private Button botaoPaciente; //temporario
     private EditText emailLogin;
     private EditText senhaLogin;
     private CheckBox lembraEmail;
@@ -61,12 +63,13 @@ public class LoginGui extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        TextView text = (TextView) findViewById(R.id.idVersion);
-        text.setText(info.versionName);
+        TextView version  = (TextView) findViewById(R.id.idVersion);
+        version.setText(info.versionName);
 
         instanciaArtefatos();
         setEventos();
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -104,41 +107,65 @@ public class LoginGui extends AppCompatActivity {
             }
         });
 
+        //temporario:
+
+        botaoPaciente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                botaoPaciente();
+            }
+        });
+        botaoDentista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                botaoDentista();
+            }
+        });
+
     }
 
 
     private void botaoLogin() {
         dialogCarregandoSimples(LoginGui.this);
-        if(lembraEmail.isChecked())
-        {
+        if (lembraEmail.isChecked()) {
             editor.putString("email", emailLogin.getText().toString());
             editor.commit();
-        }
-        else{
+        } else {
             editor.putString("email", null);
             editor.commit();
         }
-        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, emailLogin.getText().toString(),senhaLogin.getText().toString());
+        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, emailLogin.getText().toString(), senhaLogin.getText().toString());
     }
 
-    private void botaoRecuperarSenha(){
+    //temporario
+
+    private void botaoDentista() {
+        dialogCarregandoSimples(LoginGui.this);
+        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, "nathan.dalben.flores@gmail.com", "123456");
+    }
+
+    //temporario
+
+    private void botaoPaciente() {
+        dialogCarregandoSimples(LoginGui.this);
+        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, "leandro.rwd@gmail.com", "123456");
+    }
+
+
+    private void botaoRecuperarSenha() {
         new AlertDialog.Builder(LoginGui.this)
                 .setTitle(LoginGui.this.getResources().getString(R.string.recuperarSenha))
-                .setMessage(LoginGui.this.getResources().getString(R.string.trocarSenhaDialog)+ emailLogin.getText().toString() + " ?")
-                .setPositiveButton(LoginGui.this.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
-                {
+                .setMessage(LoginGui.this.getResources().getString(R.string.trocarSenhaDialog) + emailLogin.getText().toString() + " ?")
+                .setPositiveButton(LoginGui.this.getResources().getString(R.string.sim), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         dialogCarregandoSimples(LoginGui.this);
-                        AutentificacaoController.getInstance().resetSenha(emailLogin.getText().toString(),LoginGui.this);
+                        AutentificacaoController.getInstance().resetSenha(emailLogin.getText().toString(), LoginGui.this);
                     }
                 })
-                .setNegativeButton(LoginGui.this.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
-                {
+                .setNegativeButton(LoginGui.this.getResources().getString(R.string.nao), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 })
                 .show();
@@ -147,6 +174,12 @@ public class LoginGui extends AppCompatActivity {
     private void instanciaArtefatos() {
         mAuth = FirebaseAuth.getInstance();
         botaoLogin = (Button) findViewById(R.id.botaoLogin);
+
+        //temporario
+
+        botaoPaciente = (Button) findViewById(R.id.botaoPaciente);
+        botaoDentista = (Button) findViewById(R.id.botaoDentista);
+
         botaoCadastro = (Button) findViewById(R.id.botaoCadastro);
         botaoRecuperar = (Button) findViewById(R.id.botaoEsqueciSenha);
         emailLogin = (EditText) findViewById(R.id.idEmailLogin);
