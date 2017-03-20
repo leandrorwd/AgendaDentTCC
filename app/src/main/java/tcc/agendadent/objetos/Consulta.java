@@ -81,10 +81,6 @@ public class Consulta {
     }
 
     public DateTime getDataFormat(){
-//        DateTimeFormatter dateTimeFormatData = DateTimeFormat.forPattern("dd/MM/yyyy");
-//        DateTimeFormatter dateTimeFormatHora = DateTimeFormat.forPattern("HH:mm:ss");
-//        DateTime dataHoraTemp;
-//        dataHoraTemp = new DateTime(dataConsulta);
         return  new DateTime(dataConsulta);
     }
 

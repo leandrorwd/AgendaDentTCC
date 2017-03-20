@@ -31,4 +31,27 @@ public class AgendaSub {
         consultasMarcadas =dataSnapshot.child("consultasMarcadas").getValue(t);
     }
 
+    public long getIdDentista() {
+        return idDentista;
+    }
+
+    public void setIdDentista(long idDentista) {
+        this.idDentista = idDentista;
+    }
+
+    public long getSemestreAno() {
+        return semestreAno;
+    }
+
+    public void setSemestreAno(long semestreAno) {
+        this.semestreAno = semestreAno;
+    }
+
+    public ArrayList<Consulta> getConsultasMarcadas() {
+        return consultasMarcadas;
+    }
+
+    public void setConsultasMarcadas(ArrayList<Consulta> consultasMarcadas) {
+        this.consultasMarcadas = consultasMarcadas;
+    }
 }
