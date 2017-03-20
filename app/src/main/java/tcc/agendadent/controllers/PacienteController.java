@@ -14,7 +14,7 @@ import tcc.agendadent.servicos.DialogAux;
 
 public class PacienteController {
     private static PacienteController INSTANCE;
-    private PacienteBC pacienteBC ;
+    private PacienteBC pacienteBC;
     private UsuarioPaciente pacienteLogado;
 
 
@@ -22,8 +22,8 @@ public class PacienteController {
         pacienteBC = new PacienteBC();
     }
 
-    public static PacienteController getInstance(){
-        if(INSTANCE == null){
+    public static PacienteController getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new PacienteController();
         }
         return INSTANCE;

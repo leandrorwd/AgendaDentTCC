@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
@@ -38,6 +39,10 @@ public class ConfigAgenda extends AppCompatActivity implements NavigationView.On
         configuraMenu();
         instanciaArtefatos();
         setEventos();
+
+        TextView email = (TextView) findViewById(R.id.textView);
+        email.setText("leandro");
+
     }
 
 

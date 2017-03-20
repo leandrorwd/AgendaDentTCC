@@ -63,8 +63,8 @@ public class LoginGui extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        TextView text = (TextView) findViewById(R.id.idVersion);
-        text.setText(info.versionName);
+        TextView version  = (TextView) findViewById(R.id.idVersion);
+        version.setText(info.versionName);
 
         instanciaArtefatos();
         setEventos();
