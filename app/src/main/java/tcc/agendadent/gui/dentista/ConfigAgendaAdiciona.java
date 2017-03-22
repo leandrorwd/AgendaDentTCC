@@ -36,7 +36,6 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
         setContentView(R.layout.activity_config_agenda_adiciona);
         instanciaArtefatos();
         setEventos();
-
     }
 
     private void setEventos() {

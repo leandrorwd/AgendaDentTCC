@@ -53,7 +53,7 @@ public class AgendaController {
         }
     }
 
-    public static void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
+    public  void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios= new ArrayList<>();
         int indexHoje = DateTime.now().dayOfWeek().get()-1;
@@ -72,11 +72,9 @@ public class AgendaController {
         populaAgendaDiaria(tela,horarios,consultasHoje);
     }
 
-    private static void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas) {
+    private void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas) {
         LinearLayout horarioDiario = (LinearLayout) tela.findViewById(R.id.consultasDiarias);
-        boolean inseriu;
         for(Horario horario : horarios){
-            inseriu = false;
             String horaInicial =horario.getHoraInicial();
             ArrayList<String> horariosAgenda = new ArrayList<>();
             int horaMinuto = 1;

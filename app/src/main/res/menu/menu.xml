@@ -6,6 +6,10 @@
             android:id="@+id/config_agenda"
             android:icon="@drawable/ic_photo"
             android:title="Configurar Agenda" />
+        <item
+            android:id="@+id/visualizar_agenda_full"
+            android:icon="@drawable/ic_photo"
+            android:title="Visualizar Agenda" />
 
     </group>
 

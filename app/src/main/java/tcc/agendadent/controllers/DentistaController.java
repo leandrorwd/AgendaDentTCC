@@ -10,6 +10,7 @@ import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.gui.dentista.AgendaDiaria;
 import tcc.agendadent.gui.dentista.ConfigAgenda;
+import tcc.agendadent.gui.dentista.Main_Dentista;
 import tcc.agendadent.gui.layout_auxiliares.Template_card_horario;
 import tcc.agendadent.objetos.Agenda;
 import tcc.agendadent.objetos.Horario;
@@ -46,7 +47,7 @@ public class DentistaController {
     public void setUsuarioAtualLogin(UsuarioDentista dentista, Activity activity) {
         dentistaLogado = dentista;
         DialogAux.dialogCarregandoSimplesDismiss();
-        activity.startActivity(new Intent(activity, AgendaDiaria.class));
+        activity.startActivity(new Intent(activity, Main_Dentista.class));
     }
 
     public boolean isHorarioInicio() {
@@ -145,19 +146,19 @@ public class DentistaController {
         this.dentistaLogado = dentistaLogado;
     }
 
-    public void carregaHorarios(Activity configAgenda, UsuarioDentista dentistaLogado, boolean banco) {
+    public void carregaHorarios(Activity activity, UsuarioDentista dentistaLogado, boolean banco) {
         if(banco){
-            LinearLayout main =(LinearLayout)configAgenda.findViewById(R.id.layoutPrincipalConfigAgenda);
+            LinearLayout main =(LinearLayout)activity.findViewById(R.id.layoutPrincipalConfigAgenda);
             main.removeAllViews();
             for(Horario h : DentistaController.getInstance().getAgenda().getHorarios()){
-                Template_card_horario t1 = new Template_card_horario(configAgenda,configAgenda,h);
+                Template_card_horario t1 = new Template_card_horario(activity,activity,h);
                 main.addView(t1);
             }
             DialogAux.dialogCarregandoSimplesDismiss();
         }
         else{
-           DialogAux.dialogCarregandoSimples(configAgenda);
-           dentistaBC.getHorarios(configAgenda,dentistaLogado);
+           DialogAux.dialogCarregandoSimples(activity);
+           dentistaBC.getHorarios(activity,dentistaLogado);
         }
     }
 }

@@ -10,7 +10,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/activity_agenda_diaria_conteudo"
+        layout="@layout/activity_main__dentista"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

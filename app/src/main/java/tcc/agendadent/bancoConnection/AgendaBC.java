@@ -86,9 +86,7 @@ public class AgendaBC {
                             for(DataSnapshot consultaBanco: dataSnapshot.getChildren()) {
                                 consultas.add(new Consulta(consultaBanco));
                             }
-                            if(tela.getLocalClassName().equals("gui.dentista.AgendaDiaria")){
-                                AgendaController.setAgendaDiaria(tela,consultas);
-                            }
+                            AgendaController.getInstance().setAgendaDiaria(tela,consultas);
                         }
 
                         @Override
