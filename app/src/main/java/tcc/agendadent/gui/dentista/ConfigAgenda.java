@@ -27,13 +27,13 @@ import tcc.agendadent.servicos.ValidationTest;
 
 import static tcc.agendadent.servicos.DialogAux.dialogOkSimples;
 
-public class ConfigAgenda extends LinearLayout   {
+public class ConfigAgenda extends LinearLayout  implements ClassesDentista {
 
     FloatingActionButton botaoAdd;
     FloatingActionButton botaoSave;
     private Activity activity;
 
-    public ConfigAgenda(Activity activity) {
+    public ConfigAgenda(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
         View.inflate(activity, R.layout.activity_config_agenda_conteudo, this);
@@ -44,6 +44,7 @@ public class ConfigAgenda extends LinearLayout   {
             return;
         }
         carregaHorarios();
+        this.id = id_janela;
     }
 
     private void carregaHorarios() {
@@ -60,6 +61,9 @@ public class ConfigAgenda extends LinearLayout   {
         botaoSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(Horario h : DentistaController.getInstance().getHorariosTemporarios()){
+                    DentistaController.getInstance().getDentistaLogado().getAgenda().addHorario(h);
+                }
                 DentistaController.getInstance().setDentista(activity,DentistaController.getInstance().getDentistaLogado(),false);
             }
         });
@@ -71,4 +75,27 @@ public class ConfigAgenda extends LinearLayout   {
     }
 
 
+    @Override
+    public void onResume() {
+        if(!ValidationTest.verificaInternet(activity)){
+            dialogOkSimples(activity,"Erro",ConfigAgenda.this.getResources().getString(R.string.internetSemConexao));
+            return;
+        }
+        carregaHorarios();
+    }
+
+    @Override
+    public boolean needResume() {
+        return true;
+    }
+    private int id;
+    @Override
+    public int getIdMenu(){
+        return id;
+    }
+
+    @Override
+    public void flipper(boolean next) {
+
+    }
 }

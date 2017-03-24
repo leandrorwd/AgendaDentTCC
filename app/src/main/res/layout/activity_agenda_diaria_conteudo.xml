@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/idAgendaDiariaLayout"
     android:layout_height="match_parent">
 
     <TextView android:id="@+id/buttonTextAjudaPedido"
@@ -11,10 +12,26 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20sp" />
-    <LinearLayout
+    <ViewFlipper
+        android:id="@+id/idViewFlipper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/consultasDiarias"></LinearLayout>
+        android:layout_alignParentLeft="true"
+       >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/consultasDiarias"></LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/consultasDiarias2"
+            ></LinearLayout>
+
+
+    </ViewFlipper>
+
 
 </LinearLayout>

@@ -69,11 +69,13 @@ public class AgendaController {
                 consultasHoje.add(c);
             }
         }
-        populaAgendaDiaria(tela,horarios,consultasHoje);
+        populaAgendaDiaria(tela,horarios,consultasHoje,R.id.consultasDiarias);
+        populaAgendaDiaria(tela,horarios,consultasHoje,R.id.consultasDiarias2);
+
     }
 
-    private void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas) {
-        LinearLayout horarioDiario = (LinearLayout) tela.findViewById(R.id.consultasDiarias);
+    private void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas,int id) {
+        LinearLayout horarioDiario = (LinearLayout) tela.findViewById(id);
         for(Horario horario : horarios){
             String horaInicial =horario.getHoraInicial();
             ArrayList<String> horariosAgenda = new ArrayList<>();

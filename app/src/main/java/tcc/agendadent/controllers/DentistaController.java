@@ -130,7 +130,7 @@ public class DentistaController {
     public void setDentista(Activity activity, UsuarioDentista usuario,boolean bancoChamada){
         if(bancoChamada){
             DialogAux.dialogCarregandoSimplesDismiss();
-            activity.finish();
+            DialogAux.dialogOkSimples(activity,activity.getResources().getString(R.string.Sucesso),activity.getResources().getString(R.string.dadosSalvosSucesso));
         }
         else{
             DialogAux.dialogCarregandoSimples(activity);
@@ -151,6 +151,11 @@ public class DentistaController {
             LinearLayout main =(LinearLayout)activity.findViewById(R.id.layoutPrincipalConfigAgenda);
             main.removeAllViews();
             for(Horario h : DentistaController.getInstance().getAgenda().getHorarios()){
+                Template_card_horario t1 = new Template_card_horario(activity,activity,h);
+                main.addView(t1);
+            }
+            if(DentistaController.getInstance().getHorariosTemporarios()!=null)
+            for(Horario h : DentistaController.getInstance().getHorariosTemporarios()){
                 Template_card_horario t1 = new Template_card_horario(activity,activity,h);
                 main.addView(t1);
             }

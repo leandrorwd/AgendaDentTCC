@@ -125,6 +125,7 @@
     <string name="tempoDeConsulta">Tempo de Consulta</string>
     <string name="Adicionar">Adicionar</string>
     <string name="horarioColidiu">O horario colidiu com outro horario pré-existente.</string>
+    <string name="dadosSalvosSucesso">Os dados foram salvos com sucesso</string>
 
 
 </resources>

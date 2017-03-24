@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,7 +15,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Text;
 
 import tcc.agendadent.R;
+import tcc.agendadent.gui.dentista.AgendaDiaria;
 import tcc.agendadent.objetos.Consulta;
+import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 public class TemplateConsultaAgenda extends RelativeLayout {
 
@@ -24,12 +28,14 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         super(tela);
         this.tela=tela;
         View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
+        setEventos();
         preencheHorario(c1);
     }
     public TemplateConsultaAgenda(Activity tela, String horaInicial) {
         super(tela);
         this.tela=tela;
         View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
+        setEventos();
         horarioLivre(horaInicial);
     }
 
@@ -56,6 +62,41 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         textoAux = (TextView) findViewById(R.id.textTipoConsulta);
         textoAux.setText(c.getTipoConsulta());
 
-    }
 
+    }
+    private void setEventos() {
+        final CardView card = (CardView) findViewById(R.id.card_view);
+        if(card!=null) {
+            card.setOnTouchListener(new OnSwipeTouchListener(tela) {
+
+                public void onSwipeRight() {
+                    AgendaDiaria.flipperHelper(tela,true);
+                }
+
+                public void onSwipeLeft() {
+                    AgendaDiaria.flipperHelper(tela,false);
+                }
+
+                public void onClick(MotionEvent event) {
+                    float x = event.getX() + card.getLeft();
+                    float y = event.getY() + card.getTop();
+
+                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        card.drawableHotspotChanged(x, y);
+                    }
+
+                    switch (event.getActionMasked()) {
+                        case MotionEvent.ACTION_DOWN:
+                            card.setPressed(true);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            card.setPressed(true);
+                            break;
+                    }
+                }
+
+            });
+        }
+    }
 }

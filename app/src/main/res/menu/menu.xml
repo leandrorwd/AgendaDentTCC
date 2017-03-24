@@ -3,13 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/agenda_diaria"
+            android:icon="@drawable/ic_photo"
+            android:title="Visualizar Agenda Diaria" />
+        <item
             android:id="@+id/config_agenda"
             android:icon="@drawable/ic_photo"
-            android:title="Configurar Agenda" />
+            android:title="Configurar Horarios" />
         <item
             android:id="@+id/visualizar_agenda_full"
             android:icon="@drawable/ic_photo"
-            android:title="Visualizar Agenda" />
+            android:title="Visualizar Agenda Completa" />
 
     </group>
 
