@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import tcc.agendadent.bancoConnection.PacienteBC;
-import tcc.agendadent.gui.paciente.MenuPaciente;
+import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
 
@@ -32,7 +32,7 @@ public class PacienteController {
     public void setUsuarioAtualLogin(UsuarioPaciente paciente, Activity activity) {
         pacienteLogado = paciente;
         DialogAux.dialogCarregandoSimplesDismiss();
-        activity.startActivity(new Intent(activity, MenuPaciente.class));
+        activity.startActivity(new Intent(activity, Main_Paciente.class));
     }
 
     public UsuarioPaciente getPacienteLogado() {

@@ -1,4 +1,4 @@
-package tcc.agendadent.gui.dentista;
+package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
 import android.view.View;
@@ -6,29 +6,28 @@ import android.widget.LinearLayout;
 
 import tcc.agendadent.R;
 
-
 /**
- * Created by natha on 21/03/2017.
+ * Created by Leandro on 25/03/2017.
  */
 
-public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
+public class PacienteEditarPerfil extends LinearLayout implements ClassesPaciente {
     private Activity activity;
+    private int id;
 
-    public AgendaCompleta(Activity activity, int id_janela) {
+    public PacienteEditarPerfil(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
-        View.inflate(activity, R.layout.activity_agenda_completa, this);
-        buscaAgenda();
+        View.inflate(activity, R.layout.paciente_editar_perfil, this);
+        exibeJanela();
         this.id = id_janela;
-
     }
 
-    private void buscaAgenda() {
+    private void exibeJanela() {
     }
 
     @Override
     public void onResume() {
-        buscaAgenda();
+        exibeJanela();
     }
 
     @Override
@@ -36,10 +35,8 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
         return false;
     }
 
-    private int id;
-
     @Override
-    public int getIdMenu(){
+    public int getIdMenu() {
         return id;
     }
 
@@ -48,4 +45,3 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
 
     }
 }
-

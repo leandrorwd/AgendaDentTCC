@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".gui.CadastroGui" />
         <activity android:name=".gui.RecuperacaoSenha" />
-        <activity android:name=".gui.paciente.MenuPaciente" />
+        <activity android:name=".gui.paciente.Main_Paciente" />
         <activity android:name=".gui.dentista.ConfigAgendaAdiciona" />
         <activity android:name=".gui.dentista.Main_Dentista"></activity>
     </application>
