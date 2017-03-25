@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
@@ -21,15 +22,41 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     private LinearLayout agendaDia;
     private static ViewFlipper flipper;
     private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
-
+    private static DateTime indiceSlider = DateTime.now();
+    public  static int idLayout;
     public AgendaDiaria(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
+        idLayout = R.id.consultasDiarias;
         View.inflate(activity, R.layout.activity_agenda_diaria_conteudo, this);
         buscaAgendaDiaria();
         this.id = id_janela;
         instanciaArtefatos();
         setEventos();
+    }
+
+    private void blala() {
+        //long idDentista, long idPaciente, long dataConsulta, long avaliacao, String tipoConsulta,String nomePaciente
+        // day, hour, minute, second and milliseconds
+        DateTime date0 = new DateTime(2017, 3, 25, 10, 30, 0, 0);
+        DateTime date1 = new DateTime(2017, 3, 27, 8, 30, 0, 0);
+        DateTime date2 = new DateTime(2017, 3, 27, 13, 30, 0, 0);
+        DateTime date3 = new DateTime(2017, 3, 27, 14, 30, 0, 0);
+        DateTime date4 = new DateTime(2017, 3, 28, 16, 30, 0, 0);
+        DateTime date5 = new DateTime(2017, 3, 24, 8, 30, 0, 0);
+
+        Consulta c1 = new Consulta(1, 1, date0.getMillis(),0, "tipConsulta","nomePaciente1");
+        Consulta c2 = new Consulta(1, 1, date1.getMillis(),0, "tipConsulta","nomePaciente2");
+        Consulta c3 = new Consulta(1, 1, date2.getMillis(),0, "tipConsulta","nomePaciente2");
+        Consulta c4 = new Consulta(1, 1, date3.getMillis(),0, "tipConsulta","nomePaciente2");
+        Consulta c5 = new Consulta(1, 1, date4.getMillis(),0, "tipConsulta","nomePaciente3");
+        Consulta c6 = new Consulta(1, 1, date5.getMillis(),0, "tipConsulta","nomePaciente-1");
+        AgendaController.getInstance().insertConsulta(c1,"1","20171");
+        AgendaController.getInstance().insertConsulta(c2,"1","20171");
+        AgendaController.getInstance().insertConsulta(c3,"1","20171");
+        AgendaController.getInstance().insertConsulta(c4,"1","20171");
+        AgendaController.getInstance().insertConsulta(c5,"1","20171");
+        AgendaController.getInstance().insertConsulta(c6,"1","20171");
     }
 
     private void instanciaArtefatos() {
@@ -46,15 +73,31 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
         agendaDia.setOnTouchListener(new OnSwipeTouchListener(activity) {
 
             public void onSwipeRight() {
+                if(AgendaDiaria.idLayout ==R.id.consultasDiarias)
+                    AgendaDiaria.idLayout = R.id.consultasDiarias2;
+                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                    AgendaDiaria.idLayout = R.id.consultasDiarias3;
+                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                    AgendaDiaria.idLayout = R.id.consultasDiarias;
+                indiceSlider = indiceSlider.minusDays(1);
                 flipper.setInAnimation(activity, R.anim.slide_in_left);
                 flipper.setOutAnimation(activity, R.anim.slide_out_right);
                 flipper.showNext();
-
+                AgendaController.getInstance().slideDiaria(activity,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
             }
             public void onSwipeLeft() {
+                //cuidar desse
+                if(AgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
+                    AgendaDiaria.idLayout = R.id.consultasDiarias3;
+                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                    AgendaDiaria.idLayout = R.id.consultasDiarias;
+                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                    AgendaDiaria.idLayout = R.id.consultasDiarias2;
+                indiceSlider = indiceSlider.plusDays(1);
                 flipper.setInAnimation(activity, R.anim.slide_in_right);
                 flipper.setOutAnimation(activity, R.anim.slide_out_left);
                 flipper.showPrevious();
+                AgendaController.getInstance().slideDiaria(activity,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
             }
 
         });
@@ -63,15 +106,15 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     private void buscaAgendaDiaria() {
         DialogAux.dialogCarregandoSimples(activity);
         int mes = DateTime.now().monthOfYear().get();
-        int ano = DateTime.now().year().get();
-        String anoSemestre;
+        String anoSemestre= DateTime.now().year().get()+"";
         if(mes>=7){
-            anoSemestre = ano+2 +"";
+            anoSemestre = DateTime.now().year().get() +"A2";
         }
         else
-            anoSemestre = ano+1 +"";
+            anoSemestre = DateTime.now().year().get() +"A1";
+        anoSemestre = anoSemestre.replace("A","");
         AgendaController.getInstance().getConsultasSemestre(DentistaController.getInstance().getDentistaLogado().getIdDentista()
-        ,anoSemestre,activity,false);
+                ,anoSemestre,activity,false);
     }
 
 
@@ -96,15 +139,31 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     public static void flipperHelper(Activity tela, boolean next){
 
         if(next){
+            if(AgendaDiaria.idLayout ==R.id.consultasDiarias)
+                AgendaDiaria.idLayout = R.id.consultasDiarias2;
+            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                AgendaDiaria.idLayout = R.id.consultasDiarias3;
+            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                AgendaDiaria.idLayout = R.id.consultasDiarias;
+            indiceSlider = indiceSlider.minusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_left);
             flipper.setOutAnimation(tela, R.anim.slide_out_right);
             flipper.showNext();
-
+            AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
         }
         else{
+            if(AgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
+                AgendaDiaria.idLayout = R.id.consultasDiarias3;
+            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                AgendaDiaria.idLayout = R.id.consultasDiarias;
+            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                AgendaDiaria.idLayout = R.id.consultasDiarias2;
+            indiceSlider = indiceSlider.plusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_right);
             flipper.setOutAnimation(tela, R.anim.slide_out_left);
             flipper.showPrevious();
+            AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
+
         }
     }
 }
