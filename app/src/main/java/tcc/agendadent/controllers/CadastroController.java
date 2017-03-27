@@ -13,8 +13,6 @@ import android.widget.Spinner;
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
-import tcc.agendadent.gui.CadastroGui;
-import tcc.agendadent.gui.LoginGui;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
@@ -238,7 +236,7 @@ public class CadastroController {
                 Integer.parseInt(numero),Integer.parseInt(cepAux));
         setFotoPerfil(perfil);
         UsuarioDentista usuario = new UsuarioDentista(email,nome,sobreNome,inscricaoCro,"null",e1);
-        AutentificacaoController.getInstance().cadastraDentista(activity,usuario,senha1);
+        AutenticacaoController.getInstance().cadastraDentista(activity,usuario,senha1);
     }
 
     private void setFotoPerfil(ImageView perfil) {
@@ -317,7 +315,7 @@ public class CadastroController {
         }
 
         UsuarioPaciente usuario = new UsuarioPaciente(email,nome,sobreNome,celular);
-        AutentificacaoController.getInstance().cadastraPaciente(activity,usuario,senha1);
+        AutenticacaoController.getInstance().cadastraPaciente(activity,usuario,senha1);
     }
 
     public void insertNewPaciente(UsuarioPaciente usuario) {
