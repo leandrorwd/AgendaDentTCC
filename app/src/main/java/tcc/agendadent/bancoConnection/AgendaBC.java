@@ -86,6 +86,7 @@ public class AgendaBC {
                             for(DataSnapshot consultaBanco: dataSnapshot.getChildren()) {
                                 consultas.add(new Consulta(consultaBanco));
                             }
+                            AgendaController.getInstance().setAgendaSemestreAtual(consultas);
                             AgendaController.getInstance().setAgendaDiaria(tela,consultas);
                         }
 

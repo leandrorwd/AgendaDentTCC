@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Text;
@@ -53,8 +56,12 @@ public class TemplateConsultaAgenda extends RelativeLayout {
     private void preencheHorario(Consulta c){
         TextView textoAux = (TextView) findViewById(R.id.textoHora);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
-        c.getDataFormat();
-        textoAux.setText(format.print(c.getDataFormat()));
+
+        DateTime data = new DateTime(c.getDataConsulta());
+        DateTime dataAux = data.withZone(DateTimeZone.UTC);
+        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+
+        textoAux.setText(format.print(dataSemFuso));
 
         textoAux = (TextView) findViewById(R.id.textNomePaciente);
         textoAux.setText(c.getNomePaciente());
