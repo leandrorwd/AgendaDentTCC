@@ -1,7 +1,6 @@
 package tcc.agendadent.bancoConnection;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -24,13 +22,11 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
-import tcc.agendadent.controllers.AutentificacaoController;
+import tcc.agendadent.controllers.AutenticacaoController;
 import tcc.agendadent.controllers.CadastroController;
 import tcc.agendadent.controllers.DentistaController;
-import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.objetos.UsuarioDentista;
-import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
@@ -135,14 +131,14 @@ public class DentistaBC {
                                     dentista[0] = new UsuarioDentista(child);
                                 }
                                 if(dentista[0]==null){
-                                    AutentificacaoController.getInstance().loginFirebaseUsuario(activity,email,senha);
+                                    AutenticacaoController.getInstance().loginFirebaseUsuario(activity,email,senha);
                                     return;
                                 }
                                 if(dentista[0].isStatus()){
                                     DentistaController.getInstance().setUsuarioAtualLogin(dentista[0],activity);
                                 }
                                 else{
-                                    AutentificacaoController.getInstance().emailNaoVerificadoDialog(activity,email,true);
+                                    AutenticacaoController.getInstance().emailNaoVerificadoDialog(activity,email,true);
                                 }
 
                             }

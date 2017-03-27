@@ -33,10 +33,11 @@ public class UsuarioPaciente {
     }
 
 
-    public UsuarioPaciente(DataSnapshot dataSnapshot){
-        this.email =String.valueOf(dataSnapshot.child("email").getValue());
-        this.nome =String.valueOf(dataSnapshot.child("nome").getValue());
-        this.sobreNome = String.valueOf(dataSnapshot.child("sobreNome").getValue());
+    public UsuarioPaciente(DataSnapshot dataSnapshot) {
+        this.email = String.valueOf(dataSnapshot.child("email").getValue());
+        this.nome = String.valueOf(dataSnapshot.child("nome").getValue());
+        this.sobreNome = String.valueOf(dataSnapshot.child("sobrenome").getValue());
+        this.celular = String.valueOf(dataSnapshot.child("celular").getValue());
         this.idPaciente = Long.parseLong(String.valueOf(dataSnapshot.child("idPaciente").getValue()));
     }
 
@@ -45,6 +46,8 @@ public class UsuarioPaciente {
     }
 
     public void setEmail(String email) {
+
+
         this.email = email;
     }
 

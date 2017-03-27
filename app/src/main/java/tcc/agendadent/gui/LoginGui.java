@@ -1,8 +1,6 @@
 package tcc.agendadent.gui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,9 +18,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import tcc.agendadent.R;
-import tcc.agendadent.controllers.AutentificacaoController;
-import tcc.agendadent.controllers.CadastroController;
-import tcc.agendadent.servicos.DialogAux;
+import tcc.agendadent.controllers.AutenticacaoController;
 
 import static tcc.agendadent.servicos.DialogAux.dialogCarregandoSimples;
 
@@ -85,7 +81,7 @@ public class LoginGui extends AppCompatActivity {
     }
 
     private void setEventos() {
-        mAuthListener = AutentificacaoController.getInstance().listenerLogin(mAuthListener);
+        mAuthListener = AutenticacaoController.getInstance().listenerLogin(mAuthListener);
         botaoCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,21 +130,21 @@ public class LoginGui extends AppCompatActivity {
             editor.putString("email", null);
             editor.commit();
         }
-        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, emailLogin.getText().toString(), senhaLogin.getText().toString());
+        AutenticacaoController.getInstance().loginFirebase(LoginGui.this, emailLogin.getText().toString(), senhaLogin.getText().toString());
     }
 
     //temporario
 
     private void botaoDentista() {
         dialogCarregandoSimples(LoginGui.this);
-        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, "nathan.dalben.flores@gmail.com", "123456");
+        AutenticacaoController.getInstance().loginFirebase(LoginGui.this, "nathan.dalben.flores@gmail.com", "123456");
     }
 
     //temporario
 
     private void botaoPaciente() {
         dialogCarregandoSimples(LoginGui.this);
-        AutentificacaoController.getInstance().loginFirebase(LoginGui.this, "leandro.rwd@gmail.com", "123456");
+        AutenticacaoController.getInstance().loginFirebase(LoginGui.this, "leandro.rwd@gmail.com", "123456");
     }
 
 
@@ -160,7 +156,7 @@ public class LoginGui extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialogCarregandoSimples(LoginGui.this);
-                        AutentificacaoController.getInstance().resetSenha(emailLogin.getText().toString(), LoginGui.this);
+                        AutenticacaoController.getInstance().resetSenha(emailLogin.getText().toString(), LoginGui.this);
                     }
                 })
                 .setNegativeButton(LoginGui.this.getResources().getString(R.string.nao), new DialogInterface.OnClickListener() {
