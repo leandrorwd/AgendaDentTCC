@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import org.joda.time.DateTime;
@@ -23,6 +24,7 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     private static ViewFlipper flipper;
     private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
     private static DateTime indiceSlider = DateTime.now();
+    private static TextView header;
     public  static int idLayout;
     public AgendaDiaria(Activity activity, int id_janela) {
         super(activity);
@@ -33,30 +35,33 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
         this.id = id_janela;
         instanciaArtefatos();
         setEventos();
+        setTextoData(DateTime.now());
+
+        // blala();
     }
 
     private void blala() {
         //long idDentista, long idPaciente, long dataConsulta, long avaliacao, String tipoConsulta,String nomePaciente
         // day, hour, minute, second and milliseconds
-        DateTime date0 = new DateTime(2017, 3, 25, 10, 30, 0, 0);
-        DateTime date1 = new DateTime(2017, 3, 27, 8, 30, 0, 0);
-        DateTime date2 = new DateTime(2017, 3, 27, 13, 30, 0, 0);
-        DateTime date3 = new DateTime(2017, 3, 27, 14, 30, 0, 0);
-        DateTime date4 = new DateTime(2017, 3, 28, 16, 30, 0, 0);
-        DateTime date5 = new DateTime(2017, 3, 24, 8, 30, 0, 0);
+        DateTime date0 = new DateTime(2017, 3, 29, 15, 00, 0, 0);
+        DateTime date1 = new DateTime(2017, 3, 29, 15, 30, 0, 0);
+        DateTime date2 = new DateTime(2017, 3, 29, 16, 00, 0, 0);
+        DateTime date3 = new DateTime(2017, 3, 29, 16, 30, 0, 0);
+//        DateTime date4 = new DateTime(2017, 3, 29, 11, 00, 0, 0);
+//        DateTime date5 = new DateTime(2017, 3, 29, 11, 30, 0, 0);
 
         Consulta c1 = new Consulta(1, 1, date0.getMillis(),0, "tipConsulta","nomePaciente1");
         Consulta c2 = new Consulta(1, 1, date1.getMillis(),0, "tipConsulta","nomePaciente2");
         Consulta c3 = new Consulta(1, 1, date2.getMillis(),0, "tipConsulta","nomePaciente2");
         Consulta c4 = new Consulta(1, 1, date3.getMillis(),0, "tipConsulta","nomePaciente2");
-        Consulta c5 = new Consulta(1, 1, date4.getMillis(),0, "tipConsulta","nomePaciente3");
-        Consulta c6 = new Consulta(1, 1, date5.getMillis(),0, "tipConsulta","nomePaciente-1");
+//        Consulta c5 = new Consulta(1, 1, date4.getMillis(),0, "tipConsulta","nomePaciente3");
+//        Consulta c6 = new Consulta(1, 1, date5.getMillis(),0, "tipConsulta","nomePaciente-1");
         AgendaController.getInstance().insertConsulta(c1,"1","20171");
         AgendaController.getInstance().insertConsulta(c2,"1","20171");
         AgendaController.getInstance().insertConsulta(c3,"1","20171");
         AgendaController.getInstance().insertConsulta(c4,"1","20171");
-        AgendaController.getInstance().insertConsulta(c5,"1","20171");
-        AgendaController.getInstance().insertConsulta(c6,"1","20171");
+//        AgendaController.getInstance().insertConsulta(c5,"1","20171");
+//        AgendaController.getInstance().insertConsulta(c6,"1","20171");
     }
 
     private void instanciaArtefatos() {
@@ -66,6 +71,8 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
         slide_out_left = AnimationUtils.loadAnimation(activity, R.anim.slide_out_left);
         slide_out_right = AnimationUtils.loadAnimation(activity, R.anim.slide_out_right);
         flipper = (ViewFlipper) findViewById(R.id.idViewFlipper);
+        header = (TextView) findViewById(R.id.textHeader);
+
     }
 
     private void setEventos() {
@@ -165,5 +172,14 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
             AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
 
         }
+
+
+
+    }
+
+    public static void setTextoData(DateTime data){
+        String dataString = data.getDayOfMonth() + "/"+ data.getMonthOfYear()+"/"+data.getYear();
+        header.setText("Agenda - "+ dataString);
+
     }
 }

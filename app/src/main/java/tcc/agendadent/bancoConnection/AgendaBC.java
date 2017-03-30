@@ -100,4 +100,31 @@ public class AgendaBC {
 
     }
 
+    public void getConsultaSemestreCompleto(long idDentista, String anoSemestre, final Activity tela) {
+        final ArrayList<Consulta> consultas = new ArrayList<>();
+        try{
+            firebaseDatabaseReference.child("agendaSub")
+                    .child(idDentista+"")
+                    .child(anoSemestre)
+                    .child("consultasMarcadas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void  onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot consultaBanco: dataSnapshot.getChildren()) {
+                                consultas.add(new Consulta(consultaBanco));
+                            }
+                            AgendaController.getInstance().setAgendaSemestreAtual(consultas);
+                            AgendaController.getInstance().setAgendaCompleta(tela,consultas);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
+        catch (Exception e ){
+        }
+
+    }
+
 }

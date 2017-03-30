@@ -4,7 +4,7 @@
     android:id="@+id/idAgendaDiariaLayout"
     android:layout_height="match_parent">
 
-    <TextView android:id="@+id/buttonTextAjudaPedido"
+    <TextView android:id="@+id/textHeader"
         android:text="Agenda diaria/???"
         android:paddingTop="12dp"
         android:textColor="@color/colorPrimary"
@@ -35,7 +35,6 @@
             android:orientation="vertical"
             android:id="@+id/consultasDiarias3"
             ></LinearLayout>
-
 
     </ViewFlipper>
 

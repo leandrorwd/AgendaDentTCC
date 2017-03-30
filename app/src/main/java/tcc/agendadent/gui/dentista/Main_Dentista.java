@@ -55,7 +55,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     }
 
     private void configuraMenu() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarDentista);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.AgendaDiaria);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -137,18 +137,5 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         return pilhaTelas.get(pilhaTelas.size()-1);
     }
 
-    public void setFlipper(){
-        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scroll);
-        scrollView.setOnTouchListener(new OnSwipeTouchListener(Main_Dentista.this) {
-
-            public void onSwipeRight() {
-                ((ClassesDentista)getViewAtual()).flipper(true);
-            }
-            public void onSwipeLeft() {
-                ((ClassesDentista)getViewAtual()).flipper(false);
-            }
-
-        });
-    }
 
 }

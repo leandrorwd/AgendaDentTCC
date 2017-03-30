@@ -1,6 +1,7 @@
 package tcc.agendadent.controllers;
 
 import android.app.Activity;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 
 import org.joda.time.DateTime;
@@ -57,6 +58,12 @@ public class AgendaController {
         }
     }
 
+    public void getConsultasCompleto(long idDentista, String anoSemestre, Activity tela,boolean banco) {
+        if(!banco){
+            agendaBC.getConsultaSemestreCompleto(idDentista,anoSemestre,tela);
+        }
+    }
+
     public  void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios= new ArrayList<>();
@@ -69,7 +76,7 @@ public class AgendaController {
         ArrayList<Consulta> consultasHoje = new ArrayList<>();
         for(Consulta c : consultas){
             if((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
-            && c.getDataFormat().getYear() == DateTime.now().getYear())){
+                    && c.getDataFormat().getYear() == DateTime.now().getYear())){
                 consultasHoje.add(c);
             }
         }
@@ -122,7 +129,7 @@ public class AgendaController {
     public  void slideDiaria(final Activity tela, final ArrayList<Consulta> consultas, final DateTime newHoje) {
         int anterior=0;
         int posterior = 0;
-
+        AgendaDiaria.setTextoData(newHoje);
         if(AgendaDiaria.idLayout ==R.id.consultasDiarias){
             anterior = R.id.consultasDiarias2;
             posterior = R.id.consultasDiarias3;
@@ -190,6 +197,7 @@ public class AgendaController {
     }
     private void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas,int id) {
         LinearLayout horarioDiario = (LinearLayout) tela.findViewById(id);
+        if(horarioDiario==null) return;
         horarioDiario.removeAllViews();
         for(Horario horario : horarios){
             String horaInicial =horario.getHoraInicial();
@@ -251,6 +259,15 @@ public class AgendaController {
             horariosAgenda.clear();
         }
         DialogAux.dialogCarregandoSimplesDismiss();
+    if(id==R.id.layoutConsultas){
+    CalendarView aux= ((CalendarView) tela.findViewById(R.id.calendario));
+        aux.setDate(1480551925,true,true);
+        aux.setDate(1483230325,true,true);
+        aux.setDate(1485908725,true,true);
+        aux.setDate(DateTime.now().getMillis(),true,true);
+       }
+
+
     }
 
     public ArrayList<Consulta> getConsultasSemestre() {
@@ -266,6 +283,30 @@ public class AgendaController {
     public void setAgendaSemestreAtual(ArrayList<Consulta> consultas) {
         consultasSemestre = consultas;
     }
+
+
+    public  void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
+        Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
+        ArrayList<Horario> horarios= new ArrayList<>();
+        int indexHoje = DateTime.now().dayOfWeek().get()-1;
+        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
+            if(h.getDiasSemana().get(indexHoje)){
+                horarios.add(h);
+            }
+        }
+        ArrayList<Consulta> consultasHoje = new ArrayList<>();
+        for(Consulta c : consultas){
+            if((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
+                    && c.getDataFormat().getYear() == DateTime.now().getYear())){
+                consultasHoje.add(c);
+            }
+        }
+
+        populaAgendaDiaria(tela,horarios,consultasHoje,R.id.layoutConsultas);
+        //populaAgendaLateral(tela,AgendaController.getInstance().getConsultasSemestre());
+
+    }
+
 }
 
 

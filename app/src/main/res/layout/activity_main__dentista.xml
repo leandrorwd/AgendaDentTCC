@@ -10,7 +10,7 @@
         android:fontFamily="sans-serif-light"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar2"
+            android:id="@+id/toolbarDentista"
             android:fontFamily="sans-serif-light"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
