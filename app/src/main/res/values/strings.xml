@@ -126,6 +126,25 @@
     <string name="Adicionar">Adicionar</string>
     <string name="horarioColidiu">O horario colidiu com outro horario pré-existente.</string>
     <string name="dadosSalvosSucesso">Os dados foram salvos com sucesso</string>
+    <string name="nomePaciente">Nome paciente:</string>
+    <string name="tipo_consulta">Tipo consulta:</string>
+    <string name="data">Data</string>
+    <string name="horaConsulta">Hora consulta:</string>
+    <string name="emailPaciente">Email paciente:</string>
+    <string name="telefonePaciente">Telefone paciente:</string>
+    <string name="nomeDentista">Nome:</string>
+    <string name="sobrenomeDentista">Sobrenome:</string>
+    <string name="telefoneDentista">Telefone:</string>
+    <string name="fotoPerfil">Foto perfil:</string>
+    <string name="inscricaocro1">Inscrição CRO:</string>
+    <string name="cep1">CEP:</string>
+    <string name="buscaEstado">Estado:</string>
+    <string name="cidadeDentista">Cidade:</string>
+    <string name="bairroDentista">Bairro:</string>
+    <string name="ruaDentista">Rua:</string>
+    <string name="numeroDentista">Número:</string>
+    <string name="complementoDentista">Complemento:</string>
+    <string name="FotoPerfil1">Foto Perfil:</string>
 
 
 </resources>

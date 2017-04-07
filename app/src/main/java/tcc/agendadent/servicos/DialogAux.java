@@ -97,7 +97,7 @@ public class DialogAux {
             dialogOkSimples(tela,erro,tela.getResources().getString(R.string.emailCadastrado,email));
             dialogCarregandoSimplesDismiss();
         } catch(Exception e) {
-            dialogOkSimples(tela,erro,tela.getResources().getString(R.string.erroCadastroGenerico));
+            dialogOkSimples(tela,erro,(e.getMessage()));
             dialogCarregandoSimplesDismiss();
         }
     }

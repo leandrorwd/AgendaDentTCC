@@ -24,7 +24,9 @@
         <activity android:name=".gui.RecuperacaoSenha" />
         <activity android:name=".gui.paciente.Main_Paciente" />
         <activity android:name=".gui.dentista.ConfigAgendaAdiciona" />
-        <activity android:name=".gui.dentista.Main_Dentista"></activity>
+        <activity android:name=".gui.dentista.Main_Dentista" />
+        <activity android:name=".gui.dentista.VisualizarConsulta" />
+        <activity android:name=".gui.dentista.PerfilDentista"></activity>
     </application>
 
 </manifest>

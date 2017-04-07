@@ -14,6 +14,10 @@
             android:id="@+id/visualizar_agenda_full"
             android:icon="@drawable/ic_photo"
             android:title="Visualizar Agenda Completa" />
+        <item
+            android:id="@+id/editarPerfil"
+            android:icon="@drawable/ic_photo"
+            android:title="Editar Perfil" />
 
     </group>
 

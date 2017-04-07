@@ -2,10 +2,17 @@ package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
 import android.icu.util.Calendar;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.joda.time.DateTime;
 
@@ -19,9 +26,9 @@ import tcc.agendadent.servicos.DialogAux;
  * Created by natha on 21/03/2017.
  */
 
-public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
+public class AgendaCompleta extends LinearLayout  implements ClassesDentista, OnDateSelectedListener, OnMonthChangedListener {
     private Activity activity;
-    private CalendarView calendario;
+    private MaterialCalendarView calendario;
     private LinearLayout layoutConsultas;
     public AgendaCompleta(Activity activity, int id_janela) {
         super(activity);
@@ -35,30 +42,25 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
     }
 
     private void setEventos() {
-        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView calendarView, int ano, int mes, int dia) {
-                mes++;
-                Toast.makeText(activity,ano+"/"+mes+"/"+dia,Toast.LENGTH_SHORT).show();
-            }
-        });
+        calendario.setOnDateChangedListener(this);
+        calendario.setOnMonthChangedListener(this);
     }
 
     private void instanciaArtefatos() {
-        calendario = (CalendarView) findViewById(R.id.calendario);
-       layoutConsultas = (LinearLayout) findViewById(R.id.layoutConsultas);
+        calendario = (MaterialCalendarView) findViewById(R.id.calendario);
+        layoutConsultas = (LinearLayout) findViewById(R.id.layoutConsultas);
+
     }
 
     private void buscaAgenda() {
         DialogAux.dialogCarregandoSimples(activity);
-        DateTime data = new DateTime(calendario.getDate());
-        int mes = data.monthOfYear().get();
-        String anoSemestre= data.year().get()+"";
+        int mes = calendario.getCurrentDate().getMonth();
+        String anoSemestre="";
         if(mes>=7){
-            anoSemestre = data.year().get() +"A2";
+            anoSemestre = calendario.getCurrentDate().getYear() +"A2";
         }
         else
-            anoSemestre = data.year().get() +"A1";
+            anoSemestre =  calendario.getCurrentDate().getYear() +"A1";
         anoSemestre = anoSemestre.replace("A","");
         AgendaController.getInstance().getConsultasCompleto(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                 ,anoSemestre,activity,false);
@@ -84,6 +86,19 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista {
     @Override
     public void flipper(boolean next) {
 
+    }
+
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
+        DateTime d1 = new DateTime(date.getYear(),date.getMonth()+1,date.getDay(),12,12);
+        AgendaController.getInstance().carregaAgendaData(activity,AgendaController.getInstance().getConsultasSemestre(),d1,R.id.layoutConsultas);
+        Toast.makeText(activity,date.toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+        //noinspection ConstantConditions
+//        DateTime d1 = new DateTime(date);
     }
 }
 

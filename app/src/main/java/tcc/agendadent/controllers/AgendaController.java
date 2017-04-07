@@ -1,8 +1,15 @@
 package tcc.agendadent.controllers;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
+
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -259,16 +266,9 @@ public class AgendaController {
             horariosAgenda.clear();
         }
         DialogAux.dialogCarregandoSimplesDismiss();
-    if(id==R.id.layoutConsultas){
-    CalendarView aux= ((CalendarView) tela.findViewById(R.id.calendario));
-        aux.setDate(1480551925,true,true);
-        aux.setDate(1483230325,true,true);
-        aux.setDate(1485908725,true,true);
-        aux.setDate(DateTime.now().getMillis(),true,true);
-       }
-
 
     }
+
 
     public ArrayList<Consulta> getConsultasSemestre() {
         return consultasSemestre;
@@ -306,6 +306,57 @@ public class AgendaController {
         //populaAgendaLateral(tela,AgendaController.getInstance().getConsultasSemestre());
 
     }
+
+    public  void carregaAgendaData(final Activity tela, final ArrayList<Consulta> consultas, final DateTime dataParam,final int layout) {
+        View myView = tela.findViewById(layout);
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(myView, "alpha",  1f, 0);
+        fadeOut.setDuration(500);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(myView, "alpha", 0, 1f);
+        fadeIn.setDuration(1000);
+        DateTime data;
+        data = dataParam;
+        DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
+        final ArrayList<Horario> horarios= new ArrayList<>();
+        int indexHoje = data.dayOfWeek().get()-1;
+        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
+            if(h.getDiasSemana().get(indexHoje)){
+                horarios.add(h);
+            }
+        }
+        final ArrayList<Consulta> consultasData = new ArrayList<>();
+        for(Consulta c : consultas){
+            if((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
+                    && c.getDataFormat().getYear() == data.getYear())){
+                consultasData.add(c);
+            }
+        }
+
+        final AnimatorSet mAnimationSet = new AnimatorSet();
+
+        mAnimationSet.play(fadeIn).after(fadeOut);
+
+        mAnimationSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+
+            }
+        });
+        mAnimationSet.start();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                tela.runOnUiThread(new Runnable() {
+                    public void run() {
+                        populaAgendaDiaria(tela,horarios,consultasData, layout);
+                    }
+                });
+            }
+        }, 400, Integer.MAX_VALUE);
+
+    }
+
 
 }
 

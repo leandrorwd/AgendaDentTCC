@@ -42,9 +42,6 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         if(((ClassesDentista)getViewAtual()).needResume()){
             ((ClassesDentista)getViewAtual()).onResume();
         }
-      //  layoutMaster.removeAllViews();
-      //  ((ClassesDentista)getViewAtual()).onResume();
-
     }
 
     private void carregaAgendaHoje() {
@@ -74,6 +71,12 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         }
         if (id == R.id.visualizar_agenda_full) {
             navegaJanela(R.id.visualizar_agenda_full);
+        }
+        if (id == R.id.agenda_diaria) {
+            navegaJanela(R.id.agenda_diaria);
+        }
+        if (id == R.id.editarPerfil) {
+            navegaJanela(R.id.editarPerfil);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.AgendaDiaria);
@@ -112,7 +115,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     }
 
     private void navegaJanela(final int id_janela) {
-
+        if(((ClassesDentista)getViewAtual()).getIdMenu()==id_janela) return;
         layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
             @Override
             public void run() {
@@ -125,6 +128,8 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
                     view = new AgendaCompleta(Main_Dentista.this,id_janela);
                 if(id_janela== R.id.agenda_diaria)
                     view = new AgendaDiaria(Main_Dentista.this,id_janela);
+                if(id_janela== R.id.editarPerfil)
+                    view = new PerfilDentista(Main_Dentista.this,id_janela);
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(view);
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();

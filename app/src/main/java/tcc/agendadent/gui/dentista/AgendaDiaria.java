@@ -36,8 +36,6 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
         instanciaArtefatos();
         setEventos();
         setTextoData(DateTime.now());
-
-        // blala();
     }
 
     private void blala() {

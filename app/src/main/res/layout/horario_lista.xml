@@ -29,8 +29,6 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="sans-serif-light"
                 android:layout_marginTop="6dp"
-
-
                 android:text="00:00"
                 />
 
