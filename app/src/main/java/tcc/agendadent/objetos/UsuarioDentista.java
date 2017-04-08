@@ -16,6 +16,7 @@ public class UsuarioDentista {
     private Endereco endereco;
     private boolean status;
     private Agenda agenda;
+    private String telefone;
 
     public UsuarioDentista() {
     }
@@ -25,6 +26,7 @@ public class UsuarioDentista {
         this.nome =String.valueOf(dataSnapshot.child("nome").getValue());
         this.sobreNome = String.valueOf(dataSnapshot.child("sobreNome").getValue());
         this.inscricaoCRO = String.valueOf(dataSnapshot.child("inscricaoCRO").getValue());
+        this.telefone = String.valueOf(dataSnapshot.child("telefone").getValue());
         this.urlFotoPerfil = String.valueOf(dataSnapshot.child("urlFotoPerfil").getValue());
         this.endereco = dataSnapshot.child("endereco").getValue(Endereco.class);
         this.status = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("status").getValue()));
@@ -35,13 +37,14 @@ public class UsuarioDentista {
         }
     }
 
-    public UsuarioDentista(String email, String nome, String sobreNome, String inscricaoCRO, String urlFotoPerfil, Endereco endereco) {
+    public UsuarioDentista(String email, String nome, String sobreNome, String inscricaoCRO, String urlFotoPerfil, Endereco endereco,String celular) {
         this.email = email;
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.inscricaoCRO = inscricaoCRO;
         this.urlFotoPerfil = urlFotoPerfil;
         this.endereco = endereco;
+        this.telefone = telefone;
         status = false;
     }
 
@@ -130,5 +133,13 @@ public class UsuarioDentista {
 
     public Agenda getAgenda() {
         return agenda;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

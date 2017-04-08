@@ -235,7 +235,7 @@ public class CadastroController {
         Endereco e1 = new Endereco("Brasil",estado,cidade,bairro,rua,complemento,
                 Integer.parseInt(numero),Integer.parseInt(cepAux));
         setFotoPerfil(perfil);
-        UsuarioDentista usuario = new UsuarioDentista(email,nome,sobreNome,inscricaoCro,"null",e1);
+        UsuarioDentista usuario = new UsuarioDentista(email,nome,sobreNome,inscricaoCro,"null",e1,celular);
         AutenticacaoController.getInstance().cadastraDentista(activity,usuario,senha1);
     }
 

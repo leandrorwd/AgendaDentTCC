@@ -98,4 +98,9 @@ public class ConfigAgenda extends LinearLayout  implements ClassesDentista {
     public void flipper(boolean next) {
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
 }

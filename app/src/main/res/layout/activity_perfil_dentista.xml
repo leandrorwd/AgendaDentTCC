@@ -50,7 +50,6 @@
                     android:layout_height="70dp"
                     android:src="@drawable/ic_camera"
                     android:id="@+id/camera"
-
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="50dp" />
@@ -344,9 +343,10 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/gray" />
             <Spinner
-                android:id="@+id/idCadastroSpinnerEstado"
+                android:id="@+id/idSpinnerEstado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/FontConteudo"
                 android:drawSelectorOnTop="true"
                 android:fontFamily="sans-serif-light"
                 android:entries="@array/picker_Estado"
@@ -598,7 +598,7 @@
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:id="@+id/botaoDesmarcarDentista"
+        android:id="@+id/botaoSalvar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/corBotao"

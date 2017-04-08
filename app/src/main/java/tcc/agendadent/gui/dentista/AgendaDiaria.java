@@ -2,6 +2,7 @@ package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -141,6 +142,12 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     public void flipper(boolean next){
         flipperHelper(activity, next);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
     public static void flipperHelper(Activity tela, boolean next){
 
         if(next){

@@ -1,5 +1,7 @@
 package tcc.agendadent.gui.dentista;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,13 +25,15 @@ import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 public class Main_Dentista extends  AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ArrayList<View> pilhaTelas;
+    private static ArrayList<View> pilhaTelas;
     private LinearLayout layoutMaster;
     private int idUltimaJanela;
+    private static Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_dentista);
+        activity = Main_Dentista.this;
         pilhaTelas = new ArrayList<>();
         layoutMaster = (LinearLayout) findViewById(R.id.layoutDentistaMaster);
         configuraMenu();
@@ -114,6 +118,22 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         }).start();
     }
 
+    public static void animacaoTrocaJanelaVoltaExterno() {
+        final LinearLayout layoutMaster = (LinearLayout) activity.findViewById(R.id.layoutDentistaMaster);
+        layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+
+                if(((ClassesDentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
+                    DentistaController.getInstance().getHorariosTemporarios().clear();
+                layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size()-1));
+                layoutMaster.removeAllViews();
+                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size()-1));
+            }
+        }).start();
+    }
+
     private void navegaJanela(final int id_janela) {
         if(((ClassesDentista)getViewAtual()).getIdMenu()==id_janela) return;
         layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
@@ -138,9 +158,14 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         }).start();
     }
 
-    public View getViewAtual(){
+    public static View getViewAtual(){
         return pilhaTelas.get(pilhaTelas.size()-1);
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((ClassesDentista) getViewAtual()).onActivityResult(requestCode,resultCode,data);
+    }
 }

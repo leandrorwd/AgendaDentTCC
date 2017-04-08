@@ -84,6 +84,7 @@ public class CadastroGui extends AppCompatActivity {
         layoutDentista.setVisibility(View.GONE);
 
     }
+
     private void setEventos() {
         CadastroController.getInstance().setActivity(CadastroGui.this);
         cep.addTextChangedListener(CepTextWatcher);

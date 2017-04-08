@@ -111,9 +111,17 @@ public class DentistaBC {
                     .child(String.valueOf(dentista.getIdDentista()))
                     .child("urlFotoPerfil")
                     .setValue(linkFoto);
-             FirebaseAuth.getInstance().signOut();
-            DialogAux.dialogCarregandoSimplesDismiss();
-            DialogAux.dialogOkSimplesFinish(tela,tela.getResources().getString(R.string.Aviso),tela.getResources().getString(R.string.cadastropendente));
+            if(tela.getLocalClassName().equals("gui.CadastroGui")){
+                FirebaseAuth.getInstance().signOut();
+                DialogAux.dialogCarregandoSimplesDismiss();
+                DialogAux.dialogOkSimplesFinish(tela,tela.getResources().getString(R.string.Aviso),tela.getResources().getString(R.string.cadastropendente));
+            }
+            if(tela.getLocalClassName().equals("gui.dentista.Main_Dentista")){
+                DialogAux.dialogCarregandoSimplesDismiss();
+                DialogAux.dialogOkSimplesInnerClassDentistaFinish(tela,tela.getString(R.string.Sucesso),
+                        tela.getString(R.string.dadosSalvosSucesso));
+            }
+
         } catch (Exception e) {
         }
     }
@@ -189,5 +197,50 @@ public class DentistaBC {
         catch (Exception e ){
             String l ="lala";
         }
+    }
+
+    public void atualizaDentista(UsuarioDentista dentistaLogado, Activity activity, boolean upaFoto) {
+        try{
+            firebaseDatabaseReference
+                    .child("dentistas")
+                    .child(String.valueOf(dentistaLogado.getIdDentista()))
+                    .setValue(dentistaLogado);
+            if(upaFoto){
+                atualizaFotoPerfilDentista(dentistaLogado,activity);
+            }
+            else{
+                DialogAux.dialogCarregandoSimplesDismiss();
+                DialogAux.dialogOkSimplesInnerClassDentistaFinish(activity,activity.getString(R.string.Sucesso),
+                        activity.getString(R.string.dadosSalvosSucesso));
+            }
+
+        }catch (Exception e){
+
+        }
+
+    }
+
+    private void atualizaFotoPerfilDentista(final UsuarioDentista dentista, final Activity tela) {
+        String save = "dentista/" +Math.random() +  DateTime.now()+ ".jpg";
+        imageRef = storageRef.child(save);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DentistaController.getInstance().getFotoPerfilCadastro().compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener()
+        {
+            @Override
+            public void onFailure(@NonNull Exception exception)
+            {
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+        {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+            {
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                setFotoPerfilDentista(downloadUrl.toString(),dentista,tela);
+            }
+        });
     }
 }

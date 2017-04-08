@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.CadastroController;
+import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.CadastroGui;
 
 /**
@@ -96,6 +97,12 @@ public class Foto {
         }
         if (activity.getLocalClassName().equals("gui.CadastroGui")) {
             CadastroController.getInstance().setImagemPerfilDentista(bm);
+            ImageView aux = (ImageView) activity.findViewById(R.id.fotoTela);
+            aux.setTag("concluiu");
+        }
+        if (activity.getLocalClassName().equals("gui.dentista.Main_Dentista")) {
+            //perfilDentista
+            DentistaController.getInstance().setImagemPerfilDentista(bm,activity);
             ImageView aux = (ImageView) activity.findViewById(R.id.fotoTela);
             aux.setTag("concluiu");
         }

@@ -1,6 +1,7 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -85,6 +86,11 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista, On
 
     @Override
     public void flipper(boolean next) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
     }
 
