@@ -6,11 +6,13 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.io.Serializable;
+
 /**
  * Created by natha on 16/03/2017.
  */
 
-public class Consulta {
+public class Consulta implements Serializable {
     private long idDentista;
     private long idPaciente;
     private String nomePaciente;

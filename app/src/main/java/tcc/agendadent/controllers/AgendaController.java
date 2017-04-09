@@ -247,7 +247,7 @@ public class AgendaController {
                     String auxAux = dateTimeFormatHora.print(dataAux);
                     if(horariosAgenda.contains(auxAux)){
                         if(dateTimeFormatHora.print(dataSemFuso).equals(s)){
-                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,c1);
+                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,c1,"dentista");
                             horarioDiario.addView(t1);
                             entrou = true;
                             aux = c1;
@@ -256,7 +256,7 @@ public class AgendaController {
                     }
                 }
                 if(!entrou){
-                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,s);
+                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,s,"dentista");
                     horarioDiario.addView(t1);
                 }
                 else{
@@ -356,8 +356,15 @@ public class AgendaController {
         }, 400, Integer.MAX_VALUE);
 
     }
+    private DateTime momento;
 
+    public DateTime getMomento() {
+        return momento;
+    }
 
+    public void  setMomento(int ano,int mes,int dia,int hora,int minuto) {
+        this.momento = new DateTime(ano,mes,dia,hora,minuto);
+    }
 }
 
 

@@ -145,6 +145,8 @@
     <string name="numeroDentista">Número:</string>
     <string name="complementoDentista">Complemento:</string>
     <string name="FotoPerfil1">Foto Perfil:</string>
+    <string name="NaoHaConsultaMarcada">Não há uma consulta marcada.</string>
+    <string name="ocuparConsulta">Você deseja marcar este horario como indisponivel?</string>
 
 
 </resources>

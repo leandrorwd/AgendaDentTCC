@@ -98,7 +98,7 @@ public class AgendaCompleta extends LinearLayout  implements ClassesDentista, On
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
         DateTime d1 = new DateTime(date.getYear(),date.getMonth()+1,date.getDay(),12,12);
         AgendaController.getInstance().carregaAgendaData(activity,AgendaController.getInstance().getConsultasSemestre(),d1,R.id.layoutConsultas);
-        Toast.makeText(activity,date.toString(),Toast.LENGTH_SHORT).show();
+        AgendaController.getInstance().setMomento(date.getYear(),date.getMonth()+1,date.getDay(),12,12);
     }
 
     @Override

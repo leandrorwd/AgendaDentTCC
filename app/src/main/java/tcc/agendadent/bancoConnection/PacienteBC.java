@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
@@ -110,5 +111,25 @@ public class PacienteBC {
             return false;
         }
         return true;
+    }
+
+    public void getPacienteConsultaDen(final Consulta consulta, final Activity tela) {
+        try{
+            firebaseDatabaseReference.child("pacientes")
+                    .child(String.valueOf(consulta.getIdPaciente()))
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UsuarioPaciente p1 = new UsuarioPaciente(dataSnapshot);
+                    PacienteController.getInstance().getPacienteConsultaDen(consulta,true,p1,tela);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+        catch (Exception e ){
+        }
     }
 }

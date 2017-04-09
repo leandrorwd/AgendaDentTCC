@@ -1,7 +1,9 @@
 package tcc.agendadent.gui.layout_auxiliares;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +20,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.w3c.dom.Text;
 
+import java.util.Date;
+
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.dentista.AgendaDiaria;
 import tcc.agendadent.gui.dentista.VisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
@@ -27,20 +33,26 @@ import tcc.agendadent.servicos.OnSwipeTouchListener;
 public class TemplateConsultaAgenda extends RelativeLayout {
 
     private Activity tela;
-
-
-    public TemplateConsultaAgenda(Activity tela, Consulta c1) {
+    private Consulta consulta;
+    private String usuarioTipo;
+    private String horaInicial;
+    public TemplateConsultaAgenda(Activity tela, Consulta c1,String usuario) {
         super(tela);
         this.tela=tela;
+        usuarioTipo=usuario;
         View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
         setEventos();
         preencheHorario(c1);
+        consulta = c1;
+        setEventos();
     }
-    public TemplateConsultaAgenda(Activity tela, String horaInicial) {
+    public TemplateConsultaAgenda(Activity tela, String horaInicial,String usuario) {
         super(tela);
         this.tela=tela;
+        usuarioTipo=usuario;
         View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
         setEventos();
+        this.horaInicial = horaInicial;
         horarioLivre(horaInicial);
     }
 
@@ -103,11 +115,80 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                             card.setPressed(true);
                             break;
                     }
-                    tela.startActivity(new Intent(tela, VisualizarConsulta.class));
+
+                    Intent i = new Intent(tela, VisualizarConsulta.class);
+                    if(usuarioTipo.equals("dentista")){
+                        if(consulta!=null){
+                            i.putExtra("consulta", consulta);
+                            i.putExtra("user",usuarioTipo);
+                            tela.startActivity(i);
+                        }
+                        else{
+                            dialogSuspender();
+                        }
+                    }
+                   else{
+                        i.putExtra("consulta", consulta);
+                        i.putExtra("user",usuarioTipo);
+                        tela.startActivity(i);
+                   }
 
                 }
 
             });
         }
+    }
+
+    private void dialogSuspender() {
+        new AlertDialog.Builder(tela)
+                .setTitle(tela.getResources().getString(R.string.NaoHaConsultaMarcada))
+                .setMessage(tela.getResources().getString(R.string.ocuparConsulta))
+                .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        DateTime aux = DateTime.now();
+                        int hora =Integer.parseInt( horaInicial.substring(0,2));
+                        int min = Integer.parseInt( horaInicial.substring(3,5));
+                        try{
+                            String operador = aux.toString().substring(23,26);
+                            int valor = Integer.parseInt(aux.toString().substring(24,26));
+                            if(operador.contains("+")){
+                                 hora = hora+valor;
+                            }
+                            else{
+                              hora = hora -valor;
+                            }
+                        }catch (Exception e){
+
+                        }
+                        DateTime date0 = new DateTime(AgendaController.getInstance().getMomento().getYear(),
+                                AgendaController.getInstance().getMomento().getMonthOfYear(),
+                                AgendaController.getInstance().getMomento().getDayOfMonth(),hora,min);
+                        Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
+                                , 0, date0.getMillis(),0, "-","Indisponivel");
+                        String anoSemestre;
+                        if(date0.getMonthOfYear()>=7){
+                            anoSemestre = DateTime.now().year().get() +"A2";
+                        }
+                        else
+                            anoSemestre = DateTime.now().year().get() +"A1";
+                        anoSemestre = anoSemestre.replace("A","");
+                        AgendaController.getInstance().insertConsulta(c1,DentistaController.getInstance().getDentistaLogado().getIdDentista()+""
+                                ,anoSemestre);
+
+
+                    }
+                })
+                .setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                })
+                .show();
     }
 }

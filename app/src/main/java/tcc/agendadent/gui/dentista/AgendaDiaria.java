@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
@@ -183,8 +184,13 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     }
 
     public static void setTextoData(DateTime data){
+
         String dataString = data.getDayOfMonth() + "/"+ data.getMonthOfYear()+"/"+data.getYear();
         header.setText("Agenda - "+ dataString);
+        AgendaController.getInstance().setMomento(data.getYear(),data.getMonthOfYear(),
+                    data.getDayOfMonth(),11,11);
+
+
 
     }
 }
