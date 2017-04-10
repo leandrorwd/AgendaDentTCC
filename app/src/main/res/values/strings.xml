@@ -34,6 +34,8 @@
     <string name="cancelDialogFoto">cancelar</string>
     <string name="titleDialogFoto">Adicionar Imagem</string>
     <string name="buscar">Buscar</string>
+    <string name="novasenha">Nova senha</string>
+    <string name="repitanovasenha">Repita a nova senha</string>
     <string-array name="picker_Estado">
         <item> </item>
         <item>AC</item>

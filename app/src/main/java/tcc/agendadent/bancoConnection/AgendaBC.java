@@ -97,7 +97,6 @@ public class AgendaBC {
         }
         catch (Exception e ){
         }
-
     }
 
     public void getConsultaSemestreCompleto(long idDentista, String anoSemestre, final Activity tela) {
@@ -124,7 +123,5 @@ public class AgendaBC {
         }
         catch (Exception e ){
         }
-
     }
-
 }

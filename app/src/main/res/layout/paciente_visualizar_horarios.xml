@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/idAgendaDiariaLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/idTextListaEspera"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:text="Visualizar Horários"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="24sp" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendario"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:firstDayOfWeek="1"
+        android:maxDate="01/01/2018"
+        android:minDate="01/01/2016" />
+
+</LinearLayout>
