@@ -154,12 +154,23 @@ public class AutenticacaoController {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            DialogAux.dialogCarregandoSimplesDismiss();
-                            DialogAux.dialogOkSimples(activity, activity.getString(R.string.Sucesso), activity.getString(R.string.emailRecuperacao));
-                        } else {
-                            DialogAux.dialogCarregandoSimplesDismiss();
-                            DialogAux.dialogOkSimples(activity, activity.getString(R.string.Sucesso), activity.getString(R.string.emailRecuperacaoErro));
+                        if(activity.getLocalClassName().equals("gui.dentista.Main_Dentista")){
+                            if (task.isSuccessful()) {
+                                DialogAux.dialogCarregandoSimplesDismiss();
+                                DialogAux.dialogOkSimples(activity, activity.getString(R.string.Sucesso), activity.getString(R.string.emailTroca));
+                            } else {
+                                DialogAux.dialogCarregandoSimplesDismiss();
+                                DialogAux.dialogOkSimples(activity, activity.getString(R.string.erro), activity.getString(R.string.emailTrocaErro));
+                            }
+                        }
+                        else{
+                            if (task.isSuccessful()) {
+                                DialogAux.dialogCarregandoSimplesDismiss();
+                                DialogAux.dialogOkSimples(activity, activity.getString(R.string.Sucesso), activity.getString(R.string.emailRecuperacao));
+                            } else {
+                                DialogAux.dialogCarregandoSimplesDismiss();
+                                DialogAux.dialogOkSimples(activity, activity.getString(R.string.erro), activity.getString(R.string.emailRecuperacaoErro));
+                            }
                         }
                     }
                 });

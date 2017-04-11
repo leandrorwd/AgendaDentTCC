@@ -149,6 +149,10 @@
     <string name="FotoPerfil1">Foto Perfil:</string>
     <string name="NaoHaConsultaMarcada">Não há uma consulta marcada.</string>
     <string name="ocuparConsulta">Você deseja marcar este horario como indisponivel?</string>
+    <string name="trocaSenha">Trocar senha</string>
+        <string name="emailTroca">Um email foi enviado para o seu email de cadastro com as instruções
+        necessarias para realizar a troca de senha</string>
+    <string name="emailTrocaErro">Ocorreu um erro ao tentar enviar o email de troca de senha.</string>
 
 
 </resources>

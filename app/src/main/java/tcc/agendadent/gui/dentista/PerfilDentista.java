@@ -1,7 +1,9 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,10 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AutenticacaoController;
 import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.gui.LoginGui;
 import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.DownloadImageTask;
 import tcc.agendadent.servicos.Foto;
+
+import static android.R.attr.onClick;
+import static tcc.agendadent.servicos.DialogAux.dialogCarregandoSimples;
 
 public class PerfilDentista extends LinearLayout implements ClassesDentista   {
     private int id_janela;
@@ -37,6 +44,7 @@ public class PerfilDentista extends LinearLayout implements ClassesDentista   {
     private EditText numeroDentista;
     private EditText complementoDentista;
     private AppCompatButton botaoSalvar;
+    private AppCompatButton resetSenha;
     private Activity activity;
     private Foto foto;
 
@@ -60,7 +68,7 @@ public class PerfilDentista extends LinearLayout implements ClassesDentista   {
         cep.setText(cepAux);
         spinnerEstado.setSelection(((ArrayAdapter<String>)spinnerEstado.getAdapter()).getPosition(DentistaController.getInstance().getDentistaLogado().getEndereco().getEstado()));
         DentistaController.getInstance().setImagemPerfilLoading(activity,DentistaController.getInstance().getDentistaLogado().getUrlFotoPerfil()
-        ,fotoTela);
+                ,fotoTela);
         cidadeDentista.setText(DentistaController.getInstance().getDentistaLogado().getEndereco().getCidade());
         bairroDentista.setText(DentistaController.getInstance().getDentistaLogado().getEndereco().getBairro());
         ruaDentista.setText(DentistaController.getInstance().getDentistaLogado().getEndereco().getRua());
@@ -86,6 +94,8 @@ public class PerfilDentista extends LinearLayout implements ClassesDentista   {
         numeroDentista = (EditText) findViewById(R.id.numeroDentista);
         complementoDentista = (EditText) findViewById(R.id.complementoDentista);
         botaoSalvar = (AppCompatButton) findViewById(R.id.botaoSalvar);
+        resetSenha = (AppCompatButton) findViewById(R.id.botaoResetarSenha);
+
         foto = new Foto(activity);
 
     }
@@ -110,6 +120,14 @@ public class PerfilDentista extends LinearLayout implements ClassesDentista   {
             }
         });
 
+        resetSenha.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialogCarregandoSimples(activity);
+                AutenticacaoController.getInstance().resetSenha(DentistaController.getInstance().getDentistaLogado().getEmail(), activity);
+            }
+        });
     }
 
     @Override
