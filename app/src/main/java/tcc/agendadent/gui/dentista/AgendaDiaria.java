@@ -25,7 +25,7 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     private LinearLayout agendaDia;
     private static ViewFlipper flipper;
     private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
-    private static DateTime indiceSlider = DateTime.now();
+    public static DateTime indiceSlider = DateTime.now();
     private static TextView header;
     public  static int idLayout;
     public AgendaDiaria(Activity activity, int id_janela) {

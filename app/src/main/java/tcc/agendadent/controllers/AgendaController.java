@@ -5,7 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 
@@ -241,6 +243,7 @@ public class AgendaController {
                 boolean entrou = false;
                 Consulta aux=null;
                 for(Consulta c1 : consultasMarcadas){
+
                     DateTime data = new DateTime(c1.getDataConsulta());
                     DateTime dataAux = data.withZone(DateTimeZone.UTC);
                     LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
@@ -265,6 +268,7 @@ public class AgendaController {
             }
             horariosAgenda.clear();
         }
+
         DialogAux.dialogCarregandoSimplesDismiss();
 
     }

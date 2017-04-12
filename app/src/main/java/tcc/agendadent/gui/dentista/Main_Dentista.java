@@ -17,10 +17,15 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.controllers.AutenticacaoController;
 import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.objetos.Agenda;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 public class Main_Dentista extends  AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,6 +101,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         } else {
             if(pilhaTelas.size()==1){
                 super.onBackPressed();
+                AgendaDiaria.indiceSlider = DateTime.now();
                 finish();
                 return;
             }

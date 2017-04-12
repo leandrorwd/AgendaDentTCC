@@ -308,4 +308,7 @@ public class DentistaController {
         new DownloadImageTask(fotoTela,activity)
                 .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, download.toString());
     }
+
+
+
 }
