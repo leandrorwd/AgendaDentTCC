@@ -1,14 +1,7 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,15 +13,12 @@ import android.widget.Spinner;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AutenticacaoController;
 import tcc.agendadent.controllers.DentistaController;
-import tcc.agendadent.gui.LoginGui;
 import tcc.agendadent.servicos.DialogAux;
-import tcc.agendadent.servicos.DownloadImageTask;
 import tcc.agendadent.servicos.Foto;
 
-import static android.R.attr.onClick;
 import static tcc.agendadent.servicos.DialogAux.dialogCarregandoSimples;
 
-public class PerfilDentista extends LinearLayout implements ClassesDentista   {
+public class DentistaPerfil extends LinearLayout implements Interface_Dentista {
     private int id_janela;
     private ImageView camera;
     private ImageView fotoTela;
@@ -48,12 +38,12 @@ public class PerfilDentista extends LinearLayout implements ClassesDentista   {
     private Activity activity;
     private Foto foto;
 
-    public PerfilDentista(Activity activity, int id_janela) {
+    public DentistaPerfil(Activity activity, int id_janela) {
         super(activity);
         this.id_janela = id_janela;
         DialogAux.dialogCarregandoSimples(activity);
         this.activity = activity;
-        View.inflate(activity, R.layout.activity_perfil_dentista, this);
+        View.inflate(activity, R.layout.dentista_perfil, this);
         instanciaArtefatos();
         setEventos();
         carregaDentista();

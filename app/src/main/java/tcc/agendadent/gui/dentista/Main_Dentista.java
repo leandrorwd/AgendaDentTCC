@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,11 +21,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
-import tcc.agendadent.controllers.AgendaController;
-import tcc.agendadent.controllers.AutenticacaoController;
 import tcc.agendadent.controllers.DentistaController;
-import tcc.agendadent.objetos.Agenda;
-import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 public class Main_Dentista extends  AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,7 +32,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_dentista);
+        setContentView(R.layout.dentista_menu);
         activity = Main_Dentista.this;
         pilhaTelas = new ArrayList<>();
         layoutMaster = (LinearLayout) findViewById(R.id.layoutDentistaMaster);
@@ -48,14 +43,14 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     @Override
     protected void onResume() {
         super.onResume();
-        if(((ClassesDentista)getViewAtual()).needResume()){
-            ((ClassesDentista)getViewAtual()).onResume();
+        if(((Interface_Dentista)getViewAtual()).needResume()){
+            ((Interface_Dentista)getViewAtual()).onResume();
         }
     }
 
     private void carregaAgendaHoje() {
         LinearLayout main =(LinearLayout)findViewById(R.id.layoutDentistaMaster);
-        AgendaDiaria layout = new AgendaDiaria(Main_Dentista.this, -1);
+        DentistaAgendaDiaria layout = new DentistaAgendaDiaria(Main_Dentista.this, -1);
         main.addView(layout);
         pilhaTelas.add(layout);
     }
@@ -101,7 +96,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         } else {
             if(pilhaTelas.size()==1){
                 super.onBackPressed();
-                AgendaDiaria.indiceSlider = DateTime.now();
+                DentistaAgendaDiaria.indiceSlider = DateTime.now();
                 finish();
                 return;
             }
@@ -114,7 +109,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
             @Override
             public void run() {
 
-               if(((ClassesDentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
+               if(((Interface_Dentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
                    DentistaController.getInstance().getHorariosTemporarios().clear();
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
                 pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size()-1));
@@ -130,7 +125,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
             @Override
             public void run() {
 
-                if(((ClassesDentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
+                if(((Interface_Dentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
                     DentistaController.getInstance().getHorariosTemporarios().clear();
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
                 pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size()-1));
@@ -141,7 +136,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     }
 
     private void navegaJanela(final int id_janela) {
-        if(((ClassesDentista)getViewAtual()).getIdMenu()==id_janela) return;
+        if(((Interface_Dentista)getViewAtual()).getIdMenu()==id_janela) return;
         layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
             @Override
             public void run() {
@@ -149,13 +144,13 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
                 if(DentistaController.getInstance().getHorariosTemporarios()!=null)
                     DentistaController.getInstance().getHorariosTemporarios().clear();
                 if(id_janela== R.id.config_agenda)
-                    view = new ConfigAgenda(Main_Dentista.this,id_janela);
+                    view = new DentistaConfigAgenda(Main_Dentista.this,id_janela);
                 if(id_janela== R.id.visualizar_agenda_full)
-                    view = new AgendaCompleta(Main_Dentista.this,id_janela);
+                    view = new DentistaAgendaCompleta(Main_Dentista.this,id_janela);
                 if(id_janela== R.id.agenda_diaria)
-                    view = new AgendaDiaria(Main_Dentista.this,id_janela);
+                    view = new DentistaAgendaDiaria(Main_Dentista.this,id_janela);
                 if(id_janela== R.id.editarPerfil)
-                    view = new PerfilDentista(Main_Dentista.this,id_janela);
+                    view = new DentistaPerfil(Main_Dentista.this,id_janela);
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(view);
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
@@ -172,6 +167,6 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        ((ClassesDentista) getViewAtual()).onActivityResult(requestCode,resultCode,data);
+        ((Interface_Dentista) getViewAtual()).onActivityResult(requestCode,resultCode,data);
     }
 }

@@ -23,10 +23,10 @@
         <activity android:name=".gui.CadastroGui" />
         <activity android:name=".gui.RecuperacaoSenha" />
         <activity android:name=".gui.paciente.Main_Paciente" />
-        <activity android:name=".gui.dentista.ConfigAgendaAdiciona" />
+        <activity android:name=".gui.dentista.DentistaConfigAgendaAdiciona" />
         <activity android:name=".gui.dentista.Main_Dentista" />
-        <activity android:name=".gui.dentista.VisualizarConsulta" />
-        <activity android:name=".gui.dentista.PerfilDentista" />
+        <activity android:name=".gui.dentista.DentistaVisualizarConsulta" />
+        <activity android:name=".gui.dentista.DentistaPerfil" />
         <activity android:name=".gui.paciente.PacienteListarDentistas" />
     </application>
 

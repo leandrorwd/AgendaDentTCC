@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
@@ -20,7 +19,7 @@ import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
-public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
+public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dentista {
     private Activity activity;
     private LinearLayout agendaDia;
     private static ViewFlipper flipper;
@@ -28,11 +27,11 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     public static DateTime indiceSlider = DateTime.now();
     private static TextView header;
     public  static int idLayout;
-    public AgendaDiaria(Activity activity, int id_janela) {
+    public DentistaAgendaDiaria(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
         idLayout = R.id.consultasDiarias;
-        View.inflate(activity, R.layout.activity_agenda_diaria_conteudo, this);
+        View.inflate(activity, R.layout.dentista_agenda_diaria_conteudo, this);
         buscaAgendaDiaria();
         this.id = id_janela;
         instanciaArtefatos();
@@ -80,12 +79,12 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
         agendaDia.setOnTouchListener(new OnSwipeTouchListener(activity) {
 
             public void onSwipeRight() {
-                if(AgendaDiaria.idLayout ==R.id.consultasDiarias)
-                    AgendaDiaria.idLayout = R.id.consultasDiarias2;
-                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                    AgendaDiaria.idLayout = R.id.consultasDiarias3;
-                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                    AgendaDiaria.idLayout = R.id.consultasDiarias;
+                if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias)
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
+                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
                 indiceSlider = indiceSlider.minusDays(1);
                 flipper.setInAnimation(activity, R.anim.slide_in_left);
                 flipper.setOutAnimation(activity, R.anim.slide_out_right);
@@ -94,12 +93,12 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
             }
             public void onSwipeLeft() {
                 //cuidar desse
-                if(AgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
-                    AgendaDiaria.idLayout = R.id.consultasDiarias3;
-                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                    AgendaDiaria.idLayout = R.id.consultasDiarias;
-                else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                    AgendaDiaria.idLayout = R.id.consultasDiarias2;
+                if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
+                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
                 indiceSlider = indiceSlider.plusDays(1);
                 flipper.setInAnimation(activity, R.anim.slide_in_right);
                 flipper.setOutAnimation(activity, R.anim.slide_out_left);
@@ -152,12 +151,12 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
     public static void flipperHelper(Activity tela, boolean next){
 
         if(next){
-            if(AgendaDiaria.idLayout ==R.id.consultasDiarias)
-                AgendaDiaria.idLayout = R.id.consultasDiarias2;
-            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                AgendaDiaria.idLayout = R.id.consultasDiarias3;
-            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                AgendaDiaria.idLayout = R.id.consultasDiarias;
+            if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias)
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
+            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
             indiceSlider = indiceSlider.minusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_left);
             flipper.setOutAnimation(tela, R.anim.slide_out_right);
@@ -165,12 +164,12 @@ public class AgendaDiaria extends LinearLayout implements ClassesDentista   {
             AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
         }
         else{
-            if(AgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
-                AgendaDiaria.idLayout = R.id.consultasDiarias3;
-            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                AgendaDiaria.idLayout = R.id.consultasDiarias;
-            else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                AgendaDiaria.idLayout = R.id.consultasDiarias2;
+            if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
+            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+                DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
             indiceSlider = indiceSlider.plusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_right);
             flipper.setOutAnimation(tela, R.anim.slide_out_left);

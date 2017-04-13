@@ -2,11 +2,8 @@ package tcc.agendadent.gui.layout_auxiliares;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,15 +15,12 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.w3c.dom.Text;
-
-import java.util.Date;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
-import tcc.agendadent.gui.dentista.AgendaDiaria;
-import tcc.agendadent.gui.dentista.VisualizarConsulta;
+import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
+import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
@@ -40,7 +34,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         super(tela);
         this.tela=tela;
         usuarioTipo=usuario;
-        View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
+        View.inflate(tela, R.layout.template_consulta_agenda, this);
         setEventos();
         preencheHorario(c1);
         consulta = c1;
@@ -50,7 +44,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         super(tela);
         this.tela=tela;
         usuarioTipo=usuario;
-        View.inflate(tela, R.layout.activity_template_consulta_agenda, this);
+        View.inflate(tela, R.layout.template_consulta_agenda, this);
         setEventos();
         this.horaInicial = horaInicial;
         horarioLivre(horaInicial);
@@ -91,11 +85,11 @@ public class TemplateConsultaAgenda extends RelativeLayout {
             card.setOnTouchListener(new OnSwipeTouchListener(tela) {
 
                 public void onSwipeRight() {
-                    AgendaDiaria.flipperHelper(tela,true);
+                    DentistaAgendaDiaria.flipperHelper(tela,true);
                 }
 
                 public void onSwipeLeft() {
-                    AgendaDiaria.flipperHelper(tela,false);
+                    DentistaAgendaDiaria.flipperHelper(tela,false);
                 }
 
                 public void onClick(MotionEvent event) {
@@ -116,7 +110,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                             break;
                     }
 
-                    Intent i = new Intent(tela, VisualizarConsulta.class);
+                    Intent i = new Intent(tela, DentistaVisualizarConsulta.class);
                     if(usuarioTipo.equals("dentista")){
                         if(consulta!=null){
                             i.putExtra("consulta", consulta);

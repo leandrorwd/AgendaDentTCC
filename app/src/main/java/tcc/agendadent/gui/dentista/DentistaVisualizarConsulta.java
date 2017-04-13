@@ -11,7 +11,7 @@ import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
 
-public class VisualizarConsulta extends AppCompatActivity {
+public class DentistaVisualizarConsulta extends AppCompatActivity {
     private TextView textoNomePaciente;
     private TextView tipoConsulta;
     private TextView emailPaciente;
@@ -24,7 +24,7 @@ public class VisualizarConsulta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visualizar_consulta);
+        setContentView(R.layout.dentista_visualiza_consulta);
         instanciaArtefatos();
         setEventos();
         Intent i = getIntent();
@@ -40,13 +40,17 @@ public class VisualizarConsulta extends AppCompatActivity {
             String hora;
             String minuto;
             int horaAux =consulta.getDataFormat().getHourOfDay();
+            try{
             String operador = consulta.getDataFormat().toString().substring(23,26);
             int valor = Integer.parseInt(consulta.getDataFormat().toString().substring(24,26));
-            if(operador.contains("+")){
-                horaAux = horaAux-valor;
-            }
-            else{
-                horaAux = horaAux +valor;
+                if(operador.contains("+")){
+                    horaAux = horaAux-valor;
+                }
+                else{
+                    horaAux = horaAux +valor;
+                }
+            }catch (Exception e){
+
             }
 
 
@@ -76,7 +80,7 @@ public class VisualizarConsulta extends AppCompatActivity {
                     +mes +"/"
                     +consulta.getDataFormat().getYear());
             horaConsulta.setText(hora + ":"+ minuto);
-            PacienteController.getInstance().getPacienteConsultaDen(consulta,false,null,VisualizarConsulta.this);
+            PacienteController.getInstance().getPacienteConsultaDen(consulta,false,null,DentistaVisualizarConsulta.this);
 
         }
         else{ //Paciente

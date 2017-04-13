@@ -54,7 +54,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
             minuto = "0" + minute;
         else minuto = minute +"";
         String result = hora + ":" +minuto;
-        if(aux.getLocalClassName().equals("gui.dentista.ConfigAgendaAdiciona")) {
+        if(aux.getLocalClassName().equals("gui.dentista.DentistaConfigAgendaAdiciona")) {
             if (DentistaController.getInstance().isHorarioInicio()) {
                 textAux = (TextView) aux.findViewById(R.id.textoHorario);
             }

@@ -6,7 +6,7 @@ import android.content.Intent;
  * Created by natha on 23/03/2017.
  */
 
-public interface ClassesDentista {
+public interface Interface_Dentista {
     void onResume();
     boolean needResume();
     int getIdMenu();

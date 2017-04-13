@@ -5,13 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
-
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -26,7 +21,7 @@ import java.util.TimerTask;
 
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.AgendaBC;
-import tcc.agendadent.gui.dentista.AgendaDiaria;
+import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.layout_auxiliares.TemplateConsultaAgenda;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
@@ -138,16 +133,16 @@ public class AgendaController {
     public  void slideDiaria(final Activity tela, final ArrayList<Consulta> consultas, final DateTime newHoje) {
         int anterior=0;
         int posterior = 0;
-        AgendaDiaria.setTextoData(newHoje);
-        if(AgendaDiaria.idLayout ==R.id.consultasDiarias){
+        DentistaAgendaDiaria.setTextoData(newHoje);
+        if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias){
             anterior = R.id.consultasDiarias2;
             posterior = R.id.consultasDiarias3;
         }
-        else if(AgendaDiaria.idLayout ==R.id.consultasDiarias2){
+        else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2){
             anterior = R.id.consultasDiarias3;
             posterior = R.id.consultasDiarias;
         }
-        else if(AgendaDiaria.idLayout ==R.id.consultasDiarias3){
+        else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3){
             anterior = R.id.consultasDiarias;
             posterior = R.id.consultasDiarias2;
         }
