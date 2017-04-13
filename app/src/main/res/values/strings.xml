@@ -70,6 +70,22 @@
         <item>Paciente</item>
         <item>Dentista</item>
     </string-array>
+    <string-array name="picker_tipo_consulta">
+        <item>Particular</item>
+        <item>Convênio</item>
+        <item>SUS</item>
+    </string-array>
+    <string-array name="picker_planos_saude">
+        <item>Selecione um plano de saúde:</item>
+        <item>UniDent</item>
+        <item>Dois</item>
+        <item>batatinha</item>
+    </string-array>
+    <string-array name="picker_especializacao">
+        <item>Clinico Geral</item>
+        <item>Espec1</item>
+        <item>Espect2</item>
+    </string-array>
     <string name="nomeVazio">O campo \"Nome\" não está preenchido.</string>
     <string name="emailVazio">O campo \"Email\" não está preenchido.</string>
     <string name="senhaVazio">O campo \"Senha\" não está preenchido.</string>
@@ -153,6 +169,13 @@
         <string name="emailTroca">Um email foi enviado para o seu email de cadastro com as instruções
         necessarias para realizar a troca de senha</string>
     <string name="emailTrocaErro">Ocorreu um erro ao tentar enviar o email de troca de senha.</string>
+    <string name="nomeDentistaBusca">Nome dentista:</string>
+    <string name="plano_saude">Plano de Saúde:</string>
+    <string name="Especializacao">Especialização</string>
+    <string name="proximo_mim">Próximo a mim.</string>
+    <string name="outro_local">Outro local</string>
+    <string name="endereco">Endereço</string>
+    <string name="DistanciaMax">Distancia Máxima (Km):</string>
 
 
 </resources>

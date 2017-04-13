@@ -537,7 +537,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="16dp"
-                android:textColor="@color/FontConteudo"
                 android:fontFamily="sans-serif-light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -557,7 +556,6 @@
         android:background="?android:selectableItemBackground"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardBackgroundColor="@color/background_material_light"
-
         android:focusable="true"
         card_view:cardElevation="@dimen/cardElevation"
         card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
