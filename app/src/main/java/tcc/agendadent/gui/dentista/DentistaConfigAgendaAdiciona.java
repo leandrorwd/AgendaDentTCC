@@ -1,7 +1,6 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import tcc.agendadent.gui.layout_auxiliares.TimePickerFragment;
 import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.servicos.DialogAux;
 
-public class ConfigAgendaAdiciona extends AppCompatActivity {
+public class DentistaConfigAgendaAdiciona extends AppCompatActivity {
 
     FloatingActionButton botaoInicio;
     FloatingActionButton botaoFim;
@@ -33,7 +32,7 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config_agenda_adiciona);
+        setContentView(R.layout.dentista_config_agenda_adiciona);
         instanciaArtefatos();
         setEventos();
     }
@@ -42,7 +41,7 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
         botaoInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DentistaController.getInstance().setTelaAuxiliar(ConfigAgendaAdiciona.this);
+                DentistaController.getInstance().setTelaAuxiliar(DentistaConfigAgendaAdiciona.this);
                 DentistaController.getInstance().setHorarioInicio(true);
                 DentistaController.getInstance().setHorarioTermino(false);
                 DentistaController.getInstance().setHorarioDuracao(false);
@@ -53,7 +52,7 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
         botaoFim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DentistaController.getInstance().setTelaAuxiliar(ConfigAgendaAdiciona.this);
+                DentistaController.getInstance().setTelaAuxiliar(DentistaConfigAgendaAdiciona.this);
                 DentistaController.getInstance().setHorarioInicio(false);
                 DentistaController.getInstance().setHorarioTermino(true);
                 DentistaController.getInstance().setHorarioDuracao(false);
@@ -64,7 +63,7 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
         botaoTempo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DentistaController.getInstance().setTelaAuxiliar(ConfigAgendaAdiciona.this);
+                DentistaController.getInstance().setTelaAuxiliar(DentistaConfigAgendaAdiciona.this);
                 DentistaController.getInstance().setHorarioInicio(false);
                 DentistaController.getInstance().setHorarioTermino(false);
                 DentistaController.getInstance().setHorarioDuracao(true);
@@ -96,10 +95,10 @@ public class ConfigAgendaAdiciona extends AppCompatActivity {
                         textoHorarioFinal.getText().toString(),textoHorarioDuracao.getText().toString(),
                         lista);
                 if(DentistaController.getInstance().verificaHorario(horarioNovo)){
-                    DentistaController.getInstance().addHorarioAgenda(horarioNovo,ConfigAgendaAdiciona.this);
+                    DentistaController.getInstance().addHorarioAgenda(horarioNovo,DentistaConfigAgendaAdiciona.this);
                 }
                 else{
-                    Activity tela = ConfigAgendaAdiciona.this;
+                    Activity tela = DentistaConfigAgendaAdiciona.this;
                     DialogAux.dialogOkSimples(tela,tela.getResources().getString(R.string.erro),
                             tela.getResources().getString(R.string.horarioColidiu));
                 }

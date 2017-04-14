@@ -2,13 +2,10 @@ package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -27,14 +24,14 @@ import tcc.agendadent.servicos.DialogAux;
  * Created by natha on 21/03/2017.
  */
 
-public class AgendaCompleta extends LinearLayout  implements ClassesDentista, OnDateSelectedListener, OnMonthChangedListener {
+public class DentistaAgendaCompleta extends LinearLayout  implements Interface_Dentista, OnDateSelectedListener, OnMonthChangedListener {
     private Activity activity;
     private MaterialCalendarView calendario;
     private LinearLayout layoutConsultas;
-    public AgendaCompleta(Activity activity, int id_janela) {
+    public DentistaAgendaCompleta(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
-        View.inflate(activity, R.layout.activity_agenda_completa, this);
+        View.inflate(activity, R.layout.dentista_agenda_completa, this);
         instanciaArtefatos();
         setEventos();
         buscaAgenda();

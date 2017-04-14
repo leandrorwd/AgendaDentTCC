@@ -12,7 +12,7 @@ import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
 
-public class VisualizarConsulta extends AppCompatActivity {
+public class DentistaVisualizarConsulta extends AppCompatActivity {
     private TextView textoNomePaciente;
     private TextView tipoConsulta;
     private TextView emailPaciente;
@@ -25,7 +25,7 @@ public class VisualizarConsulta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visualizar_consulta);
+        setContentView(R.layout.dentista_visualiza_consulta);
         instanciaArtefatos();
         setEventos();
         Intent i = getIntent();
@@ -46,35 +46,52 @@ public class VisualizarConsulta extends AppCompatActivity {
 
     private void carregaConsulta() {
         if(userTipo.equals("dentista")){
-                String dia;
-                String mes;
-                String hora;
-                String minuto;
-                if(consulta.getDataFormat().getDayOfMonth()>=9)
-                    dia = "" + consulta.getDataFormat().getDayOfMonth();
-                else
-                    dia = "0" + consulta.getDataFormat().getDayOfMonth();
+            String dia;
+            String mes;
+            String hora;
+            String minuto;
+            int horaAux =consulta.getDataFormat().getHourOfDay();
+            try{
+            String operador = consulta.getDataFormat().toString().substring(23,26);
+            int valor = Integer.parseInt(consulta.getDataFormat().toString().substring(24,26));
+                if(operador.contains("+")){
+                    horaAux = horaAux-valor;
+                }
+                else{
+                    horaAux = horaAux +valor;
+                }
+            }catch (Exception e){
 
-                if(consulta.getDataFormat().getMonthOfYear()>=9)
-                    mes = "" + consulta.getDataFormat().getMonthOfYear();
-                else
-                    mes = "0" + consulta.getDataFormat().getMonthOfYear();
+            }
 
-                if(consulta.getDataFormat().getHourOfDay()>=9)
-                    hora = "" + consulta.getDataFormat().getHourOfDay();
-                else
-                    hora = "0" + consulta.getDataFormat().getHourOfDay();
 
-                if(consulta.getDataFormat().getMinuteOfHour()>=9)
-                    minuto = "0" + consulta.getDataFormat().getMinuteOfHour();
-                else
-                    minuto = "0" + consulta.getDataFormat().getMinuteOfHour();
+            if(consulta.getDataFormat().getDayOfMonth()>=9)
+                dia = "" + consulta.getDataFormat().getDayOfMonth();
+            else
+                dia = "0" + consulta.getDataFormat().getDayOfMonth();
 
-                dataConsulta.setText(dia +"/"
-                        +mes +"/"
-                        +consulta.getDataFormat().getYear());
-                horaConsulta.setText(hora + ":"+ minuto);
-                PacienteController.getInstance().getPacienteConsultaDen(consulta,false,null,VisualizarConsulta.this);
+            if(consulta.getDataFormat().getMonthOfYear()>=9)
+                mes = "" + consulta.getDataFormat().getMonthOfYear();
+            else
+                mes = "0" + consulta.getDataFormat().getMonthOfYear();
+
+            if(horaAux>=9)
+                hora = "" + horaAux;
+            else
+                hora = "0" + horaAux;
+
+            if(consulta.getDataFormat().getMinuteOfHour()>=9)
+                minuto = "0" + consulta.getDataFormat().getMinuteOfHour();
+            else
+                minuto = "0" + consulta.getDataFormat().getMinuteOfHour();
+
+
+
+            dataConsulta.setText(dia +"/"
+                    +mes +"/"
+                    +consulta.getDataFormat().getYear());
+            horaConsulta.setText(hora + ":"+ minuto);
+            PacienteController.getInstance().getPacienteConsultaDen(consulta,false,null,DentistaVisualizarConsulta.this);
 
         }
         else{ //Paciente

@@ -3,178 +3,565 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_material_light"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_vertical_margin"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/idTextPesquisa"
+            <android.support.v7.widget.CardView
+                android:layout_marginTop="16dp"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                android:focusable="true"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView  android:text="@string/nomeDentistaBusca"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+                    <EditText  android:id="@+id/nomeDentistaBusca"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/FontConteudo"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                android:focusable="true"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView  android:text="@string/tipo_consulta"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+                    <Spinner
+                        android:id="@+id/tipoConsulta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontConteudo"
+                        android:drawSelectorOnTop="true"
+                        android:fontFamily="sans-serif-light"
+                        android:entries="@array/picker_tipo_consulta"
+                        />
+                    <Spinner
+                        android:id="@+id/idPlanosDeSaude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontConteudo"
+                        android:drawSelectorOnTop="true"
+                        android:fontFamily="sans-serif-light"
+                        android:entries="@array/picker_planos_saude"
+                        />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                android:focusable="true"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView  android:text="@string/Especializacao"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+                    <Spinner
+                        android:id="@+id/idSpinnerEspecialazacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontConteudo"
+                        android:drawSelectorOnTop="true"
+                        android:fontFamily="sans-serif-light"
+                        android:entries="@array/picker_especializacao"
+                        />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                android:focusable="true"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView  android:text="@string/endereco"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton android:id="@+id/idRadioProx"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/proximo_mim"
+                            />
+                        <RadioButton android:id="@+id/idRadioOutro"
+                            android:layout_width="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/outro_local"
+                            />
+                    </RadioGroup>
+                    <LinearLayout android:id="@+id/layoutDinamico"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"></LinearLayout>
+                    <LinearLayout android:id="@+id/layoutProximoMim"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/DistanciaMax"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/distanciaKm"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout android:id="@+id/layoutOutroEndereco"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/buscaEstado"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <Spinner
+                                    android:id="@+id/idSpinnerEstado"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontConteudo"
+                                    android:drawSelectorOnTop="true"
+                                    android:fontFamily="sans-serif-light"
+                                    android:entries="@array/picker_Estado"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/cidadeDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/cidadeDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/bairroDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/bairroDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/ruaDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/ruaDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/numeroDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/numeroDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:selectableItemBackground"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            card_view:cardBackgroundColor="@color/background_material_light"
+                            android:focusable="true"
+                            card_view:cardElevation="@dimen/cardElevation"
+                            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                            card_view:cardUseCompatPadding="true"
+                            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <TextView  android:text="@string/complementoDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_width="match_parent"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/FontTitle"
+                                    android:textSize="16dp"
+                                    />
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/gray" />
+                                <EditText  android:id="@+id/complementoDentista"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textSize="16dp"
+                                    android:textColor="@color/FontConteudo"
+                                    android:fontFamily="sans-serif-light"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.AppCompatButton
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:id="@+id/botaoPesquisar"
+                android:text="@string/buscar"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+
+                android:layout_toRightOf="@+id/botaoResetarSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/corBotao"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="sans-serif-light"
-                android:gravity="center_vertical"
-                android:text="Pesquisa"
-                android:textAlignment="center"
-                android:textColor="@color/cardview_dark_background"
-                android:textSize="24sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/idTextPlanoSaude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:text="Plano de Saúde"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/idTextEspecialidade"
-                    android:layout_width="125dp"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:text="Especialidade"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerEspecialidade"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:spinnerMode="dialog" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/idTextBuscaEstado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.59"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:text="Estado"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerBuscaEstado"
-                    android:layout_width="227dp"
-                    android:layout_height="match_parent"
-                    android:spinnerMode="dialog" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/idTextBuscaCidade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:text="Cidade"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerBuscaCidade"
-                    android:layout_width="227dp"
-                    android:layout_height="match_parent"
-                    android:spinnerMode="dialog" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/idTextBuscaDistancia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.23"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:text="Distância"
-                    android:textSize="18sp" />
-
-                <SeekBar
-                    android:id="@+id/seekBarBuscaDistancia"
-                    style="@style/Widget.AppCompat.SeekBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.85"
-                    android:max="5"
-                    android:progress="3" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:id="@+id/espacador"
-                android:gravity="top"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:gravity="top"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/PesquisarDentistas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:layout_weight="1"
-                    android:background="@color/corBotao"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center_vertical"
-                    android:padding="12dp"
-                    android:text="@string/buscar"
-                    android:textAlignment="center"
-                    android:textColor="@color/backgroundWhite" />
-
-            </LinearLayout>
+                android:textColor="@color/backgroundWhite" />
 
         </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>

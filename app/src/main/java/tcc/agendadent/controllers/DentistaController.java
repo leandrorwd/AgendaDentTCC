@@ -1,7 +1,6 @@
 package tcc.agendadent.controllers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,10 +13,8 @@ import java.util.ArrayList;
 
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
-import tcc.agendadent.gui.dentista.AgendaDiaria;
-import tcc.agendadent.gui.dentista.ConfigAgenda;
 import tcc.agendadent.gui.dentista.Main_Dentista;
-import tcc.agendadent.gui.layout_auxiliares.Template_card_horario;
+import tcc.agendadent.gui.layout_auxiliares.TemplateCardHorario;
 import tcc.agendadent.objetos.Agenda;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.Horario;
@@ -163,12 +160,12 @@ public class DentistaController {
             LinearLayout main =(LinearLayout)activity.findViewById(R.id.layoutPrincipalConfigAgenda);
             main.removeAllViews();
             for(Horario h : DentistaController.getInstance().getAgenda().getHorarios()){
-                Template_card_horario t1 = new Template_card_horario(activity,activity,h);
+                TemplateCardHorario t1 = new TemplateCardHorario(activity,activity,h);
                 main.addView(t1);
             }
             if(DentistaController.getInstance().getHorariosTemporarios()!=null)
             for(Horario h : DentistaController.getInstance().getHorariosTemporarios()){
-                Template_card_horario t1 = new Template_card_horario(activity,activity,h);
+                TemplateCardHorario t1 = new TemplateCardHorario(activity,activity,h);
                 main.addView(t1);
             }
             DialogAux.dialogCarregandoSimplesDismiss();
@@ -308,4 +305,7 @@ public class DentistaController {
         new DownloadImageTask(fotoTela,activity)
                 .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, download.toString());
     }
+
+
+
 }

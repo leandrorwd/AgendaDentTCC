@@ -3,20 +3,15 @@ package tcc.agendadent.gui.layout_auxiliares;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tcc.agendadent.R;
-import tcc.agendadent.gui.dentista.AgendaDiaria;
 import tcc.agendadent.objetos.Horario;
-import tcc.agendadent.servicos.OnSwipeTouchListener;
 
-public class Template_card_horario extends LinearLayout {
+public class TemplateCardHorario extends LinearLayout {
     private Activity tela;
     private FloatingActionButton edit;
     private TextView textDias;
@@ -24,11 +19,11 @@ public class Template_card_horario extends LinearLayout {
     private Horario horario;
     private CardView card;
 
-    public Template_card_horario(Context context, Activity activity,Horario horario) {
+    public TemplateCardHorario(Context context, Activity activity, Horario horario) {
         super(context);
         tela = activity;
         this.horario = horario;
-        View.inflate(context, R.layout.activity_template_card_horario, this);
+        View.inflate(context, R.layout.template_card_horario, this);
         instanciaArtefatos();
     }
 
