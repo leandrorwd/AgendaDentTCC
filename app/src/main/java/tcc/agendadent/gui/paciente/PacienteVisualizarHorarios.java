@@ -1,6 +1,11 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
@@ -15,24 +20,19 @@ import tcc.agendadent.R;
  * Created by Leandro on 09/04/2017.
  */
 
-public class PacienteVisualizarHorarios extends LinearLayout {
+public class PacienteVisualizarHorarios extends AppCompatActivity implements ActionMenuView.OnMenuItemClickListener {
 
-    private Activity activity;
-    private LinearLayout agendaDia;
-    private static ViewFlipper flipper;
-    private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
-    private static DateTime indiceSlider = DateTime.now();
-    private static TextView header;
-    private int id;
-
-    public PacienteVisualizarHorarios(Activity activity, int id_janela) {
-        super(activity);
-        this.activity = activity;
-        View.inflate(activity, R.layout.paciente_visualizar_horarios, this);
-        listahorarios();
-        this.id = id_janela;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.paciente_visualizar_horarios);
         instanciaArtefatos();
         setEventos();
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarHorarios));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void listahorarios() {
@@ -44,5 +44,11 @@ public class PacienteVisualizarHorarios extends LinearLayout {
 
     private void instanciaArtefatos() {
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        finish();
+        return true;
     }
 }

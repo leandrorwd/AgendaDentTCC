@@ -1,26 +1,161 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/idAgendaDiariaLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/idTextListaEspera"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center_vertical"
-        android:text="Visualizar Horários"
-        android:textAlignment="center"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp" />
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="10dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendario"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarVisualizarHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:fontFamily="sans-serif-light"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:firstDayOfWeek="1"
-        android:maxDate="01/01/2018"
-        android:minDate="01/01/2016" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/idTextVisualizarHorarios"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Visualizar Horários"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText1"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text1"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText2"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text2"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText3"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text3"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText4"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text4"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText5"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text5"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText6"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text6"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText7"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text7"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText8"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text8"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText9"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text9"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/idText10"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="Text10"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+    >
+
 
 </LinearLayout>
