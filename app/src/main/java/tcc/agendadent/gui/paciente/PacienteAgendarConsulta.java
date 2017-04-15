@@ -15,12 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import tcc.agendadent.R;
+import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by Leandro on 25/03/2017.
  */
 
-public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaciente{
+public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaciente {
     private Activity activity;
     private Button botaopesquisar;
     private int id;
@@ -39,8 +40,6 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
     private EditText complementoDentista;
     private Button pesquisar;
 
-
-
     public PacienteAgendarConsulta(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
@@ -51,39 +50,34 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
     }
 
     private void instanciaArtefatos() {
-        nomeDentistaBusca=  (EditText) findViewById(R.id.nomeDentistaBusca);
-        cidadeDentista=  (EditText) findViewById(R.id.cidadeDentista);
-        bairroDentista=  (EditText) findViewById(R.id.bairroDentista);
-        ruaDentista=  (EditText) findViewById(R.id.ruaDentista);
-        numeroDentista=  (EditText) findViewById(R.id.numeroDentista);
-        complementoDentista=  (EditText) findViewById(R.id.complementoDentista);
-        outroEndereco=  (LinearLayout) findViewById(R.id.layoutOutroEndereco);
-        proximoMim=  (LinearLayout) findViewById(R.id.layoutProximoMim);
-        radioGroup=  (RadioGroup) findViewById(R.id.radioGroup);
-        tipoConsulta=  (Spinner) findViewById(R.id.tipoConsulta);
-        planosDeSaude=  (Spinner) findViewById(R.id.idPlanosDeSaude);
-        especializacao=  (Spinner) findViewById(R.id.idSpinnerEspecialazacao);
-        spinnerEstado=  (Spinner) findViewById(R.id.idSpinnerEstado);
-        pesquisar=  (AppCompatButton) findViewById(R.id.botaoPesquisar);
+        nomeDentistaBusca = (EditText) findViewById(R.id.nomeDentistaBusca);
+        cidadeDentista = (EditText) findViewById(R.id.cidadeDentista);
+        bairroDentista = (EditText) findViewById(R.id.bairroDentista);
+        ruaDentista = (EditText) findViewById(R.id.ruaDentista);
+        numeroDentista = (EditText) findViewById(R.id.numeroDentista);
+        complementoDentista = (EditText) findViewById(R.id.complementoDentista);
+        outroEndereco = (LinearLayout) findViewById(R.id.layoutOutroEndereco);
+        proximoMim = (LinearLayout) findViewById(R.id.layoutProximoMim);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        tipoConsulta = (Spinner) findViewById(R.id.tipoConsulta);
+        planosDeSaude = (Spinner) findViewById(R.id.idPlanosDeSaude);
+        especializacao = (Spinner) findViewById(R.id.idSpinnerEspecialazacao);
+        spinnerEstado = (Spinner) findViewById(R.id.idSpinnerEstado);
+        pesquisar = (AppCompatButton) findViewById(R.id.botaoPesquisar);
         planosDeSaude.setVisibility(View.GONE);
         outroEndereco.setVisibility(View.GONE);
         proximoMim.setVisibility(View.GONE);
-
     }
 
     private void setEventos() {
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                boolean isChecked = ((RadioButton)group.findViewById(checkedId)).isChecked();
-                if (isChecked && checkedId == R.id.idRadioProx)
-                {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                boolean isChecked = ((RadioButton) group.findViewById(checkedId)).isChecked();
+                if (isChecked && checkedId == R.id.idRadioProx) {
                     outroEndereco.setVisibility(View.GONE);
                     proximoMim.setVisibility(View.VISIBLE);
                 }
-                if (isChecked && checkedId == R.id.idRadioOutro)
-                {
+                if (isChecked && checkedId == R.id.idRadioOutro) {
                     outroEndereco.setVisibility(View.VISIBLE);
                     proximoMim.setVisibility(View.GONE);
                 }
@@ -92,28 +86,24 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
         pesquisar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                activity.startActivity(new Intent(activity, PacienteListarDentistas.class));
             }
         });
         tipoConsulta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if(tipoConsulta.getSelectedItem().toString().equals("Convênio")){
+                if (tipoConsulta.getSelectedItem().toString().equals("Convênio")) {
                     planosDeSaude.setVisibility(View.VISIBLE);
-                }
-                else
+                } else
                     planosDeSaude.setVisibility(View.GONE);
-
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
 
-
-
     @Override
     public void onResume() {
-
     }
 
     @Override
@@ -128,6 +118,5 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
 
     @Override
     public void flipper(boolean next) {
-
     }
 }

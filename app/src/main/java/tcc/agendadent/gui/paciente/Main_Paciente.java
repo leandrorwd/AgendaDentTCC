@@ -45,7 +45,8 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
 
     private void carregaBuscaDentista() {
         LinearLayout main = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
-        PacienteAgendarConsulta layout = new PacienteAgendarConsulta(Main_Paciente.this, -1);
+//        PacienteAgendarConsulta layout = new PacienteAgendarConsulta(Main_Paciente.this, -1);
+        PacienteConsultasAgendadas layout = new PacienteConsultasAgendadas(Main_Paciente.this, -1);
         main.addView(layout);
         pilhaTelas.add(layout);
     }
@@ -116,6 +117,10 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
             navegaJanelaPaciente(R.id.agendar_consulta_paciente);
         }
 
+        if (id == R.id.consultas_agendadas_paciente) {
+            navegaJanelaPaciente(R.id.consultas_agendadas_paciente);
+        }
+
         if (id == R.id.lista_espera_paciente) {
             navegaJanelaPaciente(R.id.lista_espera_paciente);
         }
@@ -144,6 +149,10 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
 
                 if (id_janela == R.id.agendar_consulta_paciente) {
                     view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
+                }
+
+                if (id_janela == R.id.consultas_agendadas_paciente) {
+                    view = new PacienteConsultasAgendadas(Main_Paciente.this, id_janela);
                 }
 
                 if (id_janela == R.id.lista_espera_paciente) {

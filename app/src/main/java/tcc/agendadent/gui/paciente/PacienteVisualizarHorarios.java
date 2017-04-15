@@ -27,15 +27,14 @@ public class PacienteVisualizarHorarios extends AppCompatActivity implements Act
         setContentView(R.layout.paciente_visualizar_horarios);
         instanciaArtefatos();
         setEventos();
-
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarHorarios));
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 
     private void listahorarios() {
+    }
+
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void setEventos() {
@@ -43,7 +42,12 @@ public class PacienteVisualizarHorarios extends AppCompatActivity implements Act
     }
 
     private void instanciaArtefatos() {
-
+        //back navigation
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarHorarios));
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override

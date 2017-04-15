@@ -283,7 +283,6 @@ public class AgendaController {
         consultasSemestre = consultas;
     }
 
-
     public  void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios= new ArrayList<>();
@@ -303,7 +302,6 @@ public class AgendaController {
 
         populaAgendaDiaria(tela,horarios,consultasHoje,R.id.layoutConsultas);
         //populaAgendaLateral(tela,AgendaController.getInstance().getConsultasSemestre());
-
     }
 
     public  void carregaAgendaData(final Activity tela, final ArrayList<Consulta> consultas, final DateTime dataParam,final int layout) {
@@ -365,5 +363,3 @@ public class AgendaController {
         this.momento = new DateTime(ano,mes,dia,hora,minuto);
     }
 }
-
-

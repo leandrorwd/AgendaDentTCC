@@ -61,7 +61,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         textoAux.setText("?????");
     }
 
-    private void preencheHorario(Consulta c){
+    private void preencheHorario(Consulta c) {
         TextView textoAux = (TextView) findViewById(R.id.textoHora);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
 
@@ -76,8 +76,6 @@ public class TemplateConsultaAgenda extends RelativeLayout {
 
         textoAux = (TextView) findViewById(R.id.textTipoConsulta);
         textoAux.setText(c.getTipoConsulta());
-
-
     }
     private void setEventos() {
         final CardView card = (CardView) findViewById(R.id.card_view);

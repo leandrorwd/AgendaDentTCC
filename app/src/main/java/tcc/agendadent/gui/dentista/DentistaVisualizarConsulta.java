@@ -32,16 +32,11 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         consulta = (Consulta)i.getSerializableExtra("consulta");
         userTipo =(String)i.getSerializableExtra("user");
         carregaConsulta();
+    }
 
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarVisualizarConsulta);
-//        setSupportActionBar(toolbar);
-//
-//        if (getSupportActionBar() != null){
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        }
-
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void carregaConsulta() {
@@ -108,7 +103,6 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
     }
@@ -122,5 +116,12 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         dataConsulta = (TextView) findViewById(R.id.dataConsulta);
         horaConsulta = (TextView) findViewById(R.id.horaConsulta);
         botao = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
+
+        //back navigation
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarConsulta));
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 }

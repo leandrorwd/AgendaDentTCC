@@ -13,6 +13,11 @@
             android:title="Agendar Consulta" />
 
         <item
+            android:id="@+id/consultas_agendadas_paciente"
+            android:icon="@drawable/ic_photo"
+            android:title="Consultas Agendadas" />
+
+        <item
             android:id="@+id/lista_espera_paciente"
             android:icon="@drawable/ic_photo"
             android:title="Lista de Espera" />

@@ -71,20 +71,30 @@
         <item>Dentista</item>
     </string-array>
     <string-array name="picker_tipo_consulta">
-        <item>Particular</item>
         <item>Convênio</item>
+        <item>Particular</item>
         <item>SUS</item>
     </string-array>
     <string-array name="picker_planos_saude">
         <item>Selecione um plano de saúde:</item>
-        <item>UniDent</item>
-        <item>Dois</item>
-        <item>batatinha</item>
+        <item>Amil Dental</item>
+        <item>Bello Dente</item>
+        <item>Bradesco Dental</item>
+        <item>Doctor Clin</item>
+        <item>Interodonto</item>
+        <item>Metlife</item>
+        <item>Odonto Empresas</item>
+        <item>SulAmerica Odonto</item>
+        <item>Uniodonto</item>
     </string-array>
     <string-array name="picker_especializacao">
         <item>Clinico Geral</item>
-        <item>Espec1</item>
-        <item>Espect2</item>
+        <item>Endodontia</item>
+        <item>Implantodontia</item>
+        <item>Ortodontia</item>
+        <item>Odontopediatria</item>
+        <item>Odontologia Estética</item>
+        <item>Protese</item>
     </string-array>
     <string name="nomeVazio">O campo \"Nome\" não está preenchido.</string>
     <string name="emailVazio">O campo \"Email\" não está preenchido.</string>

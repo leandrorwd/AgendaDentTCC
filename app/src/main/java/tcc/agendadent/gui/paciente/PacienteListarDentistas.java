@@ -24,14 +24,11 @@ public class PacienteListarDentistas extends AppCompatActivity implements Action
         setContentView(R.layout.paciente_lista_dentistas);
         instanciaArtefatos();
         setEventos();
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarListaDentistas);
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void setEventos() {
@@ -45,6 +42,14 @@ public class PacienteListarDentistas extends AppCompatActivity implements Action
 
     private void instanciaArtefatos() {
         botaoselecionardentistas = (Button) findViewById(R.id.SelecionarDentista);
+
+        //back navigation
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarListaDentistas));
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override
