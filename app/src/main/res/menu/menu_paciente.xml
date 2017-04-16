@@ -15,7 +15,7 @@
         <item
             android:id="@+id/consultas_agendadas_paciente"
             android:icon="@drawable/ic_photo"
-            android:title="Consultas Agendadas" />
+            android:title="Próximas Consultas" />
 
         <item
             android:id="@+id/lista_espera_paciente"
