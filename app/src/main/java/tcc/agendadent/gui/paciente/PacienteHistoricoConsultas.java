@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by Leandro on 25/03/2017.
@@ -20,6 +22,12 @@ public class PacienteHistoricoConsultas extends LinearLayout implements ClassesP
         this.activity = activity;
         View.inflate(activity, R.layout.paciente_historico_consultas, this);
         this.id = id_janela;
+        setEventos();
+    }
+
+    private void setEventos() {
+        DialogAux.dialogCarregandoSimples(activity);
+        AgendaController.getInstance().getHistoricoConsultas(activity, R.id.layoutHistoricoConsultas);
     }
 
     @Override

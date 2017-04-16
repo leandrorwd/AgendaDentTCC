@@ -1,17 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/idTextHistoricoConsultas"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:text="Histórico Consultas"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp"
-        android:fontFamily="sans-serif-light"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/idTextConsultasAgendadas"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:text="HISTÓRICO DE CONSULTAS"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/layoutHistoricoConsultas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

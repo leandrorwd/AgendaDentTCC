@@ -23,9 +23,11 @@ import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.layout_auxiliares.TemplateConsultaAgenda;
+import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Horario;
+import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
@@ -36,57 +38,57 @@ public class AgendaController {
     private static AgendaController INSTANCE;
     private AgendaBC agendaBC;
 
-    private AgendaController(){
+    private AgendaController() {
         agendaBC = new AgendaBC();
     }
 
-    public static AgendaController getInstance(){
-        if(INSTANCE == null){
+    public static AgendaController getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new AgendaController();
         }
         return INSTANCE;
     }
 
 
-    public void insertSubAgenda(AgendaSub ag){
-        agendaBC.insertAgendaSub(ag,DentistaController.getInstance().getDentistaLogado());
+    public void insertSubAgenda(AgendaSub ag) {
+        agendaBC.insertAgendaSub(ag, DentistaController.getInstance().getDentistaLogado());
     }
 
-    public void insertConsulta(Consulta consulta,String idDentista,String semestreAno){
-        agendaBC.insertConsulta(consulta,idDentista,semestreAno);
+    public void insertConsulta(Consulta consulta, String idDentista, String semestreAno) {
+        agendaBC.insertConsulta(consulta, idDentista, semestreAno);
     }
 
-    public void getConsultasSemestre(long idDentista, String anoSemestre, Activity tela,boolean banco) {
-        if(!banco){
-            agendaBC.getConsultaSemestre(idDentista,anoSemestre,tela);
+    public void getConsultasSemestre(long idDentista, String anoSemestre, Activity tela, boolean banco) {
+        if (!banco) {
+            agendaBC.getConsultaSemestre(idDentista, anoSemestre, tela);
         }
     }
 
-    public void getConsultasCompleto(long idDentista, String anoSemestre, Activity tela,boolean banco) {
-        if(!banco){
-            agendaBC.getConsultaSemestreCompleto(idDentista,anoSemestre,tela);
+    public void getConsultasCompleto(long idDentista, String anoSemestre, Activity tela, boolean banco) {
+        if (!banco) {
+            agendaBC.getConsultaSemestreCompleto(idDentista, anoSemestre, tela);
         }
     }
 
-    public  void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
+    public void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
-        ArrayList<Horario> horarios= new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get()-1;
-        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-            if(h.getDiasSemana().get(indexHoje)){
+        ArrayList<Horario> horarios = new ArrayList<>();
+        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+            if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
         }
         ArrayList<Consulta> consultasHoje = new ArrayList<>();
-        for(Consulta c : consultas){
-            if((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
-                    && c.getDataFormat().getYear() == DateTime.now().getYear())){
+        for (Consulta c : consultas) {
+            if ((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
+                    && c.getDataFormat().getYear() == DateTime.now().getYear())) {
                 consultasHoje.add(c);
             }
         }
 
-        populaAgendaDiaria(tela,horarios,consultasHoje,R.id.consultasDiarias);
-        populaAgendaLateral(tela,AgendaController.getInstance().getConsultasSemestre());
+        populaAgendaDiaria(tela, horarios, consultasHoje, R.id.consultasDiarias);
+        populaAgendaLateral(tela, AgendaController.getInstance().getConsultasSemestre());
 
     }
 
@@ -94,55 +96,53 @@ public class AgendaController {
         DateTime data;
         data = DateTime.now().minusDays(1);
         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
-        ArrayList<Horario> horarios= new ArrayList<>();
-        int indexHoje = data.dayOfWeek().get()-1;
-        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-            if(h.getDiasSemana().get(indexHoje)){
+        ArrayList<Horario> horarios = new ArrayList<>();
+        int indexHoje = data.dayOfWeek().get() - 1;
+        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+            if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
         }
         ArrayList<Consulta> consultasAmanha = new ArrayList<>();
-        for(Consulta c : consultas){
-            if((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
-                    && c.getDataFormat().getYear() == data.getYear())){
+        for (Consulta c : consultas) {
+            if ((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
+                    && c.getDataFormat().getYear() == data.getYear())) {
                 consultasAmanha.add(c);
             }
         }
-        populaAgendaDiaria(tela,horarios,consultasAmanha,R.id.consultasDiarias2);
+        populaAgendaDiaria(tela, horarios, consultasAmanha, R.id.consultasDiarias2);
 
         DateTime data1;
         data1 = DateTime.now().plusDays(1);
         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
-        ArrayList<Horario> horarios2= new ArrayList<>();
-        indexHoje = data1.dayOfWeek().get()-1;
-        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-            if(h.getDiasSemana().get(indexHoje)){
+        ArrayList<Horario> horarios2 = new ArrayList<>();
+        indexHoje = data1.dayOfWeek().get() - 1;
+        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+            if (h.getDiasSemana().get(indexHoje)) {
                 horarios2.add(h);
             }
         }
         ArrayList<Consulta> consultasOntem = new ArrayList<>();
-        for(Consulta c : consultas){
-            if((c.getDataFormat().dayOfYear().equals(data1.dayOfYear())
-                    && c.getDataFormat().getYear() == data1.getYear())){
+        for (Consulta c : consultas) {
+            if ((c.getDataFormat().dayOfYear().equals(data1.dayOfYear())
+                    && c.getDataFormat().getYear() == data1.getYear())) {
                 consultasOntem.add(c);
             }
         }
-        populaAgendaDiaria(tela,horarios2,consultasOntem,R.id.consultasDiarias3);
+        populaAgendaDiaria(tela, horarios2, consultasOntem, R.id.consultasDiarias3);
     }
 
-    public  void slideDiaria(final Activity tela, final ArrayList<Consulta> consultas, final DateTime newHoje) {
-        int anterior=0;
+    public void slideDiaria(final Activity tela, final ArrayList<Consulta> consultas, final DateTime newHoje) {
+        int anterior = 0;
         int posterior = 0;
         DentistaAgendaDiaria.setTextoData(newHoje);
-        if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias){
+        if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias) {
             anterior = R.id.consultasDiarias2;
             posterior = R.id.consultasDiarias3;
-        }
-        else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2){
+        } else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias2) {
             anterior = R.id.consultasDiarias3;
             posterior = R.id.consultasDiarias;
-        }
-        else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3){
+        } else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias3) {
             anterior = R.id.consultasDiarias;
             posterior = R.id.consultasDiarias2;
         }
@@ -158,40 +158,40 @@ public class AgendaController {
                         DateTime data;
                         data = newHoje.minusDays(1);
                         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
-                        ArrayList<Horario> horarios= new ArrayList<>();
-                        int indexHoje = data.dayOfWeek().get()-1;
-                        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-                            if(h.getDiasSemana().get(indexHoje)){
+                        ArrayList<Horario> horarios = new ArrayList<>();
+                        int indexHoje = data.dayOfWeek().get() - 1;
+                        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+                            if (h.getDiasSemana().get(indexHoje)) {
                                 horarios.add(h);
                             }
                         }
                         ArrayList<Consulta> consultasOntem = new ArrayList<>();
-                        for(Consulta c : consultas){
-                            if((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
-                                    && c.getDataFormat().getYear() == data.getYear())){
+                        for (Consulta c : consultas) {
+                            if ((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
+                                    && c.getDataFormat().getYear() == data.getYear())) {
                                 consultasOntem.add(c);
                             }
                         }
-                        populaAgendaDiaria(tela,horarios,consultasOntem, finalAnterior);
+                        populaAgendaDiaria(tela, horarios, consultasOntem, finalAnterior);
 
                         DateTime data1;
                         data1 = newHoje.plusDays(1);
                         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
-                        ArrayList<Horario> horarios2= new ArrayList<>();
-                        indexHoje = data1.dayOfWeek().get()-1;
-                        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-                            if(h.getDiasSemana().get(indexHoje)){
+                        ArrayList<Horario> horarios2 = new ArrayList<>();
+                        indexHoje = data1.dayOfWeek().get() - 1;
+                        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+                            if (h.getDiasSemana().get(indexHoje)) {
                                 horarios2.add(h);
                             }
                         }
                         ArrayList<Consulta> consultasAmanha = new ArrayList<>();
-                        for(Consulta c : consultas){
-                            if((c.getDataFormat().dayOfYear().equals(data1.dayOfYear())
-                                    && c.getDataFormat().getYear() == data1.getYear())){
+                        for (Consulta c : consultas) {
+                            if ((c.getDataFormat().dayOfYear().equals(data1.dayOfYear())
+                                    && c.getDataFormat().getYear() == data1.getYear())) {
                                 consultasAmanha.add(c);
                             }
                         }
-                        populaAgendaDiaria(tela,horarios2,consultasAmanha, finalPosterior);
+                        populaAgendaDiaria(tela, horarios2, consultasAmanha, finalPosterior);
                     }
                 });
             }
@@ -199,53 +199,54 @@ public class AgendaController {
 
 
     }
-    private void populaAgendaDiaria(Activity tela,ArrayList<Horario> horarios,ArrayList<Consulta> consultasMarcadas,int id) {
+
+    private void populaAgendaDiaria(Activity tela, ArrayList<Horario> horarios, ArrayList<Consulta> consultasMarcadas, int id) {
         LinearLayout horarioDiario = (LinearLayout) tela.findViewById(id);
-        if(horarioDiario==null) return;
+        if (horarioDiario == null) return;
         horarioDiario.removeAllViews();
-        for(Horario horario : horarios){
-            String horaInicial =horario.getHoraInicial();
+        for (Horario horario : horarios) {
+            String horaInicial = horario.getHoraInicial();
             ArrayList<String> horariosAgenda = new ArrayList<>();
             int horaMinuto = 1;
-            String[] hFinal =  horario.getHoraFinal().split(":");
-            String[] parts =   horario.getDuracao().split(":");
-            int horaFinal = 60*(Integer.parseInt(hFinal[0]) + Integer.parseInt(hFinal[1]));
+            String[] hFinal = horario.getHoraFinal().split(":");
+            String[] parts = horario.getDuracao().split(":");
+            int horaFinal = 60 * (Integer.parseInt(hFinal[0]) + Integer.parseInt(hFinal[1]));
             horariosAgenda.add(horaInicial);
 
-            while(horaMinuto<horaFinal-Integer.parseInt(parts[1])){
-                String[] parts2 =   horaInicial.split(":");
+            while (horaMinuto < horaFinal - Integer.parseInt(parts[1])) {
+                String[] parts2 = horaInicial.split(":");
                 int novaHora = (Integer.parseInt(parts[0]) + Integer.parseInt(parts2[0]));
                 int novoMinuto = Integer.parseInt(parts[1]) + Integer.parseInt(parts2[1]);
 
-                if(novoMinuto>=60){
-                    novoMinuto = novoMinuto -60;
-                    novaHora = novaHora+1;
+                if (novoMinuto >= 60) {
+                    novoMinuto = novoMinuto - 60;
+                    novaHora = novaHora + 1;
                 }
-                horaMinuto = novaHora*60+novoMinuto;
-                String snovaHora = novaHora+"";
-                String snovoMinuto = novoMinuto+"";
-                if(novaHora<10){
-                    snovaHora = "0" +novaHora ;
+                horaMinuto = novaHora * 60 + novoMinuto;
+                String snovaHora = novaHora + "";
+                String snovoMinuto = novoMinuto + "";
+                if (novaHora < 10) {
+                    snovaHora = "0" + novaHora;
                 }
-                if(novoMinuto<10){
-                    snovoMinuto = "0" +novoMinuto;
+                if (novoMinuto < 10) {
+                    snovoMinuto = "0" + novoMinuto;
                 }
-                horaInicial = snovaHora +":"+snovoMinuto;
+                horaInicial = snovaHora + ":" + snovoMinuto;
                 horariosAgenda.add(horaInicial);
             }
             DateTimeFormatter dateTimeFormatHora = DateTimeFormat.forPattern("HH:mm");
-            for(String s : horariosAgenda){
+            for (String s : horariosAgenda) {
                 boolean entrou = false;
-                Consulta aux=null;
-                for(Consulta c1 : consultasMarcadas){
+                Consulta aux = null;
+                for (Consulta c1 : consultasMarcadas) {
 
                     DateTime data = new DateTime(c1.getDataConsulta());
                     DateTime dataAux = data.withZone(DateTimeZone.UTC);
                     LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
                     String auxAux = dateTimeFormatHora.print(dataAux);
-                    if(horariosAgenda.contains(auxAux)){
-                        if(dateTimeFormatHora.print(dataSemFuso).equals(s)){
-                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,c1,"dentista");
+                    if (horariosAgenda.contains(auxAux)) {
+                        if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
+                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
                             horarioDiario.addView(t1);
                             entrou = true;
                             aux = c1;
@@ -253,11 +254,10 @@ public class AgendaController {
                         }
                     }
                 }
-                if(!entrou){
-                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela,s,"dentista");
+                if (!entrou) {
+                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista");
                     horarioDiario.addView(t1);
-                }
-                else{
+                } else {
                     consultasMarcadas.remove(aux);
                 }
             }
@@ -283,47 +283,47 @@ public class AgendaController {
         consultasSemestre = consultas;
     }
 
-    public  void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
+    public void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
-        ArrayList<Horario> horarios= new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get()-1;
-        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-            if(h.getDiasSemana().get(indexHoje)){
+        ArrayList<Horario> horarios = new ArrayList<>();
+        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+            if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
         }
         ArrayList<Consulta> consultasHoje = new ArrayList<>();
-        for(Consulta c : consultas){
-            if((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
-                    && c.getDataFormat().getYear() == DateTime.now().getYear())){
+        for (Consulta c : consultas) {
+            if ((c.getDataFormat().dayOfYear().equals(DateTime.now().dayOfYear())
+                    && c.getDataFormat().getYear() == DateTime.now().getYear())) {
                 consultasHoje.add(c);
             }
         }
 
-        populaAgendaDiaria(tela,horarios,consultasHoje,R.id.layoutConsultas);
+        populaAgendaDiaria(tela, horarios, consultasHoje, R.id.layoutConsultas);
         //populaAgendaLateral(tela,AgendaController.getInstance().getConsultasSemestre());
     }
 
-    public  void carregaAgendaData(final Activity tela, final ArrayList<Consulta> consultas, final DateTime dataParam,final int layout) {
+    public void carregaAgendaData(final Activity tela, final ArrayList<Consulta> consultas, final DateTime dataParam, final int layout) {
         View myView = tela.findViewById(layout);
-        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(myView, "alpha",  1f, 0);
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(myView, "alpha", 1f, 0);
         fadeOut.setDuration(500);
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(myView, "alpha", 0, 1f);
         fadeIn.setDuration(1000);
         DateTime data;
         data = dataParam;
         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
-        final ArrayList<Horario> horarios= new ArrayList<>();
-        int indexHoje = data.dayOfWeek().get()-1;
-        for(Horario h :DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios() ){
-            if(h.getDiasSemana().get(indexHoje)){
+        final ArrayList<Horario> horarios = new ArrayList<>();
+        int indexHoje = data.dayOfWeek().get() - 1;
+        for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
+            if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
         }
         final ArrayList<Consulta> consultasData = new ArrayList<>();
-        for(Consulta c : consultas){
-            if((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
-                    && c.getDataFormat().getYear() == data.getYear())){
+        for (Consulta c : consultas) {
+            if ((c.getDataFormat().dayOfYear().equals(data.dayOfYear())
+                    && c.getDataFormat().getYear() == data.getYear())) {
                 consultasData.add(c);
             }
         }
@@ -346,20 +346,81 @@ public class AgendaController {
             public void run() {
                 tela.runOnUiThread(new Runnable() {
                     public void run() {
-                        populaAgendaDiaria(tela,horarios,consultasData, layout);
+                        populaAgendaDiaria(tela, horarios, consultasData, layout);
                     }
                 });
             }
         }, 400, Integer.MAX_VALUE);
 
     }
+
     private DateTime momento;
 
     public DateTime getMomento() {
         return momento;
     }
 
-    public void  setMomento(int ano,int mes,int dia,int hora,int minuto) {
-        this.momento = new DateTime(ano,mes,dia,hora,minuto);
+    public void setMomento(int ano, int mes, int dia, int hora, int minuto) {
+        this.momento = new DateTime(ano, mes, dia, hora, minuto);
+    }
+
+    public void getConsultasAgendadasBC(Activity tela, int id) {
+        agendaBC.getConsultasPaciente(tela, id);
+    }
+
+    public void getHistoricoConsultas (Activity tela, int id) {
+        agendaBC.getHistoricoConsultas(tela, id);
+    }
+
+    LinearLayout horarioDiario;
+    ArrayList<Consulta> consultasBC;
+    Activity tela;
+
+    public void buscaAgendaBCAgendadas(Activity tela, ArrayList<Consulta> consultasBC, int id) {
+        horarioDiario = (LinearLayout) tela.findViewById(id);
+        this.consultasBC = consultasBC;
+        this.tela = tela;
+        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now());
+        DentistaController.getInstance().getDentistasBC();
+    }
+
+    public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas) {
+        for (Consulta consulta : consultasBC) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
+                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                horarioDiario.addView(popular);
+            }
+        }
+        DialogAux.dialogCarregandoSimplesDismiss();
+    }
+
+
+    public void buscaAgendaBCHistorico(Activity tela, ArrayList<Consulta> consultasBC, int id) {
+        horarioDiario = (LinearLayout) tela.findViewById(id);
+        this.consultasBC = consultasBC;
+        this.tela = tela;
+        DentistaController.getInstance().getDentistasBCHistorico();
+    }
+
+    public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
+        for (Consulta consulta : consultasBC) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
+                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                horarioDiario.addView(popular);
+            }
+        }
+        DialogAux.dialogCarregandoSimplesDismiss();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

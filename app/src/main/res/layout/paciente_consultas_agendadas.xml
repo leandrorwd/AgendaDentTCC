@@ -13,108 +13,26 @@
             android:layout_height="70dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_vertical"
-            android:text="Consultas Agendadas"
+            android:text="PRÓXIMAS CONSULTAS"
             android:textAlignment="center"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:id="@+id/layoutConsultasAgendadas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="?android:selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                card_view:cardBackgroundColor="@color/background_material_light"
-                card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                card_view:cardElevation="@dimen/cardElevation"
-                card_view:cardUseCompatPadding="true"
-                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="4dp">
-
-                    <TextView
-                        android:id="@+id/textoHora"
-                        android:layout_width="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:paddingLeft="6dp"
-                        android:paddingTop="25dp"
-                        android:text="00:00"
-                        android:textSize="22sp"
-                        app:layout_heightPercent="100%" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/textoHora"
-                        android:orientation="vertical"
-                        android:paddingLeft="20dp">
-
-                        <TextView
-                            android:id="@+id/textNomePaciente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:paddingLeft="6dp"
-                            android:paddingTop="10dp"
-                            android:text="Paciente:"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/textTipoConsulta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:paddingLeft="6dp"
-                            android:paddingTop="8dp"
-                            android:text="Tipo de Consulta:"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                </android.support.percent.PercentRelativeLayout>
-            </android.support.v7.widget.CardView>
-
+            android:orientation="vertical"
+            android:layout_marginTop="60dp">
 
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:gravity="bottom">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/botaoNovoAgendamentoConsulta"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            app:layout_anchorGravity="bottom|right|end"
-            app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
-    </LinearLayout>
 
 </RelativeLayout>

@@ -116,6 +116,10 @@ public class Endereco implements Serializable {
         this.cep = cep;
     }
 
+    public String getRuaNumero() {
+        return rua + ", " + numero;
+    }
+
     @Override
     public String toString() {
         return

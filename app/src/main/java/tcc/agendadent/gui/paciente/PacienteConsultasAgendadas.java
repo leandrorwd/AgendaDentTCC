@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.servicos.DialogAux;
 
 import static android.R.attr.button;
 
@@ -36,21 +38,11 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
     }
 
     private void instanciaArtefatos() {
-        botaoAdicionar = (FloatingActionButton) findViewById(R.id.botaoNovoAgendamentoConsulta);
     }
 
     private void setEventos() {
-        botaoAdicionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                 botaoAdicionar();
-            }
-        });
-    }
-
-    private void botaoAdicionar() {
-
-
+        DialogAux.dialogCarregandoSimples(activity);
+        AgendaController.getInstance().getConsultasAgendadasBC(activity, R.id.layoutConsultasAgendadas);
     }
 
     @Override

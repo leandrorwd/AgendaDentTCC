@@ -46,6 +46,22 @@ public class DentistaController {
         horariosTemporarios = new ArrayList<>();
     }
 
+    public void getDentistasBC() {
+        dentistaBC.getTodosDentistas();
+    }
+
+    public void atualizaDentistas(ArrayList<UsuarioDentista> dentistas) {
+        AgendaController.getInstance().buscaAgendaBCAgendadas(dentistas);
+    }
+
+    public void getDentistasBCHistorico() {
+        dentistaBC.getTodosDentistasHistorico();
+    }
+
+    public void atualizaDentistasHistorico(ArrayList<UsuarioDentista> dentistas) {
+        AgendaController.getInstance().buscaAgendaBCHistorico(dentistas);
+    }
+
     public static DentistaController getInstance(){
         if(INSTANCE == null){
             INSTANCE = new DentistaController();
