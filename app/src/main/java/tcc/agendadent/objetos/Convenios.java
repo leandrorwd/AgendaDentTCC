@@ -15,11 +15,14 @@ public class Convenios {
     private boolean odontoEmpresa;
     private boolean sulAmerica;
     private boolean uniOdonto;
+    private boolean sus;
 
     public Convenios() {
     }
 
-    public Convenios(boolean amilDental, boolean belloDente, boolean bradesco, boolean doctorClin, boolean interodonto, boolean metlife, boolean odontoEmpresa, boolean sulAmerica, boolean uniOdonto) {
+    public Convenios(boolean amilDental, boolean belloDente, boolean bradesco, boolean doctorClin,
+                     boolean interodonto, boolean metlife, boolean odontoEmpresa,
+                     boolean sulAmerica, boolean uniOdonto,boolean sus) {
         this.amilDental = amilDental;
         this.belloDente = belloDente;
         this.bradesco = bradesco;
@@ -29,6 +32,7 @@ public class Convenios {
         this.odontoEmpresa = odontoEmpresa;
         this.sulAmerica = sulAmerica;
         this.uniOdonto = uniOdonto;
+        this.sus = sus;
     }
 
     public Convenios(DataSnapshot dataSnapshot) {
@@ -41,8 +45,17 @@ public class Convenios {
         this.odontoEmpresa = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("odontoEmpresa").getValue()));
         this.sulAmerica = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("sulAmerica").getValue()));
         this.uniOdonto = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("uniOdonto").getValue()));
+        this.sus = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("sus").getValue()));
+
     }
 
+    public boolean isSus() {
+        return sus;
+    }
+
+    public void setSus(boolean sus) {
+        this.sus = sus;
+    }
 
     public boolean isAmilDental() {
         return amilDental;

@@ -113,18 +113,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
+                    <CheckBox
+                        android:id="@+id/idCheckBoxSulAmericaOdonto"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:text="SulAmerica Odonto"/>
                     <CheckBox
                         android:id="@+id/idCheckBoxOdontoEmpresas"
                         android:layout_width="168dp"
                         android:layout_height="wrap_content"
                         android:text="Odonto Empresas"/>
 
-                    <CheckBox
-                        android:id="@+id/idCheckBoxSulAmericaOdonto"
-                        android:layout_width="168dp"
-                        android:layout_height="wrap_content"
-                        android:text="SulAmerica Odonto"/>
+
 
                 </LinearLayout>
 
@@ -147,6 +147,12 @@
                     android:layout_width="168dp"
                     android:layout_height="wrap_content"
                     android:text="Uniodonto"/>
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxSUS"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="SUS"/>
 
             </LinearLayout>
         </LinearLayout>

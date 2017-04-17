@@ -15,6 +15,7 @@ public class Especializacoes {
     private boolean protese;
     private boolean implantodontia;
 
+
     public Especializacoes() {
     }
 

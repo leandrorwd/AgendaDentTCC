@@ -23,6 +23,8 @@ public class DentistaEspecializacoes extends LinearLayout implements Interface_D
     private CheckBox odontopedia;
     private CheckBox odontologiaEstetica;
     private CheckBox protese;
+    private CheckBox sus;
+
     private Button botaoSalvar;
     private Activity activity;
     private int id_janela;

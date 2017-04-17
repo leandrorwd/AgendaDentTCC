@@ -27,7 +27,7 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
     private CheckBox odontoEmpresa;
     private CheckBox sulAmerica;
     private CheckBox uniOdonto;
-
+    private CheckBox sus;
     private Button botaoSalvar;
     private Activity activity;
     private int id_janela;
@@ -50,8 +50,8 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
                 Convenios c1 = new Convenios(
                         amilDental.isChecked(),  belloDente.isChecked(),  bradesco.isChecked(),
                         doctorClin.isChecked(),  interodonto.isChecked(),  metlife.isChecked(),
-                        odontoEmpresa.isChecked(),  sulAmerica.isChecked(),  uniOdonto.isChecked()
-
+                        odontoEmpresa.isChecked(),  sulAmerica.isChecked(),  uniOdonto.isChecked(),
+                        sus.isChecked()
                 );
                 DentistaController.getInstance().getDentistaLogado().setConvenios(c1);
                 DentistaController.getInstance().atualizaConvenios(activity);
@@ -70,7 +70,7 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
             odontoEmpresa.setChecked(conv.isOdontoEmpresa());
             sulAmerica.setChecked(conv.isSulAmerica());
             uniOdonto.setChecked(conv.isUniOdonto());
-
+            sus.setChecked(conv.isSus());
         }
     }
 
@@ -85,6 +85,7 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
         odontoEmpresa = (CheckBox) findViewById(R.id.idCheckBoxOdontoEmpresas);
         sulAmerica = (CheckBox) findViewById(R.id.idCheckBoxSulAmericaOdonto);
         uniOdonto = (CheckBox) findViewById(R.id.idCheckBoxUniodonto);
+        sus = (CheckBox) findViewById(R.id.idCheckBoxSUS);
         botaoSalvar =(Button) findViewById(R.id.botaoSalvar);
     }
 

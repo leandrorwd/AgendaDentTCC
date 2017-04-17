@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.Editable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -76,25 +77,208 @@ public class PacienteController {
         pacienteBC.getDentistasFiltro(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm);
     }
 
-    public void filtraDentistas(Activity activity, String nomeDentista, String tipoConsulta, String planoSaude, String especializacao, Endereco endereco, int distanciaKm, ArrayList<UsuarioDentista> listaDentistas) {
+    public void filtraDentistas(Activity activity, String nomeDentista, String tipoConsulta,
+                                String planoSaude, String especializacao,
+                                Endereco endereco, int distanciaKm,
+                                ArrayList<UsuarioDentista> listaDentistas) {
         ArrayList<UsuarioDentista> aux = new ArrayList<>();
         ArrayList<UsuarioDentista> retorno =listaDentistas;
 
         if(ValidationTest.validaString(nomeDentista)){
             aux.clear();
-            for (UsuarioDentista user:listaDentistas) {
+            for (UsuarioDentista user:retorno) {
                 if(nomeDentista.contains(user.getNome()) || nomeDentista.contains(user.getSobreNome())){
                     aux.add(user);
                 }
             }
             retorno = aux;
         }
+        //TODO
         if(ValidationTest.validaString(tipoConsulta)){
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if(tipoConsulta.equals("Particular")){
+                    aux.add(user);
+                    continue;
+                }
+                if(tipoConsulta.equals("Convênio")){
+                    if(planoSaude.equals("Selecione um plano de saúde:")){
+                        DialogAux.dialogOkSimples(activity,activity.getResources().getString(R.string.erro)
+                                ,activity.getResources().getString(R.string.missplan));
+                        return;
+                    }
+                    if(planoSaude.equals("Amil Dental") && user.getConvenios().isAmilDental()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Bello Dente") && user.getConvenios().isBelloDente()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Bradesco Dental") && user.getConvenios().isBradesco()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Doctor Clin") && user.getConvenios().isDoctorClin()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Interodonto") && user.getConvenios().isInterodonto()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Metlife") && user.getConvenios().isMetlife()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Odonto Empresas") && user.getConvenios().isOdontoEmpresa()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("SulAmerica Odonto") && user.getConvenios().isSulAmerica()){
+                        aux.add(user);
+                        continue;
+                    }
+                    if(planoSaude.equals("Uniodonto") && user.getConvenios().isUniOdonto()){
+                        aux.add(user);
+                        continue;
+                    }
 
-            if(ValidationTest.validaString(planoSaude)){
-
+                }
+                if(tipoConsulta.equals("SUS") && user.getConvenios().isSus()){
+                    aux.add(user);
+                    break;
+                }
             }
+            retorno.clear();
+            retorno.addAll(aux);
+        }
+        if(ValidationTest.validaString(especializacao)){
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if(user.getEspecializacoes().isClinicoGeral() && especializacao.equals("Clinico Geral"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isEndodontia() && especializacao.equals("Endodontia"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isImplantodontia() && especializacao.equals("Implantodontia"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isOrtodontia() && especializacao.equals("Ortodontia"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isOdontopediatria() && especializacao.equals("Odontopediatria"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isOdontologiaEstetica() && especializacao.equals("Odontologia Estética"))
+                    aux.add(user);
+                if(user.getEspecializacoes().isProtese() && especializacao.equals("Protese"))
+                    aux.add(user);
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+        }
+        //TODO Refatorar esse codigo, arrumar bugs de campos obrigatorios,se nao tiver radiobutton clicado ignorar todo o resto.
+        //        if(distanciaKm!=0){
+//            aux.clear();
+//            for (UsuarioDentista user:retorno) {
+//
+//            }
+//            retorno = aux;
+//        }
+        if(endereco!=null){
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if(endereco.getEstado().equals("")){
+                    DialogAux.dialogOkSimples(activity,activity.getResources().getString(R.string.erro)
+                            ,activity.getResources().getString(R.string.missState));
+                    return;
+                }
+                if((endereco.getEstado()!=null && !endereco.getEstado().equals(""))){
+                    if(endereco.getEstado().equals(user.getEndereco().getEstado())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if((endereco.getCidade()!=null && !endereco.getCidade().equals(""))){
+                    if(user.getEndereco().getCidade().contains(endereco.getCidade())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if((endereco.getBairro()!=null && !endereco.getBairro().equals(""))){
+                    if(user.getEndereco().getBairro().contains(endereco.getBairro())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if((endereco.getRua()!=null && !endereco.getRua().equals(""))){
+                    if(user.getEndereco().getRua().contains(endereco.getRua())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if(endereco.getNumero()!=0){
+                    if(user.getEndereco().getNumero()==(endereco.getNumero())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                if((endereco.getComplemento()!=null && !endereco.getComplemento().equals(""))){
+                    if(user.getEndereco().getComplemento().contains(endereco.getComplemento())){
+                        aux.add(user);
+                    }
+                }
+                else{
+                    aux.addAll(retorno);
+                    break;
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
         }
 
+        Toast.makeText(activity, retorno.get(0).getNome(), Toast.LENGTH_SHORT).show();
     }
 }

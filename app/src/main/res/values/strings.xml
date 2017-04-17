@@ -188,6 +188,8 @@
     <string name="DistanciaMax">Distancia Máxima (Km):</string>
     <string name="TitleEspecializacao">Marque suas especializações:</string>
     <string name="TitleConvenios">Marque seus convênios:</string>
+    <string name="missplan">Selecione um plano de saúde</string>
+    <string name="missState">Selecione um estado.</string>
 
 
 </resources>

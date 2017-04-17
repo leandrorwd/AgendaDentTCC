@@ -110,7 +110,7 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
                         tipoConsulta.getSelectedItem().toString(),planoSaude,
                         especializacao.getSelectedItem().toString(),e1,distancia);
 
-                activity.startActivity(new Intent(activity, PacienteListarDentistas.class));
+               // activity.startActivity(new Intent(activity, PacienteListarDentistas.class));
             }
         });
         tipoConsulta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
