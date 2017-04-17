@@ -368,7 +368,7 @@ public class AgendaController {
         agendaBC.getConsultasPaciente(tela, id);
     }
 
-    public void getHistoricoConsultas (Activity tela, int id) {
+    public void getHistoricoConsultas(Activity tela, int id) {
         agendaBC.getHistoricoConsultas(tela, id);
     }
 
@@ -380,20 +380,19 @@ public class AgendaController {
         horarioDiario = (LinearLayout) tela.findViewById(id);
         this.consultasBC = consultasBC;
         this.tela = tela;
-        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now()));
+//        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now().getMillis()));
         DentistaController.getInstance().getDentistasBC();
     }
 
     public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas) {
         for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() > DateTime.now().getMillis()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 horarioDiario.addView(popular);
             }
         }
         DialogAux.dialogCarregandoSimplesDismiss();
     }
-
 
     public void buscaAgendaBCHistorico(Activity tela, ArrayList<Consulta> consultasBC, int id) {
         horarioDiario = (LinearLayout) tela.findViewById(id);
@@ -404,7 +403,7 @@ public class AgendaController {
 
     public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
         for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() < DateTime.now().getMillis()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 horarioDiario.addView(popular);
             }
