@@ -16,6 +16,9 @@ public class UsuarioDentista {
     private Endereco endereco;
     private boolean status;
     private Agenda agenda;
+    private Especializacoes especializacoes;
+    private Convenios convenios;
+
     private String telefone;
 
     public UsuarioDentista() {
@@ -32,6 +35,8 @@ public class UsuarioDentista {
         this.status = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("status").getValue()));
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));
         this.agenda = dataSnapshot.child("agenda").getValue(Agenda.class);
+        this.especializacoes = dataSnapshot.child("especializacoes").getValue(Especializacoes.class);
+        this.convenios = dataSnapshot.child("convenios").getValue(Convenios.class);
         if(agenda ==null){
             agenda = new Agenda();
         }
@@ -141,5 +146,21 @@ public class UsuarioDentista {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public Especializacoes getEspecializacoes() {
+        return especializacoes;
+    }
+
+    public void setEspecializacoes(Especializacoes especializacoes) {
+        this.especializacoes = especializacoes;
+    }
+
+    public Convenios getConvenios() {
+        return convenios;
+    }
+
+    public void setConvenios(Convenios convenios) {
+        this.convenios = convenios;
     }
 }

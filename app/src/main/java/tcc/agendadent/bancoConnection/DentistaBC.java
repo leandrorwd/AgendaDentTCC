@@ -275,4 +275,38 @@ public class DentistaBC {
         } catch (Exception e) {
         }
     }
+
+    public void atualizaEspecilizacao(Activity activity) {
+        try {
+            firebaseDatabaseReference
+                    .child("dentistas")
+                    .child(String.valueOf(DentistaController.getInstance().getDentistaLogado().getIdDentista()))
+                    .child("especializacoes")
+                    .setValue(DentistaController.getInstance().getDentistaLogado().getEspecializacoes());
+
+                DialogAux.dialogCarregandoSimplesDismiss();
+                DialogAux.dialogOkSimplesInnerClassDentistaFinish(activity, activity.getString(R.string.Sucesso),
+                        activity.getString(R.string.dadosSalvosSucesso));
+            }
+         catch (Exception e) {
+
+        }
+    }
+
+    public void atualizaConvenio(Activity activity) {
+        try {
+            firebaseDatabaseReference
+                    .child("dentistas")
+                    .child(String.valueOf(DentistaController.getInstance().getDentistaLogado().getIdDentista()))
+                    .child("convenios")
+                    .setValue(DentistaController.getInstance().getDentistaLogado().getConvenios());
+
+            DialogAux.dialogCarregandoSimplesDismiss();
+            DialogAux.dialogOkSimplesInnerClassDentistaFinish(activity, activity.getString(R.string.Sucesso),
+                    activity.getString(R.string.dadosSalvosSucesso));
+        }
+        catch (Exception e) {
+
+        }
+    }
 }

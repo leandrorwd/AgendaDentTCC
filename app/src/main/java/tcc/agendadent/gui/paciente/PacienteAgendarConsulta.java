@@ -13,8 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
+import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
@@ -86,6 +88,28 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
         pesquisar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                String planoSaude;
+                if(!tipoConsulta.getSelectedItem().toString().equals("Convênio")){
+                    planoSaude = "null";
+                }
+                else{
+                    planoSaude =planosDeSaude.getSelectedItem().toString();
+                }
+                RadioButton r1 = (RadioButton) findViewById(R.id.idRadioProx);
+                int distancia = 0;
+                Endereco e1 = null;
+                if (r1.isChecked()){
+                    //TODO
+                }
+                else{
+                    e1 = new Endereco("Brasil", spinnerEstado.getSelectedItem().toString(), cidadeDentista.getText().toString()
+                            ,bairroDentista.getText().toString(), ruaDentista.getText().toString()
+                            , complementoDentista.getText().toString(), 0,0 );
+                }
+                PacienteController.getInstance().getDentistasFiltro(activity,nomeDentistaBusca.getText().toString(),
+                        tipoConsulta.getSelectedItem().toString(),planoSaude,
+                        especializacao.getSelectedItem().toString(),e1,distancia);
+
                 activity.startActivity(new Intent(activity, PacienteListarDentistas.class));
             }
         });

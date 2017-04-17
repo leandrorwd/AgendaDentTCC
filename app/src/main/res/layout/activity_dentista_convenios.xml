@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dentista_especializacoes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="tcc.agendadent.gui.dentista.DentistaEspecializacoes">
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:background="?android:selectableItemBackground"
+        android:focusable="true"
+        android:id="@+id/card"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/background_material_light"
+        card_view:cardCornerRadius="@dimen/cardCornerRadius"
+        card_view:cardElevation="@dimen/cardElevation"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="@string/TitleConvenios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:layout_weight="1"
+                android:textSize="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxAmil"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="Amil Dental"/>
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxBelloDente"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bello Dente"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxBradesco"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bradesco Dental"/>
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxDoctorClin"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="Doctor Clin"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/idCheckBoxInterodonto"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:text="Interodonto"/>
+
+                    <CheckBox
+                        android:id="@+id/idCheckBoxMetlife"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:text="Metlife"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/idCheckBoxOdontoEmpresas"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:text="Odonto Empresas"/>
+
+                    <CheckBox
+                        android:id="@+id/idCheckBoxSulAmericaOdonto"
+                        android:layout_width="168dp"
+                        android:layout_height="wrap_content"
+                        android:text="SulAmerica Odonto"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/idCheckBoxUniodonto"
+                    android:layout_width="168dp"
+                    android:layout_height="wrap_content"
+                    android:text="Uniodonto"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView >
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/botaoSalvar"
+        android:layout_below="@+id/card"
+        android:textColor="@color/backgroundWhite"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:background="@color/corBotao"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:text="@string/Salvar"/>
+</RelativeLayout>

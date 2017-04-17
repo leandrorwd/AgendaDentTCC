@@ -323,5 +323,12 @@ public class DentistaController {
     }
 
 
+    public void atualizaEspecilizacao(Activity activity) {
+        dentistaBC.atualizaEspecilizacao(activity);
+    }
 
+    public void atualizaConvenios(Activity activity) {
+        dentistaBC.atualizaConvenio(activity);
+
+    }
 }

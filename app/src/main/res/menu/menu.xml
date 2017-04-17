@@ -18,17 +18,15 @@
             android:id="@+id/editarPerfil"
             android:icon="@drawable/ic_photo"
             android:title="Editar Perfil" />
+        <item
+            android:id="@+id/editarEspec"
+            android:icon="@drawable/ic_photo"
+            android:title="Editar Especializações" />
+        <item
+            android:id="@+id/editarConvenios"
+            android:icon="@drawable/ic_photo"
+            android:title="Editar Convênios" />
 
     </group>
-
-    <item android:title="SubMenu Se precisar">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_photo"
-                android:title="Blah" />
-
-        </menu>
-    </item>
 
 </menu>

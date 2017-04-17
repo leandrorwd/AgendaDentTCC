@@ -186,6 +186,8 @@
     <string name="outro_local">Outro local</string>
     <string name="endereco">Endereço</string>
     <string name="DistanciaMax">Distancia Máxima (Km):</string>
+    <string name="TitleEspecializacao">Marque suas especializações:</string>
+    <string name="TitleConvenios">Marque seus convênios:</string>
 
 
 </resources>

@@ -82,6 +82,12 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         if (id == R.id.editarPerfil) {
             navegaJanela(R.id.editarPerfil);
         }
+        if (id == R.id.editarEspec) {
+            navegaJanela(R.id.editarEspec);
+        }
+        if (id == R.id.editarConvenios) {
+            navegaJanela(R.id.editarConvenios);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.AgendaDiaria);
         drawer.closeDrawer(GravityCompat.START);
@@ -151,6 +157,10 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
                     view = new DentistaAgendaDiaria(Main_Dentista.this,id_janela);
                 if(id_janela== R.id.editarPerfil)
                     view = new DentistaPerfil(Main_Dentista.this,id_janela);
+                if(id_janela== R.id.editarEspec)
+                    view = new DentistaEspecializacoes(Main_Dentista.this,id_janela);
+                if(id_janela== R.id.editarConvenios)
+                    view = new DentistaConvenios(Main_Dentista.this,id_janela);
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(view);
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();

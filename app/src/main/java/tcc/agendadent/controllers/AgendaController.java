@@ -380,7 +380,7 @@ public class AgendaController {
         horarioDiario = (LinearLayout) tela.findViewById(id);
         this.consultasBC = consultasBC;
         this.tela = tela;
-        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now());
+        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now()));
         DentistaController.getInstance().getDentistasBC();
     }
 

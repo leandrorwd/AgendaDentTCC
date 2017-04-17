@@ -7,10 +7,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import java.util.ArrayList;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
+import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
@@ -130,6 +131,29 @@ public class PacienteBC {
             });
         }
         catch (Exception e ){
+        }
+    }
+
+    public void getDentistasFiltro(final Activity activity, final String nomeDentista, final String tipoConsulta, final String planoSaude, final String especializacao, final Endereco endereco, final int distanciaKm) {
+        final ArrayList<UsuarioDentista> listaDentistas = new ArrayList<UsuarioDentista>();
+        try{
+            firebaseDatabaseReference.child("dentistas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                listaDentistas.add(child.getValue(UsuarioDentista.class));
+                            }
+                           PacienteController.getInstance().filtraDentistas(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm,listaDentistas);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
+        catch (Exception e ){
+            System.out.println("TRETA");
         }
     }
 }
