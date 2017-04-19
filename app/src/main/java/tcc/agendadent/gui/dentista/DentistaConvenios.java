@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.objetos.Convenios;
-import tcc.agendadent.objetos.Especializacoes;
 
 /**
  * Created by natha on 16/04/2017.
@@ -36,7 +35,7 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
         super(activity);
         this.id_janela = id_janela;
         this.activity = activity;
-        View.inflate(activity, R.layout.activity_dentista_convenios, this);
+        View.inflate(activity, R.layout.dentista_convenios, this);
         conv = DentistaController.getInstance().getDentistaLogado().getConvenios();
         instanciaArtefatos();
         carregaDados();

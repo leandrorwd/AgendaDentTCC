@@ -28,6 +28,10 @@ public class Endereco implements Serializable {
 
     private int cep;
 
+    @Override
+    public String toString() {
+        return estado +", "+ cidade+", "+rua+", "+numero+", "+complemento;
+    }
     public Endereco(){	}
 
     public Endereco(String pais, String estado, String cidade, String bairro, String rua, String complemento, int numero, int cep) {
@@ -120,17 +124,5 @@ public class Endereco implements Serializable {
         return rua + ", " + numero;
     }
 
-    @Override
-    public String toString() {
-        return
-                "Pais: '" + pais + '\'' +
-                        ", Estado: '" + estado + '\'' +
-                        ", Cidade: '" + cidade + '\'' +
-                        ", Bairro :'" + bairro + '\'' +
-                        ", Rua: '" + rua + '\'' +
-                        ", Numero: " + numero +
-                        ", Complemento: '" + complemento + '\'' +
-                        ", Cep: " + cep +
-                        '.';
-    }
+
 }

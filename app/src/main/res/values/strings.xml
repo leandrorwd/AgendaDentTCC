@@ -71,8 +71,8 @@
         <item>Dentista</item>
     </string-array>
     <string-array name="picker_tipo_consulta">
-        <item>Convênio</item>
         <item>Particular</item>
+        <item>Convênio</item>
         <item>SUS</item>
     </string-array>
     <string-array name="picker_planos_saude">
@@ -190,6 +190,7 @@
     <string name="TitleConvenios">Marque seus convênios:</string>
     <string name="missplan">Selecione um plano de saúde</string>
     <string name="missState">Selecione um estado.</string>
+    <string name="nenhumDentistaEncontrado">Nenhum dentista foi encontrado.</string>
 
 
 </resources>

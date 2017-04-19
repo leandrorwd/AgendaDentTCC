@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
+import tcc.agendadent.gui.dentista.DentistaConfigAgendaAdiciona;
 import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
 import tcc.agendadent.gui.paciente.Main_Paciente;
+import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.UsuarioDentista;
@@ -30,6 +32,7 @@ public class PacienteController {
     private static PacienteController INSTANCE;
     private PacienteBC pacienteBC;
     private UsuarioPaciente pacienteLogado;
+    private ArrayList<UsuarioDentista> dentistas;
 
 
     private PacienteController() {
@@ -81,8 +84,11 @@ public class PacienteController {
                                 String planoSaude, String especializacao,
                                 Endereco endereco, int distanciaKm,
                                 ArrayList<UsuarioDentista> listaDentistas) {
+
         ArrayList<UsuarioDentista> aux = new ArrayList<>();
         ArrayList<UsuarioDentista> retorno =listaDentistas;
+        //Otimizar o codigo no futuro
+        //region FiltraNome
 
         if(ValidationTest.validaString(nomeDentista)){
             aux.clear();
@@ -93,7 +99,9 @@ public class PacienteController {
             }
             retorno = aux;
         }
-        //TODO
+        //endregion
+
+        //region Filtra Tipo Consulta
         if(ValidationTest.validaString(tipoConsulta)){
             aux.clear();
             for (UsuarioDentista user:retorno) {
@@ -153,6 +161,9 @@ public class PacienteController {
             retorno.clear();
             retorno.addAll(aux);
         }
+        //endregion
+
+        //region Filtra Especializaçao
         if(ValidationTest.validaString(especializacao)){
             aux.clear();
             for (UsuarioDentista user:retorno) {
@@ -174,7 +185,10 @@ public class PacienteController {
             retorno.clear();
             retorno.addAll(aux);
         }
-        //TODO Refatorar esse codigo, arrumar bugs de campos obrigatorios,se nao tiver radiobutton clicado ignorar todo o resto.
+
+        //endregion
+
+        //TODO Distancia do google maps api bla bla bla
         //        if(distanciaKm!=0){
 //            aux.clear();
 //            for (UsuarioDentista user:retorno) {
@@ -182,14 +196,11 @@ public class PacienteController {
 //            }
 //            retorno = aux;
 //        }
+
+        //region Filtra Endereco Outro Local
         if(endereco!=null){
             aux.clear();
             for (UsuarioDentista user:retorno) {
-                if(endereco.getEstado().equals("")){
-                    DialogAux.dialogOkSimples(activity,activity.getResources().getString(R.string.erro)
-                            ,activity.getResources().getString(R.string.missState));
-                    return;
-                }
                 if((endereco.getEstado()!=null && !endereco.getEstado().equals(""))){
                     if(endereco.getEstado().equals(user.getEndereco().getEstado())){
                         aux.add(user);
@@ -279,6 +290,22 @@ public class PacienteController {
             retorno.addAll(aux);
         }
 
-        Toast.makeText(activity, retorno.get(0).getNome(), Toast.LENGTH_SHORT).show();
+        //endregion
+        DialogAux.dialogCarregandoSimplesDismiss();
+        if(retorno==null || retorno.size()==0){
+            DialogAux.dialogOkSimples(activity, activity.getString(R.string.Aviso), activity.getString(R.string.nenhumDentistaEncontrado));
+        }
+        else{
+            setDentistas(retorno);
+            activity.startActivity(new Intent(activity, PacienteVisualizaDentistas.class));
+        }
+    }
+
+    public ArrayList<UsuarioDentista> getDentistas() {
+        return dentistas;
+    }
+
+    public void setDentistas(ArrayList<UsuarioDentista> dentistas) {
+        this.dentistas = dentistas;
     }
 }

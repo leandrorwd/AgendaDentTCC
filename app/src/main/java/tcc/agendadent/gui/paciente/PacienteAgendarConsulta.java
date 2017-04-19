@@ -96,16 +96,23 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
                     planoSaude =planosDeSaude.getSelectedItem().toString();
                 }
                 RadioButton r1 = (RadioButton) findViewById(R.id.idRadioProx);
+                RadioButton r2 = (RadioButton) findViewById(R.id.idRadioOutro);
+
                 int distancia = 0;
                 Endereco e1 = null;
                 if (r1.isChecked()){
-                    //TODO
+                    //TODO DISTANCIA STUFF
                 }
-                else{
+                else if(r2.isChecked()){
                     e1 = new Endereco("Brasil", spinnerEstado.getSelectedItem().toString(), cidadeDentista.getText().toString()
                             ,bairroDentista.getText().toString(), ruaDentista.getText().toString()
                             , complementoDentista.getText().toString(), 0,0 );
                 }
+                else{
+                     distancia = 0;
+                     e1 = null;
+                }
+                DialogAux.dialogCarregandoSimples(activity);
                 PacienteController.getInstance().getDentistasFiltro(activity,nomeDentistaBusca.getText().toString(),
                         tipoConsulta.getSelectedItem().toString(),planoSaude,
                         especializacao.getSelectedItem().toString(),e1,distancia);

@@ -163,4 +163,26 @@ public class UsuarioDentista {
     public void setConvenios(Convenios convenios) {
         this.convenios = convenios;
     }
+
+    public String getNomeCompleto(){
+        return nome+" "+sobreNome;
+    }
+    public String getEspecializacoesString(){
+        String result="";
+        if (especializacoes.isClinicoGeral())
+            result += "Clinico Geral, ";
+        if (especializacoes.isEndodontia())
+            result += "Endodontia, ";
+        if (especializacoes.isImplantodontia())
+            result += "Implantodontia, ";
+        if (especializacoes.isOrtodontia())
+            result += "Ortodontia, ";
+        if (especializacoes.isOdontopediatria())
+            result += "Odontopediatria, ";
+        if (especializacoes.isOdontologiaEstetica())
+            result += "Odontologia Estética, ";
+        if (especializacoes.isProtese())
+            result += "Protese, ";
+        return result.substring(0, result.length() - 2);
+    }
 }
