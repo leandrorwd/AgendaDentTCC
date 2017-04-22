@@ -196,6 +196,9 @@
     <string name="Particular">Particular</string>
     <string name="sus">Sus</string>
     <string name="convenios">Convênios</string>
+    <string name="ocupado">Ocupado.</string>
+    <string name="livre">Livre.</string>
+    <string name="indisponivell">Indisponivel para este tipo de consulta.</string>
 
 
 </resources>
