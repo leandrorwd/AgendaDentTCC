@@ -54,7 +54,6 @@
                 <TextView android:id="@+id/textViewNome"
                     app:layout_widthPercent="85%"
                     android:textColor="@color/FontTitle"
-
                     android:fontFamily="sans-serif-light"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"

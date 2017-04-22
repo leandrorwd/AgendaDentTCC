@@ -84,6 +84,9 @@ public class DentistaConfigAgendaAdiciona extends AppCompatActivity {
                 CheckBox sexta = (CheckBox) findViewById(R.id.checkboxSexta);
                 CheckBox sabado = (CheckBox) findViewById(R.id.idSabado);
                 CheckBox domingo = (CheckBox) findViewById(R.id.domingo);
+                CheckBox particular = (CheckBox) findViewById(R.id.checkboxParticular);
+                CheckBox convenio = (CheckBox) findViewById(R.id.checkboxConvenio);
+                CheckBox sus = (CheckBox) findViewById(R.id.checkBoxSus);
 
 
                 boolean[] statusDias = {domingo.isChecked(),segunda.isChecked(),terca.isChecked(),
@@ -94,6 +97,9 @@ public class DentistaConfigAgendaAdiciona extends AppCompatActivity {
                 Horario horarioNovo = new Horario (textoHorarioInicial.getText().toString(),
                         textoHorarioFinal.getText().toString(),textoHorarioDuracao.getText().toString(),
                         lista);
+                horarioNovo.setConvenio(convenio.isChecked());
+                horarioNovo.setSus(sus.isChecked());
+                horarioNovo.setParticular(particular.isChecked());
                 if(DentistaController.getInstance().verificaHorario(horarioNovo)){
                     DentistaController.getInstance().addHorarioAgenda(horarioNovo,DentistaConfigAgendaAdiciona.this);
                 }

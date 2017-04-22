@@ -15,6 +15,9 @@ public class Horario implements Comparable<Horario>{
     private String duracao;
    //Domingo - Sabado
     private List<Boolean> diasSemana;
+    private boolean particular;
+    private boolean convenio;
+    private boolean sus;
 
     public Horario(String horaInicial, String horaFinal, String duracao,List<Boolean> dias) {
         this.horaInicial = horaInicial;
@@ -36,6 +39,9 @@ public class Horario implements Comparable<Horario>{
             diasSemana.add( Boolean.parseBoolean(String.valueOf(child.getValue())));
             i++;
         }
+        this.particular = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("particular").getValue()));
+        this.sus = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("sus").getValue()));
+        this.convenio = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("convenio").getValue()));
     }
 
     public String getHoraInicial() {
@@ -82,6 +88,29 @@ public class Horario implements Comparable<Horario>{
 
         if(horaInicial1<horaInicial2) return -1;
         else return 1;
+    }
 
+    public boolean isParticular() {
+        return particular;
+    }
+
+    public void setParticular(boolean particular) {
+        this.particular = particular;
+    }
+
+    public boolean isConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(boolean convenio) {
+        this.convenio = convenio;
+    }
+
+    public boolean isSus() {
+        return sus;
+    }
+
+    public void setSus(boolean sus) {
+        this.sus = sus;
     }
 }

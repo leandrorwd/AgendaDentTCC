@@ -7,6 +7,8 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -73,7 +75,7 @@ public class AgendaController {
     public void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        int indexHoje = DateTime.now().dayOfWeek().get()-1;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
@@ -202,8 +204,14 @@ public class AgendaController {
 
     private void populaAgendaDiaria(Activity tela, ArrayList<Horario> horarios, ArrayList<Consulta> consultasMarcadas, int id) {
         LinearLayout horarioDiario = (LinearLayout) tela.findViewById(id);
-        if (horarioDiario == null) return;
+        if (horarioDiario == null)
+            return;
         horarioDiario.removeAllViews();
+        if(horarios.isEmpty()){
+            TextView text = new TextView(tela);
+            text.setText("Dia não disponivel para consultas");
+            horarioDiario.addView(text);
+        }
         for (Horario horario : horarios) {
             String horaInicial = horario.getHoraInicial();
             ArrayList<String> horariosAgenda = new ArrayList<>();
@@ -286,7 +294,7 @@ public class AgendaController {
     public void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        int indexHoje = DateTime.now().dayOfWeek().get()-1 ;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
@@ -314,7 +322,7 @@ public class AgendaController {
         data = dataParam;
         DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
         final ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = data.dayOfWeek().get() - 1;
+        int indexHoje = data.dayOfWeek().get() -1;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
