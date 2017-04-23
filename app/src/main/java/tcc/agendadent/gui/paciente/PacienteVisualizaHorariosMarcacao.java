@@ -3,6 +3,7 @@ package tcc.agendadent.gui.paciente;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -30,6 +31,10 @@ public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity impleme
         setEventos();
         buscaAgenda();
     }
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     private void setEventos() {
         calendario.setOnDateChangedListener(this);
@@ -37,6 +42,8 @@ public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity impleme
     }
 
     private void instanciaArtefatos() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizaDentistas));
+        setTitle("Agendar Consulta");
         calendario = (MaterialCalendarView) findViewById(R.id.calendario);
         layoutConsultas = (LinearLayout) findViewById(R.id.layoutConsultas);
     }

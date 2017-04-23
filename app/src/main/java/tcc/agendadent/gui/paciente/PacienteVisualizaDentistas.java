@@ -35,7 +35,6 @@ public class PacienteVisualizaDentistas extends AppCompatActivity {
     }
 
     private void instanciaArtefatos() {
-        //back navigation
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizaDentistas));
 
         if (getSupportActionBar() != null){
