@@ -48,17 +48,17 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         DateTime date3 = new DateTime(2017, 3, 29, 16, 30, 0, 0);
 //        DateTime date4 = new DateTime(2017, 3, 29, 11, 00, 0, 0);
 //        DateTime date5 = new DateTime(2017, 3, 29, 11, 30, 0, 0);
-
-        Consulta c1 = new Consulta(1, 1, date0.getMillis(),0, "tipConsulta","nomePaciente1");
-        Consulta c2 = new Consulta(1, 1, date1.getMillis(),0, "tipConsulta","nomePaciente2");
-        Consulta c3 = new Consulta(1, 1, date2.getMillis(),0, "tipConsulta","nomePaciente2");
-        Consulta c4 = new Consulta(1, 1, date3.getMillis(),0, "tipConsulta","nomePaciente2");
+//
+//        Consulta c1 = new Consulta(1, 1, date0.getMillis(),0, "tipConsulta","nomePaciente1");
+//        Consulta c2 = new Consulta(1, 1, date1.getMillis(),0, "tipConsulta","nomePaciente2");
+//        Consulta c3 = new Consulta(1, 1, date2.getMillis(),0, "tipConsulta","nomePaciente2");
+//        Consulta c4 = new Consulta(1, 1, date3.getMillis(),0, "tipConsulta","nomePaciente2");
 //        Consulta c5 = new Consulta(1, 1, date4.getMillis(),0, "tipConsulta","nomePaciente3");
-//        Consulta c6 = new Consulta(1, 1, date5.getMillis(),0, "tipConsulta","nomePaciente-1");
-        AgendaController.getInstance().insertConsulta(c1,"1","20171");
-        AgendaController.getInstance().insertConsulta(c2,"1","20171");
-        AgendaController.getInstance().insertConsulta(c3,"1","20171");
-        AgendaController.getInstance().insertConsulta(c4,"1","20171");
+////        Consulta c6 = new Consulta(1, 1, date5.getMillis(),0, "tipConsulta","nomePaciente-1");
+//        AgendaController.getInstance().insertConsulta(c1,"1","20171");
+//        AgendaController.getInstance().insertConsulta(c2,"1","20171");
+//        AgendaController.getInstance().insertConsulta(c3,"1","20171");
+//        AgendaController.getInstance().insertConsulta(c4,"1","20171");
 //        AgendaController.getInstance().insertConsulta(c5,"1","20171");
 //        AgendaController.getInstance().insertConsulta(c6,"1","20171");
     }

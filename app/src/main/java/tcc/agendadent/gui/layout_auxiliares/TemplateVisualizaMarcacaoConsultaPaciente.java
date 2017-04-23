@@ -22,6 +22,8 @@ import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
+import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
+import tcc.agendadent.gui.paciente.PacienteVisualizaHorariosMarcacao;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
@@ -105,15 +107,11 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
     private void preencheHorario(Consulta c) {
         TextView textoAux = (TextView) findViewById(R.id.textoHora);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
-
         DateTime data = new DateTime(c.getDataConsulta());
         DateTime dataAux = data.withZone(DateTimeZone.UTC);
         LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
-
         textoAux.setText(format.print(dataSemFuso));
-
         textoAux = (TextView) findViewById(R.id.textTipoConsulta);
-
         textoAux.setText( tela.getResources().getString(R.string.ocupado));
         CardView c1 = (CardView) findViewById(R.id.card_view);
         c1.setCardBackgroundColor(getResources().getColor(R.color.ocupado));
@@ -148,62 +146,14 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
                             card.setPressed(true);
                             break;
                     }
+                    PacienteController.getInstance().setHorarioConsulta(horario);
+                    PacienteController.getInstance().setHoraConsultaInicial(horaInicial);
+                    Intent intent = new Intent(tela, PacienteMarcaConsulta.class);
+                    tela.startActivity(intent);
                 }
 
             });
         }
     }
 
-    private void dialogSuspender() {
-        new AlertDialog.Builder(tela)
-                .setTitle(tela.getResources().getString(R.string.NaoHaConsultaMarcada))
-                .setMessage(tela.getResources().getString(R.string.ocuparConsulta))
-                .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        DateTime aux = DateTime.now();
-                        int hora =Integer.parseInt( horaInicial.substring(0,2));
-                        int min = Integer.parseInt( horaInicial.substring(3,5));
-                        try{
-                            String operador = aux.toString().substring(23,26);
-                            int valor = Integer.parseInt(aux.toString().substring(24,26));
-                            if(operador.contains("+")){
-                                hora = hora+valor;
-                            }
-                            else{
-                                hora = hora -valor;
-                            }
-                        }catch (Exception e){
-
-                        }
-                        DateTime date0 = new DateTime(AgendaController.getInstance().getMomento().getYear(),
-                                AgendaController.getInstance().getMomento().getMonthOfYear(),
-                                AgendaController.getInstance().getMomento().getDayOfMonth(),hora,min);
-                        Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
-                                , 0, date0.getMillis(),0, "-","Indisponivel");
-                        String anoSemestre;
-                        if(date0.getMonthOfYear()>=7){
-                            anoSemestre = DateTime.now().year().get() +"A2";
-                        }
-                        else
-                            anoSemestre = DateTime.now().year().get() +"A1";
-                        anoSemestre = anoSemestre.replace("A","");
-                        AgendaController.getInstance().insertConsulta(c1,DentistaController.getInstance().getDentistaLogado().getIdDentista()+""
-                                ,anoSemestre);
-
-
-                    }
-                })
-                .setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-
-                    }
-                })
-                .show();
-    }
 }

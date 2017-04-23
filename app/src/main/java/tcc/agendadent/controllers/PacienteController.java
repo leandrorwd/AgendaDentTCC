@@ -17,6 +17,7 @@ import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
+import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
@@ -332,5 +333,22 @@ public class PacienteController {
 
     public String getPlanoSaude() {
         return planoSaude;
+    }
+    private Horario horario;
+    public void setHorarioConsulta(Horario horario) {
+        this.horario = horario;
+    }
+
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public String getHoraConsultaInicial() {
+        return horaConsultaInicial;
+    }
+
+    private String horaConsultaInicial;
+    public void setHoraConsultaInicial(String horaConsultaInicial) {
+        this.horaConsultaInicial = horaConsultaInicial;
     }
 }

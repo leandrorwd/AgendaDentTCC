@@ -159,7 +159,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                                 AgendaController.getInstance().getMomento().getMonthOfYear(),
                                 AgendaController.getInstance().getMomento().getDayOfMonth(),hora,min);
                         Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
-                                , 0, date0.getMillis(),0, "-","Indisponivel");
+                                , 0, date0.getMillis(),0, "-","Indisponivel",0);
                         String anoSemestre;
                         if(date0.getMonthOfYear()>=7){
                             anoSemestre = DateTime.now().year().get() +"A2";

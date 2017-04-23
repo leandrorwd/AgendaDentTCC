@@ -199,6 +199,8 @@
     <string name="ocupado">Ocupado.</string>
     <string name="livre">Livre.</string>
     <string name="indisponivell">Indisponivel para este tipo de consulta.</string>
+    <string name="confirmar">Confirma</string>
+    <string name="cancela">Cancela</string>
 
 
 </resources>

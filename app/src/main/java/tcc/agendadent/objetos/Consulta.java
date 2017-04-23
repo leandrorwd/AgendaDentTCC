@@ -17,19 +17,22 @@ public class Consulta implements Serializable {
     private long idPaciente;
     private String nomePaciente;
     private long dataConsulta;
+    private long duracao;
     private long avaliacao;
     private String tipoConsulta;
 
     public Consulta() {
     }
 
-    public Consulta(long idDentista, long idPaciente, long dataConsulta, long avaliacao, String tipoConsulta,String nomePaciente) {
+    public Consulta(long idDentista, long idPaciente, long dataConsulta, long avaliacao,
+                    String tipoConsulta,String nomePaciente,long duracao) {
         this.idDentista = idDentista;
         this.idPaciente = idPaciente;
         this.dataConsulta = dataConsulta;
         this.avaliacao = avaliacao;
         this.tipoConsulta = tipoConsulta;
         this.nomePaciente = nomePaciente;
+        this.duracao = duracao;
     }
 
 
@@ -38,6 +41,11 @@ public class Consulta implements Serializable {
         this.idPaciente = Long.parseLong(String.valueOf(dataSnapshot.child("idPaciente").getValue()));
         this.dataConsulta = Long.parseLong(String.valueOf(dataSnapshot.child("dataConsulta").getValue()));
         this.avaliacao = Long.parseLong(String.valueOf(dataSnapshot.child("avaliacao").getValue()));
+        try{
+            this.duracao = Long.parseLong(String.valueOf(dataSnapshot.child("duracao").getValue()));
+        }catch (Exception e){
+            this.duracao = 1800000;
+        }
         this.tipoConsulta = String.valueOf(dataSnapshot.child("tipoConsulta").getValue());
         this.nomePaciente = String.valueOf(dataSnapshot.child("nomePaciente").getValue());
     }
@@ -92,5 +100,12 @@ public class Consulta implements Serializable {
 
     public void setNomePaciente(String nomePaciente) {
         this.nomePaciente = nomePaciente;
+    }
+
+    public long getDuracao(){
+        return duracao;
+    }
+    public DateTime getHoraFinalDateTime(){
+        return  new DateTime(dataConsulta+duracao);
     }
 }

@@ -56,9 +56,6 @@ public class Horario implements Comparable<Horario>{
         return horaFinal;
     }
 
-    public void setHoraFinal(String horaFinal) {
-        this.horaFinal = horaFinal;
-    }
 
     public String getDuracao() {
         return duracao;
