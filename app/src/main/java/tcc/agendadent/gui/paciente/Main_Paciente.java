@@ -1,5 +1,6 @@
 package tcc.agendadent.gui.paciente;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -23,8 +24,8 @@ import tcc.agendadent.controllers.PacienteController;
 
 public class Main_Paciente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ArrayList<View> pilhaTelas;
-    private LinearLayout layoutMaster;
+    private static ArrayList<View> pilhaTelas;
+    private static LinearLayout layoutMaster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,11 +142,6 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     }
 
     private void navegaJanelaPaciente(final int id_janela) {
-        if (id_janela == R.id.agendar_consulta_paciente) {
-            Main_Paciente.this.startActivity(new Intent(Main_Paciente.this, PacienteAgendarConsulta2.class));
-//                    view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
-//                    titulo = "Agendar Consulta";
-        } else {
             layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
                 @Override
                 public void run() {
@@ -154,6 +150,11 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                     if (id_janela == R.id.editar_perfil_paciente) {
                         view = new PacienteEditarPerfil(Main_Paciente.this, id_janela);
                         titulo = "Editar Perfil";
+                    }
+
+                    if (id_janela == R.id.agendar_consulta_paciente) {
+                        view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
+                        titulo = "Agendar Consultas";
                     }
 
                     if (id_janela == R.id.consultas_agendadas_paciente) {
@@ -184,11 +185,42 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
 
                 }
             }).start();
-        }
+
     }
 
     public Object getViewAtual() {
 //        DialogAux.dialogOkSimples(Main_Paciente.this, "pilhatelasSize", String.valueOf(pilhaTelas.size()));
         return pilhaTelas.get(pilhaTelas.size() - 1);
+    }
+
+    public static void navegaConsultaAgendadaMarcarConsulta(final Activity activity){
+        DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.BuscaDentista);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+
+            layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+                    layoutMaster.removeAllViews();
+                    layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            View view = null;
+                            String titulo = "AgendaDent";
+                            view = new PacienteAgendarConsulta(activity, R.id.agendar_consulta_paciente);
+                            titulo = "Agendar Consultas";
+                            layoutMaster.removeAllViews();
+                            layoutMaster.addView(view);
+                            activity.setTitle(titulo);
+                            layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+                            pilhaTelas.add(view);
+
+                        }
+                    }).start();
+                }
+            }).start();
+        }
     }
 }

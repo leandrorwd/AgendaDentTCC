@@ -39,7 +39,7 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, PacienteAgendarConsulta2.class));
+                Main_Paciente.navegaConsultaAgendadaMarcarConsulta(activity);
             }
         });
 
