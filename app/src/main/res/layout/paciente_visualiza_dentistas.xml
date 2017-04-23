@@ -24,18 +24,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/idTextDentistasEncontrados"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="60dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_vertical"
-            android:text="DENTISTAS LOCALIZADOS"
-            android:textAlignment="center"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="18sp" />
+        
     </LinearLayout>
 
     <ScrollView
