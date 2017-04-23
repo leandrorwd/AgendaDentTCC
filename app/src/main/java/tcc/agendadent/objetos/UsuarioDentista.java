@@ -183,6 +183,10 @@ public class UsuarioDentista {
             result += "Odontologia Estética, ";
         if (especializacoes.isProtese())
             result += "Protese, ";
-        return result.substring(0, result.length() - 2);
+        try{
+            return result.substring(0, result.length() - 2);
+        }catch (Exception e){
+            return "";
+        }
     }
 }

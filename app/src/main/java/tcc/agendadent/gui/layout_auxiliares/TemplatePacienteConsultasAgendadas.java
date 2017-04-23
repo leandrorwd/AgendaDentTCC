@@ -56,17 +56,18 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         DateTime data = new DateTime(consulta.getDataConsulta());
         textoPacienteData.setText(formatData.print(data));
 
-
+//        DateTimeFormatter dateTimeFormatHora = DateTimeFormat.forPattern("HH:mm");
+//        Consulta aux = null;
+//        DateTime data1 = new DateTime(consulta.getDataConsulta());
+//        DateTime dataAux = data1.withZone(DateTimeZone.UTC);
+//        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+//        String auxAux = dateTimeFormatHora.print(dataAux);
 
 
         TextView textoPacienteHoraInicial = (TextView) findViewById(R.id.textoPacienteHoraInicial);
         DateTimeFormatter formatHorario = DateTimeFormat.forPattern("HH:mm");
         DateTime hora = new DateTime(consulta.getDataConsulta());
         textoPacienteHoraInicial.setText(formatHorario.print(hora));
-
-
-
-
 
         TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
         textoNomeDentista.setText(dentistas.get(idDentista-1).getNome() + " " + dentistas.get(idDentista-1).getSobreNome());

@@ -13,7 +13,9 @@ import android.widget.Spinner;
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
+import tcc.agendadent.objetos.Convenios;
 import tcc.agendadent.objetos.Endereco;
+import tcc.agendadent.objetos.Especializacoes;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.BuscaEnderecoCep;
@@ -245,6 +247,8 @@ public class CadastroController {
     }
 
     public void insertNewDentista(UsuarioDentista usuario,Activity tela) {
+        usuario.setConvenios(new Convenios());
+        usuario.setEspecializacoes(new Especializacoes());
         dentistaBC.insertDentista(usuario,tela);
     }
 
