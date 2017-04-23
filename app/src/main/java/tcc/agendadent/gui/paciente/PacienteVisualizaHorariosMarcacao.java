@@ -37,8 +37,14 @@ public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity impleme
     }
 
     private void setEventos() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizaHorariosDentista));
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         calendario.setOnDateChangedListener(this);
         calendario.setOnMonthChangedListener(this);
+        calendario.setDateSelected(DateTime.now().toDate(),true);
     }
 
     private void instanciaArtefatos() {

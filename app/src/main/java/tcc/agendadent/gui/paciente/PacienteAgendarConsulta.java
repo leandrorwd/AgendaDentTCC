@@ -152,8 +152,4 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
     public String toString() {
         return "blah";
     }
-
-    public String getTitulo() {
-        return "blah";
-    }
 }

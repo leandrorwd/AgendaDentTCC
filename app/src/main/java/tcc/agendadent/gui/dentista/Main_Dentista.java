@@ -23,12 +23,13 @@ import java.util.ArrayList;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
 
-public class Main_Dentista extends  AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Main_Dentista extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static ArrayList<View> pilhaTelas;
     private LinearLayout layoutMaster;
     private int idUltimaJanela;
     private static Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +44,15 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
     @Override
     protected void onResume() {
         super.onResume();
-        if(((Interface_Dentista)getViewAtual()).needResume()){
-            ((Interface_Dentista)getViewAtual()).onResume();
+        if (((Interface_Dentista) getViewAtual()).needResume()) {
+            ((Interface_Dentista) getViewAtual()).onResume();
         }
     }
 
     private void carregaAgendaHoje() {
-        LinearLayout main =(LinearLayout)findViewById(R.id.layoutDentistaMaster);
+        LinearLayout main = (LinearLayout) findViewById(R.id.layoutDentistaMaster);
         DentistaAgendaDiaria layout = new DentistaAgendaDiaria(Main_Dentista.this, -1);
+        setTitle(setTitulo(layout));
         main.addView(layout);
         pilhaTelas.add(layout);
     }
@@ -100,7 +102,7 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(pilhaTelas.size()==1){
+            if (pilhaTelas.size() == 1) {
                 super.onBackPressed();
                 DentistaAgendaDiaria.indiceSlider = DateTime.now();
                 finish();
@@ -115,12 +117,13 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
             @Override
             public void run() {
 
-               if(((Interface_Dentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
-                   DentistaController.getInstance().getHorariosTemporarios().clear();
+                if (((Interface_Dentista) getViewAtual()).getIdMenu() == R.id.config_agenda)
+                    DentistaController.getInstance().getHorariosTemporarios().clear();
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
-                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size()-1));
+                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size() - 1));
                 layoutMaster.removeAllViews();
-                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size()-1));
+                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size() - 1));
+                setTitle(setTitulo(pilhaTelas.get(pilhaTelas.size() - 1)));
             }
         }).start();
     }
@@ -131,52 +134,76 @@ public class Main_Dentista extends  AppCompatActivity implements NavigationView.
             @Override
             public void run() {
 
-                if(((Interface_Dentista)getViewAtual()).getIdMenu()==R.id.config_agenda)
+                if (((Interface_Dentista) getViewAtual()).getIdMenu() == R.id.config_agenda)
                     DentistaController.getInstance().getHorariosTemporarios().clear();
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
-                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size()-1));
+                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size() - 1));
                 layoutMaster.removeAllViews();
-                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size()-1));
+                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size() - 1));
+                activity.setTitle(setTitulo(pilhaTelas.get(pilhaTelas.size() - 1)));
             }
         }).start();
     }
 
     private void navegaJanela(final int id_janela) {
-        if(((Interface_Dentista)getViewAtual()).getIdMenu()==id_janela) return;
+        if (((Interface_Dentista) getViewAtual()).getIdMenu() == id_janela) return;
         layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
             @Override
             public void run() {
-                View view =null;
-                if(DentistaController.getInstance().getHorariosTemporarios()!=null)
+                View view = null;
+                if (DentistaController.getInstance().getHorariosTemporarios() != null)
                     DentistaController.getInstance().getHorariosTemporarios().clear();
-                if(id_janela== R.id.config_agenda)
-                    view = new DentistaConfigAgenda(Main_Dentista.this,id_janela);
-                if(id_janela== R.id.visualizar_agenda_full)
-                    view = new DentistaAgendaCompleta(Main_Dentista.this,id_janela);
-                if(id_janela== R.id.agenda_diaria)
-                    view = new DentistaAgendaDiaria(Main_Dentista.this,id_janela);
-                if(id_janela== R.id.editarPerfil)
-                    view = new DentistaPerfil(Main_Dentista.this,id_janela);
-                if(id_janela== R.id.editarEspec)
-                    view = new DentistaEspecializacoes(Main_Dentista.this,id_janela);
-                if(id_janela== R.id.editarConvenios)
-                    view = new DentistaConvenios(Main_Dentista.this,id_janela);
+                if (id_janela == R.id.config_agenda)
+                    view = new DentistaConfigAgenda(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.visualizar_agenda_full)
+                    view = new DentistaAgendaCompleta(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.agenda_diaria)
+                    view = new DentistaAgendaDiaria(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.editarPerfil)
+                    view = new DentistaPerfil(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.editarEspec)
+                    view = new DentistaEspecializacoes(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.editarConvenios)
+                    view = new DentistaConvenios(Main_Dentista.this, id_janela);
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(view);
+                activity.setTitle(setTitulo(view));
                 layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
                 pilhaTelas.add(view);
             }
         }).start();
     }
 
-    public static View getViewAtual(){
-        return pilhaTelas.get(pilhaTelas.size()-1);
+    public static View getViewAtual() {
+        return pilhaTelas.get(pilhaTelas.size() - 1);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ((Interface_Dentista) getViewAtual()).onActivityResult(requestCode,resultCode,data);
+        ((Interface_Dentista) getViewAtual()).onActivityResult(requestCode, resultCode, data);
+    }
+
+    private static String setTitulo(View view) {
+        if (view.getClass().getSimpleName().equals("DentistaConfigAgenda")) {
+            return "Configurar Horários";
+        }
+        if (view.getClass().getSimpleName().equals("DentistaAgendaCompleta")) {
+            return "Agenda Completa";
+        }
+        if (view.getClass().getSimpleName().equals("DentistaAgendaDiaria")) {
+            return "Agenda Diária";
+        }
+        if (view.getClass().getSimpleName().equals("DentistaPerfil")) {
+            return "Editar Perfil";
+        }
+        if (view.getClass().getSimpleName().equals("DentistaEspecializacoes")) {
+            return "Editar Especializações";
+        }
+        if (view.getClass().getSimpleName().equals("DentistaConvenios")) {
+            return "Editar Convênios";
+        }
+
+        return "ConfigSetTitulo";
     }
 }

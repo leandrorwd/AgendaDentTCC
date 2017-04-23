@@ -19,11 +19,10 @@ public class PacienteVisualizaDentistas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paciente_visualiza_dentistas);
-        setTitle("Agendar Consulta");
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_paciente_visualiza_dentistas);
         layout.removeAllViews();
-        for(UsuarioDentista dentista : PacienteController.getInstance().getDentistas()){
-            TemplateCardDentista t1 = new TemplateCardDentista(PacienteVisualizaDentistas.this,dentista);
+        for (UsuarioDentista dentista : PacienteController.getInstance().getDentistas()) {
+            TemplateCardDentista t1 = new TemplateCardDentista(PacienteVisualizaDentistas.this, dentista);
             layout.addView(t1);
         }
         instanciaArtefatos();
@@ -36,11 +35,11 @@ public class PacienteVisualizaDentistas extends AppCompatActivity {
 
     private void instanciaArtefatos() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizaDentistas));
-
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        setTitle("Agendar Consulta");
     }
 
 

@@ -76,7 +76,7 @@ public class AgendaController {
     public void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get()-1;
+        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
@@ -208,7 +208,7 @@ public class AgendaController {
         if (horarioDiario == null)
             return;
         horarioDiario.removeAllViews();
-        if(horarios.isEmpty()){
+        if (horarios.isEmpty()) {
             TextView text = new TextView(tela);
             text.setText("Dia não disponivel para consultas");
             horarioDiario.addView(text);
@@ -282,7 +282,7 @@ public class AgendaController {
         if (horarioDiario == null)
             return;
         horarioDiario.removeAllViews();
-        if(horarios.isEmpty()){
+        if (horarios.isEmpty()) {
             TextView text = new TextView(tela);
             text.setText("Dia não disponivel para consultas");
             horarioDiario.addView(text);
@@ -329,7 +329,7 @@ public class AgendaController {
                     String auxAux = dateTimeFormatHora.print(dataAux);
                     if (horariosAgenda.contains(auxAux)) {
                         if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
-                            TemplateVisualizaMarcacaoConsultaPaciente t1 = new TemplateVisualizaMarcacaoConsultaPaciente(tela, c1, "paciente",horario.getDuracao());
+                            TemplateVisualizaMarcacaoConsultaPaciente t1 = new TemplateVisualizaMarcacaoConsultaPaciente(tela, c1, "paciente", horario.getDuracao());
                             horarioDiario.addView(t1);
                             entrou = true;
                             aux = c1;
@@ -340,7 +340,7 @@ public class AgendaController {
                 if (!entrou) {
                     //ADICIONA HORARIO
                     TemplateVisualizaMarcacaoConsultaPaciente t1 = new TemplateVisualizaMarcacaoConsultaPaciente
-                            (tela, s, "dentista",horario.getDuracao(),horario);
+                            (tela, s, "dentista", horario.getDuracao(), horario);
                     horarioDiario.addView(t1);
                 } else {
                     consultasMarcadas.remove(aux);
@@ -371,7 +371,7 @@ public class AgendaController {
     public void setAgendaCompleta(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get()-1 ;
+        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
@@ -392,8 +392,8 @@ public class AgendaController {
     public void setAgendaMarcacao(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get()-1 ;
-        for (Horario h :PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios()) {
+        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        for (Horario h : PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
@@ -419,15 +419,14 @@ public class AgendaController {
         DateTime data;
         data = dataParam;
         ArrayList<Horario> horariosAux = new ArrayList<>();
-        if(tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")){
-            horariosAux=PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios();
-        }
-        else{
-           horariosAux=DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
+        if (tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")) {
+            horariosAux = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios();
+        } else {
+            horariosAux = DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
         }
         final ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = data.dayOfWeek().get() -1;
-        for (Horario h :horariosAux) {
+        int indexHoje = data.dayOfWeek().get() - 1;
+        for (Horario h : horariosAux) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
@@ -475,15 +474,14 @@ public class AgendaController {
         DateTime data;
         data = dataParam;
         ArrayList<Horario> horariosAux = new ArrayList<>();
-        if(tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")){
-            horariosAux=PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios();
-        }
-        else{
-            horariosAux=DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
+        if (tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")) {
+            horariosAux = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getAgenda().getHorarios();
+        } else {
+            horariosAux = DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios();
         }
         final ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = data.dayOfWeek().get() -1;
-        for (Horario h :horariosAux) {
+        int indexHoje = data.dayOfWeek().get() - 1;
+        for (Horario h : horariosAux) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
             }
@@ -548,15 +546,13 @@ public class AgendaController {
         horarioDiario = (LinearLayout) tela.findViewById(id);
         this.consultasBC = consultasBC;
         this.tela = tela;
-//        DialogAux.dialogOkSimples(tela, String.valueOf(consultasBC.get(0).getDataConsulta()), String.valueOf(DateTime.now().getMillis()));
         DentistaController.getInstance().getDentistasBC();
     }
 
     public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas) {
         boolean existeConsulta = false;
         for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() > DateTime.now().getMillis()) {
-//            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 existeConsulta = true;
                 horarioDiario.addView(popular);
@@ -578,7 +574,7 @@ public class AgendaController {
     public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
         boolean existeConsulta = false;
         for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() < DateTime.now().getMillis()) {
+            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 existeConsulta = true;
                 horarioDiario.addView(popular);

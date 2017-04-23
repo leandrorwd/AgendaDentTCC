@@ -46,7 +46,6 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
     }
 
     private void setEventos() {
-
     }
 
     public void preencherCard() {
@@ -57,10 +56,17 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         DateTime data = new DateTime(consulta.getDataConsulta());
         textoPacienteData.setText(formatData.print(data));
 
+
+
+
         TextView textoPacienteHoraInicial = (TextView) findViewById(R.id.textoPacienteHoraInicial);
         DateTimeFormatter formatHorario = DateTimeFormat.forPattern("HH:mm");
         DateTime hora = new DateTime(consulta.getDataConsulta());
         textoPacienteHoraInicial.setText(formatHorario.print(hora));
+
+
+
+
 
         TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
         textoNomeDentista.setText(dentistas.get(idDentista-1).getNome() + " " + dentistas.get(idDentista-1).getSobreNome());

@@ -105,6 +105,11 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarConsultaDetalhes));
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     private void instanciaArtefatos() {
@@ -116,12 +121,5 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         dataConsulta = (TextView) findViewById(R.id.dataConsulta);
         horaConsulta = (TextView) findViewById(R.id.horaConsulta);
         botao = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
-
-        //back navigation
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarConsulta));
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 }

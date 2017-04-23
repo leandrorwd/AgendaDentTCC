@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="?android:selectableItemBackground"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -34,7 +36,7 @@
                 android:paddingTop="6dp"
                 android:text="25/03"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textoPacienteHoraInicial"
@@ -46,7 +48,7 @@
                 android:paddingTop="6dp"
                 android:text="09:00"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textoDuracao"
@@ -58,7 +60,7 @@
                 android:paddingTop="6dp"
                 android:text="30min"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -76,7 +78,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="6dp"
                 android:text="Dra. Larissa Hermann"
-                android:textSize="18sp" />
+                android:textSize="16sp"  />
 
             <TextView
                 android:id="@+id/textoEnderecoDentista"
@@ -87,7 +89,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="6dp"
                 android:text="Av. Ipiranga, 6600"
-                android:textSize="18sp" />
+                android:textSize="16sp"  />
 
             <TextView
                 android:id="@+id/textoTipoConsulta"
@@ -98,7 +100,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="6dp"
                 android:text="Convênio"
-                android:textSize="18sp" />
+                android:textSize="16sp"  />
 
         </LinearLayout>
 

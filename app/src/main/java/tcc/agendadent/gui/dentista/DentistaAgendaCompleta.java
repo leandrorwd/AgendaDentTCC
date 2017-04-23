@@ -36,7 +36,6 @@ public class DentistaAgendaCompleta extends LinearLayout  implements Interface_D
         setEventos();
         buscaAgenda();
         this.id = id_janela;
-
     }
 
     private void setEventos() {
