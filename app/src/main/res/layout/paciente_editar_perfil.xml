@@ -5,24 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/idTextEditarPerfil"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center_vertical"
-        android:text="Editar Perfil"
-        android:textAlignment="center"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp" />
-
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="?android:selectableItemBackground"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -70,8 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="?android:selectableItemBackground"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -113,70 +98,11 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:background="?android:selectableItemBackground"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="@color/background_material_light"
-        card_view:cardCornerRadius="@dimen/cardCornerRadius"
-        card_view:cardElevation="@dimen/cardElevation"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/senha"
-                android:textColor="@color/FontTitle"
-                android:textSize="16dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/gray" />
-
-            <EditText
-                android:id="@+id/idAlterarSenhaPaciente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/novasenha"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/idAlterarSenhaPaciente2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/repitanovasenha"
-                android:inputType="textPassword" />
-
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="?android:selectableItemBackground"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -219,17 +145,35 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/botaoSalvarPaciente"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginEnd="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:background="@color/corBotao"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/Salvar"
-        android:textColor="@color/backgroundWhite" />
+        android:layout_marginStart="23dp">
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/botaoSalvarPaciente"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@color/corBotao"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/Salvar"
+            android:textColor="@color/backgroundWhite"
+            card_view:layout_widthPercent="49%"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/botaoAlterarSenha"
+            android:layout_height="wrap_content"
+            android:background="@color/corBotao"
+            android:fontFamily="sans-serif-light"
+            android:text="Alterar Senha"
+            android:textColor="@color/backgroundWhite"
+            card_view:layout_widthPercent="49%"
+            android:layout_alignBaseline="@+id/botaoSalvarPaciente"
+            android:layout_alignBottom="@+id/botaoSalvarPaciente"
+            android:layout_alignParentStart="true" />
+
+    </android.support.percent.PercentRelativeLayout>
 </LinearLayout>

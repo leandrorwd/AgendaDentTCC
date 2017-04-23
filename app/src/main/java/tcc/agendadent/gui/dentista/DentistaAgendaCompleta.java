@@ -47,7 +47,6 @@ public class DentistaAgendaCompleta extends LinearLayout  implements Interface_D
     private void instanciaArtefatos() {
         calendario = (MaterialCalendarView) findViewById(R.id.calendario);
         layoutConsultas = (LinearLayout) findViewById(R.id.layoutConsultas);
-
     }
 
     private void buscaAgenda() {

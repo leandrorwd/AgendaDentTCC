@@ -3,15 +3,4 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/idTextConfiguracoes"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:text="Configurações"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp"
-        android:fontFamily="sans-serif-light"/>
-
 </LinearLayout>

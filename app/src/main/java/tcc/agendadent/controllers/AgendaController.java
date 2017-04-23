@@ -553,13 +553,19 @@ public class AgendaController {
     }
 
     public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas) {
+        boolean existeConsulta = false;
         for (Consulta consulta : consultasBC) {
             if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() > DateTime.now().getMillis()) {
+//            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                existeConsulta = true;
                 horarioDiario.addView(popular);
             }
         }
         DialogAux.dialogCarregandoSimplesDismiss();
+        if (!existeConsulta) {
+            DialogAux.dialogOkSimples(tela, "Informação", "Não há consultas futuras agendadas.");
+        }
     }
 
     public void buscaAgendaBCHistorico(Activity tela, ArrayList<Consulta> consultasBC, int id) {
@@ -570,13 +576,18 @@ public class AgendaController {
     }
 
     public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
+        boolean existeConsulta = false;
         for (Consulta consulta : consultasBC) {
             if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consultasBC.get(0).getDataConsulta() < DateTime.now().getMillis()) {
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                existeConsulta = true;
                 horarioDiario.addView(popular);
             }
         }
         DialogAux.dialogCarregandoSimplesDismiss();
+        if (!existeConsulta) {
+            DialogAux.dialogOkSimples(tela, "Informação", "Não há histórico de consultas passadas.");
+        }
     }
 }
 

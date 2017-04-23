@@ -3,21 +3,13 @@ package tcc.agendadent.gui.paciente;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.AppCompatButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.gui.dentista.DentistaConfigAgendaAdiciona;
 import tcc.agendadent.servicos.DialogAux;
-
-import static android.R.attr.button;
 
 /**
  * Created by Leandro on 25/03/2017.
@@ -41,6 +33,16 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
     }
 
     private void setEventos() {
+
+        //fab
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.startActivity(new Intent(activity, PacienteAgendarConsulta2.class));
+            }
+        });
+
         DialogAux.dialogCarregandoSimples(activity);
         AgendaController.getInstance().getConsultasAgendadasBC(activity, R.id.layoutConsultasAgendadas);
     }

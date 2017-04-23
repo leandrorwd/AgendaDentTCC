@@ -3,24 +3,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/editar_perfil_paciente"
-            android:icon="@drawable/ic_photo"
-            android:title="Editar perfil" />
-
-        <item
             android:id="@+id/agendar_consulta_paciente"
             android:icon="@drawable/ic_photo"
             android:title="Agendar Consulta" />
 
         <item
-            android:id="@+id/consultas_agendadas_paciente"
-            android:icon="@drawable/ic_photo"
-            android:title="Próximas Consultas" />
-
-        <item
-            android:id="@+id/lista_espera_paciente"
-            android:icon="@drawable/ic_photo"
-            android:title="Lista de Espera" />
+            android:id="@+id/editar_perfil_paciente"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Editar perfil" />
 
         <item
             android:id="@+id/historico_consultas_paciente"
@@ -28,8 +18,18 @@
             android:title="Histórico Consultas" />
 
         <item
-            android:id="@+id/configuracoes_paciente"
+            android:id="@+id/lista_espera_paciente"
             android:icon="@drawable/ic_photo"
+            android:title="Lista de Espera" />
+
+        <item
+            android:id="@+id/consultas_agendadas_paciente"
+            android:icon="@drawable/ic_photo"
+            android:title="Próximas Consultas" />
+
+        <item
+            android:id="@+id/configuracoes_paciente"
+            android:icon="@android:drawable/ic_menu_preferences"
             android:title="Configurações" />
 
     </group>

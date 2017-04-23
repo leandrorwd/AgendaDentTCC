@@ -1,5 +1,6 @@
 package tcc.agendadent.gui.paciente;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -52,6 +53,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     }
 
     private void configuraMenu() {
+        setTitle("Próximas Consultas");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.BuscaDentista);
@@ -139,40 +141,50 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     }
 
     private void navegaJanelaPaciente(final int id_janela) {
-        layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                View view = null;
-                if (id_janela == R.id.editar_perfil_paciente) {
-                    view = new PacienteEditarPerfil(Main_Paciente.this, id_janela);
-                }
+        if (id_janela == R.id.agendar_consulta_paciente) {
+            Main_Paciente.this.startActivity(new Intent(Main_Paciente.this, PacienteAgendarConsulta2.class));
+//                    view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
+//                    titulo = "Agendar Consulta";
+        } else {
+            layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    View view = null;
+                    String titulo = "AgendaDent";
+                    if (id_janela == R.id.editar_perfil_paciente) {
+                        view = new PacienteEditarPerfil(Main_Paciente.this, id_janela);
+                        titulo = "Editar Perfil";
+                    }
 
-                if (id_janela == R.id.agendar_consulta_paciente) {
-                    view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
-                }
+                    if (id_janela == R.id.consultas_agendadas_paciente) {
+                        view = new PacienteConsultasAgendadas(Main_Paciente.this, id_janela);
+                        titulo = "Próximas Consultas";
+                    }
 
-                if (id_janela == R.id.consultas_agendadas_paciente) {
-                    view = new PacienteConsultasAgendadas(Main_Paciente.this, id_janela);
-                }
+                    if (id_janela == R.id.lista_espera_paciente) {
+                        view = new PacienteListaEspera(Main_Paciente.this, id_janela);
+                        titulo = "Lista de Espera";
+                    }
 
-                if (id_janela == R.id.lista_espera_paciente) {
-                    view = new PacienteListaEspera(Main_Paciente.this, id_janela);
-                }
+                    if (id_janela == R.id.historico_consultas_paciente) {
+                        view = new PacienteHistoricoConsultas(Main_Paciente.this, id_janela);
+                        titulo = "Histórico de Consultas";
+                    }
 
-                if (id_janela == R.id.historico_consultas_paciente) {
-                    view = new PacienteHistoricoConsultas(Main_Paciente.this, id_janela);
-                }
+                    if (id_janela == R.id.configuracoes_paciente) {
+                        view = new PacienteConfiguracoes(Main_Paciente.this, id_janela);
+                        titulo = "Configurações";
+                    }
 
-                if (id_janela == R.id.configuracoes_paciente) {
-                    view = new PacienteConfiguracoes(Main_Paciente.this, id_janela);
-                }
+                    layoutMaster.removeAllViews();
+                    layoutMaster.addView(view);
+                    setTitle(titulo);
+                    layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+                    pilhaTelas.add(view);
 
-                layoutMaster.removeAllViews();
-                layoutMaster.addView(view);
-                layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
-                pilhaTelas.add(view);
-            }
-        }).start();
+                }
+            }).start();
+        }
     }
 
     public Object getViewAtual() {
