@@ -1,10 +1,11 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.annotation.LayoutRes;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,20 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.objetos.Endereco;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by Leandro on 25/03/2017.
  */
 
-public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaciente {
-    private Activity activity;
-    private Button botaopesquisar;
-    private int id;
+public class PacienteAgendarConsulta2 extends AppCompatActivity {
     private EditText nomeDentistaBusca;
     private Spinner tipoConsulta;
     private Spinner planosDeSaude;
@@ -42,16 +40,36 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
     private EditText complementoDentista;
     private Button pesquisar;
 
-    public PacienteAgendarConsulta(Activity activity, int id_janela) {
-        super(activity);
-        this.activity = activity;
-        View.inflate(activity, R.layout.paciente_busca_dentista, this);
-        this.id = id_janela;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.paciente_busca_dentista);
+        setTitle("Agendar Consulta");
         instanciaArtefatos();
         setEventos();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Your code here
+    }
+
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     private void instanciaArtefatos() {
+
+        //back navigation
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarBuscaDentistas));
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         nomeDentistaBusca = (EditText) findViewById(R.id.nomeDentistaBusca);
         cidadeDentista = (EditText) findViewById(R.id.cidadeDentista);
         bairroDentista = (EditText) findViewById(R.id.bairroDentista);
@@ -85,7 +103,8 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
                 }
             }
         });
-        pesquisar.setOnClickListener(new OnClickListener() {
+
+        pesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String planoSaude;
@@ -112,8 +131,8 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
                      distancia = 0;
                      e1 = null;
                 }
-                DialogAux.dialogCarregandoSimples(activity);
-                PacienteController.getInstance().getDentistasFiltro(activity,nomeDentistaBusca.getText().toString(),
+                DialogAux.dialogCarregandoSimples(PacienteAgendarConsulta2.this);
+                PacienteController.getInstance().getDentistasFiltro(PacienteAgendarConsulta2.this,nomeDentistaBusca.getText().toString(),
                         tipoConsulta.getSelectedItem().toString(),planoSaude,
                         especializacao.getSelectedItem().toString(),e1,distancia);
             }
@@ -131,21 +150,4 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
         });
     }
 
-    @Override
-    public void onResume() {
-    }
-
-    @Override
-    public boolean needResume() {
-        return false;
-    }
-
-    @Override
-    public int getIdMenu() {
-        return id;
-    }
-
-    @Override
-    public void flipper(boolean next) {
-    }
 }

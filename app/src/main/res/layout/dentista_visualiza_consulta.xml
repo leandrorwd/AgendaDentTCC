@@ -19,346 +19,359 @@
             android:background="?attr/colorPrimary"
             android:fontFamily="sans-serif-light"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-        <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/gray"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/nomePaciente"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/textoNomePaciente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="João Cleiton:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/tipo_consulta"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/tipoConsulta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Teste:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/emailPaciente"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/emailPaciente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Teste:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/telefonePaciente"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/telefonePaciente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Teste:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/data"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/dataConsulta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Teste:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    card_view:cardBackgroundColor="@color/background_material_light"
-                    card_view:cardCornerRadius="@dimen/cardCornerRadius"
-                    card_view:cardElevation="@dimen/cardElevation"
-                    card_view:cardUseCompatPadding="true"
-                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
-
-                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="@string/horaConsulta"
-                            android:textColor="@color/FontTitle"
-                            android:textSize="16dp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/gray" />
-
-                        <TextView
-                            android:id="@+id/horaConsulta"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Teste:"
-                            android:textColor="@color/FontConteudo"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/botaoDesmarcarDentista"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginEnd="23dp"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:background="@color/corBotao"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Desnarcar consulta"
-                    android:textColor="@color/backgroundWhite" />
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.AppBarLayout>
+
+
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/idTextDentistaDadosConsulta"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical"
+                android:text="DADOS DA CONSULTA"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/nomePaciente"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/textoNomePaciente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="João Cleiton:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/tipo_consulta"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/tipoConsulta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Teste:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/emailPaciente"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/emailPaciente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Teste:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/telefonePaciente"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/telefonePaciente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Teste:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/data"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/dataConsulta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Teste:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                card_view:cardBackgroundColor="@color/background_material_light"
+                card_view:cardCornerRadius="@dimen/cardCornerRadius"
+                card_view:cardElevation="@dimen/cardElevation"
+                card_view:cardUseCompatPadding="true"
+                card_view:contentPaddingBottom="@dimen/contentPaddingBottom">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/horaConsulta"
+                        android:textColor="@color/FontTitle"
+                        android:textSize="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/gray" />
+
+                    <TextView
+                        android:id="@+id/horaConsulta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Teste:"
+                        android:textColor="@color/FontConteudo"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/botaoDesmarcarDentista"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="23dp"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@color/corBotao"
+                android:fontFamily="sans-serif-light"
+                android:text="Desmarcar consulta"
+                android:textColor="@color/backgroundWhite" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 </LinearLayout>

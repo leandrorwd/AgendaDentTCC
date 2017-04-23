@@ -27,9 +27,9 @@
         <activity android:name=".gui.dentista.Main_Dentista" />
         <activity android:name=".gui.dentista.DentistaVisualizarConsulta" />
         <activity android:name=".gui.dentista.DentistaPerfil" />
-        <activity android:name=".gui.paciente.PacienteListarDentistas" />
         <activity android:name=".gui.paciente.PacienteVisualizarHorarios" />
         <activity android:name=".gui.dentista.DentistaEspecializacoes" />
+        <activity android:name=".gui.paciente.PacienteAgendarConsulta2" />
         <activity android:name=".gui.paciente.PacienteVisualizaDentistas"></activity>
     </application>
 
