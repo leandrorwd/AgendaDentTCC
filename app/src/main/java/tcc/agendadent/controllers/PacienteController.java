@@ -158,6 +158,7 @@ public class PacienteController {
                     break;
                 }
             }
+            PacienteController.getInstance().setTipoConsultaConvenio(tipoConsulta,planoSaude);
             retorno.clear();
             retorno.addAll(aux);
         }
@@ -300,6 +301,12 @@ public class PacienteController {
             activity.startActivity(new Intent(activity, PacienteVisualizaDentistas.class));
         }
     }
+    private String tipoConsulta;
+    private String planoSaude;
+    private void setTipoConsultaConvenio(String tipoConsulta, String planoSaude) {
+        this.tipoConsulta = tipoConsulta;
+        this.planoSaude = planoSaude;
+    }
 
     public ArrayList<UsuarioDentista> getDentistas() {
         return dentistas;
@@ -307,5 +314,23 @@ public class PacienteController {
 
     public void setDentistas(ArrayList<UsuarioDentista> dentistas) {
         this.dentistas = dentistas;
+    }
+
+    public UsuarioDentista getUsuarioDentistaMarcaConsulta() {
+        return usuarioDentistaMarcaConsulta;
+    }
+
+    private UsuarioDentista usuarioDentistaMarcaConsulta;
+
+    public void setDentistaMarcaConsulta(UsuarioDentista dentista) {
+        usuarioDentistaMarcaConsulta=dentista;
+    }
+
+    public String getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public String getPlanoSaude() {
+        return planoSaude;
     }
 }

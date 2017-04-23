@@ -191,6 +191,14 @@
     <string name="missplan">Selecione um plano de saúde</string>
     <string name="missState">Selecione um estado.</string>
     <string name="nenhumDentistaEncontrado">Nenhum dentista foi encontrado.</string>
+    <string name="dias">Dias:</string>
+    <string name="tiposConsulta">Tipos de consultas:</string>
+    <string name="Particular">Particular</string>
+    <string name="sus">Sus</string>
+    <string name="convenios">Convênios</string>
+    <string name="ocupado">Ocupado.</string>
+    <string name="livre">Livre.</string>
+    <string name="indisponivell">Indisponivel para este tipo de consulta.</string>
 
 
 </resources>

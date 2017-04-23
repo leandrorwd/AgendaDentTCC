@@ -16,88 +16,176 @@
         android:layout_marginRight="16dp"
         android:orientation="vertical"
         >
-        <LinearLayout
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkboxSegunda"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
+            android:layout_height="match_parent"
+            card_view:cardElevation="@dimen/cardElevation"
+            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/Segunda"/>
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textoDiasTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/dias"
+                    />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkboxTerca"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
+                        <CheckBox
+                            android:id="@+id/checkboxSegunda"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Segunda"/>
 
-                android:layout_height="wrap_content"
-                android:text="@string/Terca"/>
+                        <CheckBox
+                            android:id="@+id/checkboxTerca"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
 
-        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:text="@string/Terca"/>
 
-        <LinearLayout
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkBoxQuarta"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quarta"/>
+
+                        <CheckBox
+                            android:id="@+id/checkboxQuinta"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quinta"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/checkboxSexta"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_width="168dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sexta"/>
+
+                        <CheckBox
+                            android:id="@+id/idSabado"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sabado"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/domingo"
+                            android:layout_width="168dp"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Domingo"/>
+
+
+                    </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkBoxQuarta"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
+            android:layout_height="match_parent"
+            card_view:cardElevation="@dimen/cardElevation"
+            card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardCornerRadius="@dimen/cardCornerRadius">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/quarta"/>
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textoTiposConsulta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/tiposConsulta"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkboxQuinta"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:text="@string/quinta"/>
+                    <CheckBox
+                        android:id="@+id/checkboxParticular"
+                        android:layout_width="168dp"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Particular"/>
 
-        </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/checkboxConvenio"
+                        android:layout_width="168dp"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:text="@string/convenios"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/checkboxSexta"
-                android:fontFamily="sans-serif-light"
-                android:layout_width="168dp"
-                android:layout_height="wrap_content"
-                android:text="@string/sexta"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/idSabado"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:text="@string/sabado"/>
+                    <CheckBox
+                        android:id="@+id/checkBoxSus"
+                        android:layout_width="168dp"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sus"/>
+                </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/domingo"
-                android:layout_width="168dp"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:text="@string/Domingo"/>
-
-
-        </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,7 +213,7 @@
                     android:id="@+id/textoDias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:fontFamily="sans-serif-light"
                     android:layout_marginTop="6dp"
                     android:text="@string/horario_de_inicio"
@@ -148,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="@dimen/fab_margin"
-                    android:src="@android:drawable/ic_input_add" />
+                    android:src="@mipmap/editico" />
             </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -174,7 +262,7 @@
                         android:id="@+id/textoDiastemrino"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:fontFamily="sans-serif-light"
                         android:layout_marginTop="6dp"
                         android:text="@string/horario_de_termino"
@@ -197,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_margin="@dimen/fab_margin"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:src="@mipmap/editico" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -223,7 +311,7 @@
                         android:id="@+id/TempoConsulta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:fontFamily="sans-serif-light"
                         android:layout_marginTop="6dp"
                         android:text="@string/tempoDeConsulta"
@@ -246,10 +334,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_margin="@dimen/fab_margin"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:src="@mipmap/editico"  />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
+
+
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/botaoAddHorario"

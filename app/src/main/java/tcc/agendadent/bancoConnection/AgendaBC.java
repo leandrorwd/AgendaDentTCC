@@ -111,7 +111,14 @@ public class AgendaBC {
                                 consultas.add(new Consulta(consultaBanco));
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
-                            AgendaController.getInstance().setAgendaCompleta(tela, consultas);
+
+                            if(tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")){
+                                AgendaController.getInstance().setAgendaMarcacao(tela, consultas);
+
+                            }
+                            else{
+                                AgendaController.getInstance().setAgendaCompleta(tela, consultas);
+                            }
                         }
 
                         @Override
