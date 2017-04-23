@@ -103,6 +103,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                 pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size() - 1));
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(pilhaTelas.get(pilhaTelas.size() - 1));
+                setTitle(setTitulo(pilhaTelas.get(pilhaTelas.size() - 1)));
             }
         }).start();
     }
@@ -146,43 +147,35 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                 @Override
                 public void run() {
                     View view = null;
-                    String titulo = "AgendaDent";
                     if (id_janela == R.id.editar_perfil_paciente) {
                         view = new PacienteEditarPerfil(Main_Paciente.this, id_janela);
-                        titulo = "Editar Perfil";
                     }
 
                     if (id_janela == R.id.agendar_consulta_paciente) {
                         view = new PacienteAgendarConsulta(Main_Paciente.this, id_janela);
-                        titulo = "Agendar Consultas";
                     }
 
                     if (id_janela == R.id.consultas_agendadas_paciente) {
                         view = new PacienteConsultasAgendadas(Main_Paciente.this, id_janela);
-                        titulo = "Próximas Consultas";
                     }
 
                     if (id_janela == R.id.lista_espera_paciente) {
                         view = new PacienteListaEspera(Main_Paciente.this, id_janela);
-                        titulo = "Lista de Espera";
                     }
 
                     if (id_janela == R.id.historico_consultas_paciente) {
                         view = new PacienteHistoricoConsultas(Main_Paciente.this, id_janela);
-                        titulo = "Histórico de Consultas";
                     }
 
                     if (id_janela == R.id.configuracoes_paciente) {
                         view = new PacienteConfiguracoes(Main_Paciente.this, id_janela);
-                        titulo = "Configurações";
                     }
 
                     layoutMaster.removeAllViews();
                     layoutMaster.addView(view);
-                    setTitle(titulo);
+                    setTitle(setTitulo(view));
                     layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
                     pilhaTelas.add(view);
-
                 }
             }).start();
 
@@ -208,12 +201,10 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                         @Override
                         public void run() {
                             View view = null;
-                            String titulo = "AgendaDent";
                             view = new PacienteAgendarConsulta(activity, R.id.agendar_consulta_paciente);
-                            titulo = "Agendar Consultas";
                             layoutMaster.removeAllViews();
                             layoutMaster.addView(view);
-                            activity.setTitle(titulo);
+                            activity.setTitle(setTitulo(view));
                             layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
                             pilhaTelas.add(view);
 
@@ -222,5 +213,24 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                 }
             }).start();
         }
+    }
+
+    private static String setTitulo(View view) {
+        if (view.getClass().getSimpleName().equals("PacienteAgendarConsulta")){
+            return "Agendar Consulta";
+        } if (view.getClass().getSimpleName().equals("PacienteEditarPerfil")) {
+            return "Editar Perfil";
+        }
+        if (view.getClass().getSimpleName().equals("PacienteConsultasAgendadas")) {
+            return "Próximas Consultas";
+        }
+        if (view.getClass().getSimpleName().equals("PacienteHistoricoConsultas")) {
+            return "Histórico de Consultas";
+        }
+        if (view.getClass().getSimpleName().equals("PacienteListaEspera")) {
+            return "Lista de Espera";
+        }
+
+        return "ConfigSetTitulo";
     }
 }

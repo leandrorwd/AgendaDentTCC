@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.R;
@@ -41,6 +42,7 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
     private EditText numeroDentista;
     private EditText complementoDentista;
     private Button pesquisar;
+    public String titulo = "Agendar Consulta";
 
     public PacienteAgendarConsulta(Activity activity, int id_janela) {
         super(activity);
@@ -89,33 +91,30 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
             @Override
             public void onClick(View view) {
                 String planoSaude;
-                if(!tipoConsulta.getSelectedItem().toString().equals("Convênio")){
+                if (!tipoConsulta.getSelectedItem().toString().equals("Convênio")) {
                     planoSaude = "null";
-                }
-                else{
-                    planoSaude =planosDeSaude.getSelectedItem().toString();
+                } else {
+                    planoSaude = planosDeSaude.getSelectedItem().toString();
                 }
                 RadioButton r1 = (RadioButton) findViewById(R.id.idRadioProx);
                 RadioButton r2 = (RadioButton) findViewById(R.id.idRadioOutro);
 
                 int distancia = 0;
                 Endereco e1 = null;
-                if (r1.isChecked()){
+                if (r1.isChecked()) {
                     //TODO DISTANCIA STUFF
-                }
-                else if(r2.isChecked()){
+                } else if (r2.isChecked()) {
                     e1 = new Endereco("Brasil", spinnerEstado.getSelectedItem().toString(), cidadeDentista.getText().toString()
-                            ,bairroDentista.getText().toString(), ruaDentista.getText().toString()
-                            , complementoDentista.getText().toString(), 0,0 );
-                }
-                else{
-                     distancia = 0;
-                     e1 = null;
+                            , bairroDentista.getText().toString(), ruaDentista.getText().toString()
+                            , complementoDentista.getText().toString(), 0, 0);
+                } else {
+                    distancia = 0;
+                    e1 = null;
                 }
                 DialogAux.dialogCarregandoSimples(activity);
-                PacienteController.getInstance().getDentistasFiltro(activity,nomeDentistaBusca.getText().toString(),
-                        tipoConsulta.getSelectedItem().toString(),planoSaude,
-                        especializacao.getSelectedItem().toString(),e1,distancia);
+                PacienteController.getInstance().getDentistasFiltro(activity, nomeDentistaBusca.getText().toString(),
+                        tipoConsulta.getSelectedItem().toString(), planoSaude,
+                        especializacao.getSelectedItem().toString(), e1, distancia);
             }
         });
         tipoConsulta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -147,5 +146,14 @@ public class PacienteAgendarConsulta extends LinearLayout implements ClassesPaci
 
     @Override
     public void flipper(boolean next) {
+    }
+
+    @Override
+    public String toString() {
+        return "blah";
+    }
+
+    public String getTitulo() {
+        return "blah";
     }
 }
