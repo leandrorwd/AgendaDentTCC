@@ -1,6 +1,7 @@
 package tcc.agendadent.bancoConnection;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,7 @@ import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
+import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by Work on 17/03/2017.
@@ -49,7 +51,7 @@ public class AgendaBC {
 
     }
 
-    public void insertConsulta(final Consulta consulta, final String idDentista, final String semestreAno) {
+    public void insertConsulta(final Activity activity,final Consulta consulta, final String idDentista, final String semestreAno) {
         try {
             firebaseDatabaseReference.child("agendaSub").orderByKey().limitToLast(1)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,6 +62,11 @@ public class AgendaBC {
                                     .child(idDentista)
                                     .child(semestreAno).child("consultasMarcadas").push()
                                     .setValue(consulta);
+                            Intent intent = new Intent("kill");
+                            intent.setType("text/plain");
+                            activity.sendBroadcast(intent);
+                            DialogAux.dialogCarregandoSimplesDismiss();
+
                         }
 
                         @Override
@@ -83,7 +90,9 @@ public class AgendaBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                consultas.add(new Consulta(consultaBanco));
+                                Consulta s1 = new Consulta(consultaBanco);
+                                s1.setIdConsulta(consultaBanco.getKey());
+                                consultas.add(s1);
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
                             AgendaController.getInstance().setAgendaDiaria(tela, consultas);
@@ -108,13 +117,14 @@ public class AgendaBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                consultas.add(new Consulta(consultaBanco));
+                                Consulta s1 = new Consulta(consultaBanco);
+                                s1.setIdConsulta(consultaBanco.getKey());
+                                consultas.add(s1);
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
 
                             if(tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")){
                                 AgendaController.getInstance().setAgendaMarcacao(tela, consultas);
-
                             }
                             else{
                                 AgendaController.getInstance().setAgendaCompleta(tela, consultas);
@@ -167,7 +177,9 @@ public class AgendaBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                consultasBC.add(new Consulta(consultaBanco));
+                                Consulta s1 = new Consulta(consultaBanco);
+                                s1.setIdConsulta(consultaBanco.getKey());
+                                consultasBC.add(s1);
                             }
                             AgendaController.getInstance().buscaAgendaBCHistorico(tela, consultasBC, id);
                         }

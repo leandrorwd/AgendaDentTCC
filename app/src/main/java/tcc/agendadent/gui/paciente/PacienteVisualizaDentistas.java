@@ -1,5 +1,9 @@
 package tcc.agendadent.gui.paciente;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +18,7 @@ import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.R;
 
 public class PacienteVisualizaDentistas extends AppCompatActivity {
+    private KillReceiver mKillReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,20 @@ public class PacienteVisualizaDentistas extends AppCompatActivity {
             layout.addView(t1);
         }
         instanciaArtefatos();
+        mKillReceiver = new KillReceiver();
+        registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mKillReceiver);
+    }
+    private final class KillReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
     }
 
     public boolean onSupportNavigateUp() {

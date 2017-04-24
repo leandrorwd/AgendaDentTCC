@@ -1,6 +1,8 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -9,7 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.content.IntentFilter;
+import 	android.content.BroadcastReceiver;
 import org.joda.time.DateTime;
 
 import tcc.agendadent.R;
@@ -18,6 +21,7 @@ import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
+import tcc.agendadent.servicos.DialogAux;
 
 public class PacienteMarcaConsulta extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
     private TextView endereco;
     private Button botaoSalvar;
     private Button cancelar;
+    private KillReceiver mKillReceiver;
 
     private ImageView fotoPerfil;
 
@@ -45,12 +50,27 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
         dentista = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta();
         instanciaArtefatos();
         setEventos();
+        mKillReceiver = new KillReceiver();
+        registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mKillReceiver);
+    }
+    private final class KillReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
     }
 
     private void setEventos() {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DialogAux.dialogCarregandoSimples(PacienteMarcaConsulta.this);
                 String[] parts = PacienteController.getInstance().getHoraConsultaInicial().split(":");
                 DateTime dateDataConsultaInicial = new DateTime(AgendaController.getInstance().getMomento().getYear(),
                         AgendaController.getInstance().getMomento().getMonthOfYear(),
@@ -65,21 +85,34 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
                             +(PacienteController.getInstance().getPlanoSaude());
                 }
                 else{
-                    tipoConsultaString ="Tipo consulta: "+PacienteController.getInstance().getTipoConsulta();
+                    tipoConsultaString =PacienteController.getInstance().getTipoConsulta();
                 }
                 int mes = DateTime.now().monthOfYear().get();
-                String anoSemestre= DateTime.now().year().get()+"";
+                String anoSemestre;
                 if(mes>=7){
                     anoSemestre = DateTime.now().year().get() +"A2";
                 }
                 else
                     anoSemestre = DateTime.now().year().get() +"A1";
                 anoSemestre = anoSemestre.replace("A","");
+                long valorAux = 0;
+                try{
+                    String operador = DateTime.now().toString().substring(23,26);
+                    valorAux = Integer.parseInt( DateTime.now().toString().substring(24,26));
+                    if(operador.contains("+")){
+                        valorAux = valorAux * 3600000;
+                    }
+                    else{
+                        valorAux = (valorAux * 3600000) - (valorAux * 3600000)*2;
+                     }
+                }catch (Exception e){
+                    valorAux =0;
+                }
                 Consulta c1 = new Consulta(PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getIdDentista()
                         , PacienteController.getInstance().getPacienteLogado().getIdPaciente(),
-                        dateDataConsultaInicial.getMillis()
+                        dateDataConsultaInicial.getMillis()+valorAux
                         ,5, tipoConsultaString,PacienteController.getInstance().getPacienteLogado().getNome(),valor);
-                AgendaController.getInstance().insertConsulta(c1,
+                AgendaController.getInstance().insertConsulta(PacienteMarcaConsulta.this,c1,
                         PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getIdDentista()+"",anoSemestre);
             }
         });

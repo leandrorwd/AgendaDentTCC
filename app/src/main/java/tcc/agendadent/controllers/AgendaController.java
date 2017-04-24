@@ -57,8 +57,8 @@ public class AgendaController {
         agendaBC.insertAgendaSub(ag, DentistaController.getInstance().getDentistaLogado());
     }
 
-    public void insertConsulta(Consulta consulta, String idDentista, String semestreAno) {
-        agendaBC.insertConsulta(consulta, idDentista, semestreAno);
+    public void insertConsulta(Activity activity,Consulta consulta, String idDentista, String semestreAno) {
+        agendaBC.insertConsulta(activity,consulta, idDentista, semestreAno);
     }
 
     public void getConsultasSemestre(long idDentista, String anoSemestre, Activity tela, boolean banco) {

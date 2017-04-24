@@ -20,6 +20,8 @@ public class Consulta implements Serializable {
     private long duracao;
     private long avaliacao;
     private String tipoConsulta;
+    private String idConsulta;
+
 
     public Consulta() {
     }
@@ -107,5 +109,9 @@ public class Consulta implements Serializable {
     }
     public DateTime getHoraFinalDateTime(){
         return  new DateTime(dataConsulta+duracao);
+    }
+
+    public void setIdConsulta(String idConsulta) {
+        this.idConsulta = idConsulta;
     }
 }

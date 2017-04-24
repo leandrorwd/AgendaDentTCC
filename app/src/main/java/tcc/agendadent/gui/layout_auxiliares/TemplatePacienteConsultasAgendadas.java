@@ -55,16 +55,24 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         DateTimeFormatter formatData = DateTimeFormat.forPattern("dd/MM");
         DateTime data = new DateTime(consulta.getDataConsulta());
         textoPacienteData.setText(formatData.print(data));
-
-
-
-
         TextView textoPacienteHoraInicial = (TextView) findViewById(R.id.textoPacienteHoraInicial);
         DateTimeFormatter formatHorario = DateTimeFormat.forPattern("HH:mm");
         DateTime hora = new DateTime(consulta.getDataConsulta());
-        textoPacienteHoraInicial.setText(formatHorario.print(hora));
-
-
+        DateTime aux = DateTime.now();
+        DateTime horaCorrida;
+        try{
+            String operador = aux.toString().substring(23,26);
+            int valor = Integer.parseInt(aux.toString().substring(24,26));
+            if(operador.contains("+")){
+                horaCorrida= hora.minusHours(valor);
+            }
+            else{
+                horaCorrida=  hora.plusHours(valor);
+            }
+        }catch (Exception e){
+            horaCorrida = hora;
+        }
+        textoPacienteHoraInicial.setText(formatHorario.print(horaCorrida));
 
 
 

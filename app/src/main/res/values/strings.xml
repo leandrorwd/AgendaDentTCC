@@ -87,6 +87,10 @@
         <item>SulAmerica Odonto</item>
         <item>Uniodonto</item>
     </string-array>
+    <string-array name="picker_sexo">
+        <item>Masculino</item>
+        <item>Feminino</item>
+    </string-array>
     <string-array name="picker_especializacao">
         <item>Clinico Geral</item>
         <item>Endodontia</item>
@@ -201,6 +205,7 @@
     <string name="indisponivell">Indisponivel para este tipo de consulta.</string>
     <string name="confirmar">Confirma</string>
     <string name="cancela">Cancela</string>
+    <string name="sexo">Sexo:</string>
 
 
 </resources>

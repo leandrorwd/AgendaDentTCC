@@ -18,6 +18,7 @@ public class UsuarioDentista {
     private Agenda agenda;
     private Especializacoes especializacoes;
     private Convenios convenios;
+    private boolean masculino;
 
     private String telefone;
 
@@ -33,6 +34,7 @@ public class UsuarioDentista {
         this.urlFotoPerfil = String.valueOf(dataSnapshot.child("urlFotoPerfil").getValue());
         this.endereco = dataSnapshot.child("endereco").getValue(Endereco.class);
         this.status = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("status").getValue()));
+        this.masculino = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("masculino").getValue()));
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));
         this.agenda = dataSnapshot.child("agenda").getValue(Agenda.class);
         this.especializacoes = dataSnapshot.child("especializacoes").getValue(Especializacoes.class);
@@ -42,14 +44,15 @@ public class UsuarioDentista {
         }
     }
 
-    public UsuarioDentista(String email, String nome, String sobreNome, String inscricaoCRO, String urlFotoPerfil, Endereco endereco,String celular) {
+    public UsuarioDentista(String email, String nome, String sobreNome, String inscricaoCRO, String urlFotoPerfil, Endereco endereco,String celular,boolean masculino) {
         this.email = email;
         this.nome = nome;
         this.sobreNome = sobreNome;
         this.inscricaoCRO = inscricaoCRO;
         this.urlFotoPerfil = urlFotoPerfil;
         this.endereco = endereco;
-        this.telefone = telefone;
+        this.telefone = celular;
+        this.masculino = masculino;
         status = false;
     }
 
@@ -156,6 +159,14 @@ public class UsuarioDentista {
         this.especializacoes = especializacoes;
     }
 
+    public boolean isMasculino() {
+        return masculino;
+    }
+
+    public void setMasculino(boolean masculino) {
+        this.masculino = masculino;
+    }
+
     public Convenios getConvenios() {
         return convenios;
     }
@@ -183,6 +194,10 @@ public class UsuarioDentista {
             result += "Odontologia Estética, ";
         if (especializacoes.isProtese())
             result += "Protese, ";
-        return result.substring(0, result.length() - 2);
+        try{
+            return result.substring(0, result.length() - 2);
+        }catch (Exception e){
+            return "";
+        }
     }
 }

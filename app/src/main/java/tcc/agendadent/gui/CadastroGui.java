@@ -36,6 +36,8 @@ public class CadastroGui extends AppCompatActivity {
     private EditText celular;
     private EditText cep;
     private Spinner estado;
+    private Spinner sexo;
+
     private EditText cidade;
     private EditText bairro;
     private EditText rua;
@@ -69,6 +71,7 @@ public class CadastroGui extends AppCompatActivity {
         celular = (EditText) findViewById(R.id.idCelular);
         cep = (EditText) findViewById(R.id.idCadastroCep);
         estado = (Spinner) findViewById(R.id.idCadastroSpinnerEstado);
+        sexo = (Spinner) findViewById(R.id.idCadastroSexo);
         cidade = (EditText) findViewById(R.id.idCadastroCidade);
         bairro = (EditText) findViewById(R.id.idCadastroBairro);
         rua = (EditText) findViewById(R.id.idCadastroRua);
@@ -119,18 +122,21 @@ public class CadastroGui extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogAux.dialogCarregandoSimples(CadastroGui.this);
+                boolean masculino=false;
+                if(sexo.getSelectedItem().toString().equals("Masculino"))
+                    masculino = true;
                 if(tipoUsuario.getSelectedItem().toString().equals("Dentista")){
                     CadastroController.getInstance().cadastraDentista(CadastroGui.this,email.getText().toString(),
                             nome.getText().toString(),sobreNome.getText().toString(),senha.getText().toString(),
                             senha2.getText().toString(),inscricaoCro.getText().toString(),cep.getText().toString(),
                             (String) estado.getItemAtPosition(estado.getSelectedItemPosition()),cidade.getText().toString(),
                             bairro.getText().toString(),rua.getText().toString(),numero.getText().toString(),
-                            complemento.getText().toString(),perfil,celular.getText().toString());
+                            complemento.getText().toString(),perfil,celular.getText().toString(),masculino);
                             }
                 else{
                         CadastroController.getInstance().cadastraPaciente(CadastroGui.this,email.getText().toString(),
                                 nome.getText().toString(),sobreNome.getText().toString(),senha.getText().toString(),
-                                senha2.getText().toString(),celular.getText().toString());
+                                senha2.getText().toString(),celular.getText().toString(),masculino);
                 }
             }
         });

@@ -167,7 +167,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                         else
                             anoSemestre = DateTime.now().year().get() +"A1";
                         anoSemestre = anoSemestre.replace("A","");
-                        AgendaController.getInstance().insertConsulta(c1,DentistaController.getInstance().getDentistaLogado().getIdDentista()+""
+                        AgendaController.getInstance().insertConsulta(tela,c1,DentistaController.getInstance().getDentistaLogado().getIdDentista()+""
                                 ,anoSemestre);
 
 

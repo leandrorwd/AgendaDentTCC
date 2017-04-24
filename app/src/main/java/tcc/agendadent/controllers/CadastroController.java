@@ -13,7 +13,9 @@ import android.widget.Spinner;
 import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
+import tcc.agendadent.objetos.Convenios;
 import tcc.agendadent.objetos.Endereco;
+import tcc.agendadent.objetos.Especializacoes;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.BuscaEnderecoCep;
@@ -112,7 +114,7 @@ public class CadastroController {
     public void cadastraDentista(Activity activity, String email, String nome, String sobreNome, String senha1, String senha2,
                                  String inscricaoCro, String cep, String estado, String cidade,
                                  String bairro, String rua, String numero, String complemento,
-                                 ImageView perfil, String celular) {
+                                 ImageView perfil, String celular, boolean masculino) {
         String erro = activity.getResources().getString(R.string.erro);
 
         if(!ValidationTest.verificaInternet(activity)){
@@ -235,7 +237,7 @@ public class CadastroController {
         Endereco e1 = new Endereco("Brasil",estado,cidade,bairro,rua,complemento,
                 Integer.parseInt(numero),Integer.parseInt(cepAux));
         setFotoPerfil(perfil);
-        UsuarioDentista usuario = new UsuarioDentista(email,nome,sobreNome,inscricaoCro,"null",e1,celular);
+        UsuarioDentista usuario = new UsuarioDentista(email,nome,sobreNome,inscricaoCro,"null",e1,celular,masculino);
         AutenticacaoController.getInstance().cadastraDentista(activity,usuario,senha1);
     }
 
@@ -245,6 +247,8 @@ public class CadastroController {
     }
 
     public void insertNewDentista(UsuarioDentista usuario,Activity tela) {
+        usuario.setConvenios(new Convenios());
+        usuario.setEspecializacoes(new Especializacoes());
         dentistaBC.insertDentista(usuario,tela);
     }
 
@@ -252,7 +256,7 @@ public class CadastroController {
         return fotoPerfilCadastro;
     }
 
-    public void cadastraPaciente(Activity activity, String email, String nome, String sobreNome, String senha1, String senha2, String celular) {
+    public void cadastraPaciente(Activity activity, String email, String nome, String sobreNome, String senha1, String senha2, String celular,boolean masculino) {
         String erro = activity.getResources().getString(R.string.erro);
 
         if(!ValidationTest.verificaInternet(activity)){
@@ -314,7 +318,7 @@ public class CadastroController {
             return;
         }
 
-        UsuarioPaciente usuario = new UsuarioPaciente(email,nome,sobreNome,celular);
+        UsuarioPaciente usuario = new UsuarioPaciente(email,nome,sobreNome,celular,masculino);
         AutenticacaoController.getInstance().cadastraPaciente(activity,usuario,senha1);
     }
 

@@ -1,7 +1,10 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +29,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
 
     private static ArrayList<View> pilhaTelas;
     private static LinearLayout layoutMaster;
+    private KillReceiver mKillReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,30 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         layoutMaster = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
         configuraMenu();
         carregaBuscaDentista();
+        mKillReceiver = new KillReceiver();
+        registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mKillReceiver);
+    }
+    private final class KillReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+
+                    layoutMaster.animate().alpha(1).setDuration(0).setInterpolator(new AccelerateInterpolator()).start();
+                    pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size() - 1));
+                    layoutMaster.removeAllViews();
+                    layoutMaster.addView(pilhaTelas.get(pilhaTelas.size() - 1));
+                    setTitle(setTitulo(pilhaTelas.get(pilhaTelas.size() - 1)));
+                }
+            }).start();
+        }
     }
 
     @Override
