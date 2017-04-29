@@ -17,12 +17,15 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.joda.time.DateTime;
 
+import java.util.Calendar;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.gui.dentista.Interface_Dentista;
 import tcc.agendadent.servicos.DialogAux;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 
 public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity implements  OnDateSelectedListener, OnMonthChangedListener {
     private MaterialCalendarView calendario;
@@ -64,6 +67,12 @@ public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity impleme
         }
         calendario.setOnDateChangedListener(this);
         calendario.setOnMonthChangedListener(this);
+        calendario.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setMinimumDate(CalendarDay.from(2017, 1, 1))
+                .setMaximumDate(CalendarDay.from(2018, 7, 7))
+                .setCalendarDisplayMode(CalendarMode.WEEKS)
+                .commit();
         calendario.setDateSelected(DateTime.now().toDate(),true);
     }
 

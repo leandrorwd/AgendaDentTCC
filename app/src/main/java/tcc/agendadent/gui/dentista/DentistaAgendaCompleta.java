@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.joda.time.DateTime;
-
+import java.util.Calendar;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
@@ -41,6 +42,7 @@ public class DentistaAgendaCompleta extends LinearLayout  implements Interface_D
     private void setEventos() {
         calendario.setOnDateChangedListener(this);
         calendario.setOnMonthChangedListener(this);
+
     }
 
     private void instanciaArtefatos() {
@@ -57,6 +59,12 @@ public class DentistaAgendaCompleta extends LinearLayout  implements Interface_D
         }
         else
             anoSemestre =  calendario.getCurrentDate().getYear() +"A1";
+        calendario.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setMinimumDate(CalendarDay.from(2017, 1, 1))
+                .setMaximumDate(CalendarDay.from(2018, 7, 7))
+                .commit();
+        calendario.setSelectedDate(DateTime.now().toDate());
         anoSemestre = anoSemestre.replace("A","");
         AgendaController.getInstance().getConsultasCompleto(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                 ,anoSemestre,activity,false);
@@ -64,12 +72,16 @@ public class DentistaAgendaCompleta extends LinearLayout  implements Interface_D
 
     @Override
     public void onResume() {
+
+        View.inflate(activity, R.layout.dentista_agenda_completa, this);
+        instanciaArtefatos();
+        setEventos();
         buscaAgenda();
     }
 
     @Override
     public boolean needResume() {
-        return false;
+        return true;
     }
 
     private int id;

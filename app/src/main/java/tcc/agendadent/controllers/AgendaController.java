@@ -585,6 +585,7 @@ public class AgendaController {
             DialogAux.dialogOkSimples(tela, "Informação", "Não há histórico de consultas passadas.");
         }
     }
+
 }
 
 

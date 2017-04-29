@@ -66,9 +66,22 @@ public class AgendaBC {
                             intent.setType("text/plain");
                             activity.sendBroadcast(intent);
                             DialogAux.dialogCarregandoSimplesDismiss();
-
                         }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+             firebaseDatabaseReference.child("agendaSubPaciente").orderByKey().limitToLast(1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            firebaseDatabaseReference
+                                    .child("agendaSubPaciente")
+                                    .child(consulta.getIdPaciente()+"")
+                                    .child(semestreAno).child("consultasMarcadas").push()
+                                    .setValue(consulta);
+                        }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                         }
@@ -133,6 +146,7 @@ public class AgendaBC {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            System.out.println("batata");
                         }
                     });
         } catch (Exception e) {

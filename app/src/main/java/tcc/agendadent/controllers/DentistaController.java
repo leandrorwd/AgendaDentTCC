@@ -331,4 +331,11 @@ public class DentistaController {
         dentistaBC.atualizaConvenio(activity);
 
     }
+    private Main_Dentista main_Dentista;
+    public void setMainClass(Main_Dentista main_Dentista) {
+        this.main_Dentista = main_Dentista;
+    }
+    public void callResume() {
+        main_Dentista.onResumeAux();
+    }
 }

@@ -126,12 +126,17 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
 
     @Override
     public void onResume() {
-        //buscaAgendaDiaria();
+        idLayout = R.id.consultasDiarias;
+        View.inflate(activity, R.layout.dentista_agenda_diaria_conteudo, this);
+        buscaAgendaDiaria();
+        instanciaArtefatos();
+        setEventos();
+        setTextoData(DateTime.now());
     }
 
     @Override
     public boolean needResume() {
-        return false;
+        return true;
     }
     private int id;
     @Override
@@ -188,6 +193,7 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         header.setText("Agenda - "+ dataString);
         AgendaController.getInstance().setMomento(data.getYear(),data.getMonthOfYear(),
                     data.getDayOfMonth(),11,11);
+        DialogAux.dialogCarregandoSimplesDismiss();
 
 
 

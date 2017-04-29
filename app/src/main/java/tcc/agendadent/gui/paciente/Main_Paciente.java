@@ -24,12 +24,14 @@ import java.util.ArrayList;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.gui.dentista.Interface_Dentista;
 
 public class Main_Paciente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static ArrayList<View> pilhaTelas;
     private static LinearLayout layoutMaster;
     private KillReceiver mKillReceiver;
+    private boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +152,8 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         }
 
         if (id == R.id.consultas_agendadas_paciente) {
+            if(firstTime)
+                return true;
             navegaJanelaPaciente(R.id.consultas_agendadas_paciente);
         }
 
@@ -175,6 +179,15 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                 @Override
                 public void run() {
                     View view = null;
+                    View aux =null;
+                    for(View v : pilhaTelas){
+                        if(((ClassesPaciente)v).getIdMenu()==id_janela)
+                        {
+                            aux = v;
+                        }
+                    }
+                    if(aux!=null)
+                        pilhaTelas.remove(aux);
                     if (id_janela == R.id.editar_perfil_paciente) {
                         view = new PacienteEditarPerfil(Main_Paciente.this, id_janela);
                     }
@@ -184,6 +197,8 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                     }
 
                     if (id_janela == R.id.consultas_agendadas_paciente) {
+                        if(firstTime)
+                            return ;
                         view = new PacienteConsultasAgendadas(Main_Paciente.this, id_janela);
                     }
 
