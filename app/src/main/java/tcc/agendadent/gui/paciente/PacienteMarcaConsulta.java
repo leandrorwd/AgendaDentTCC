@@ -15,6 +15,8 @@ import android.content.IntentFilter;
 import 	android.content.BroadcastReceiver;
 import org.joda.time.DateTime;
 
+import java.util.concurrent.TimeUnit;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
@@ -78,7 +80,8 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
                         Integer.parseInt(parts[0]),
                         Integer.parseInt(parts[1]), 0, 0);
                 String[] parts2 = PacienteController.getInstance().getHorario().getDuracao().split(":");
-                long valor =((Integer.parseInt(parts[0])*60) +Integer.parseInt(parts[1]))*60000 ;
+
+                long valor =((Integer.parseInt(parts2[0])*60) + Integer.parseInt(parts2[1]))*60000 ;
                 String tipoConsultaString="";
                 if(PacienteController.getInstance().getTipoConsulta().equals("Convênio")){
                     tipoConsultaString=PacienteController.getInstance().getTipoConsulta()+ " - "

@@ -17,7 +17,11 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
@@ -37,7 +41,7 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
 
     public TemplatePacienteConsultasAgendadas(Activity tela, Consulta consulta, ArrayList<UsuarioDentista> dentistasBC) {
         super(tela);
-        this.tela=tela;
+        this.tela = tela;
         this.consulta = consulta;
         this.dentistas = dentistasBC;
         View.inflate(tela, R.layout.template_paciente_consultas_agendadas, this);
@@ -49,7 +53,20 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
     }
 
     public void preencherCard() {
-        int idDentista = (int) consulta.getIdDentista();
+        int indiceDentista = 0;
+
+        String idclassedentista, idarraydentistas;
+
+        for (int i = 0; i < dentistas.size(); i++) {
+            idclassedentista = Long.toString(consulta.getIdDentista());
+            idarraydentistas = Long.toString(dentistas.get(i).getIdDentista());
+
+//            DialogAux.dialogOkSimples(tela, "||" + idclassedentista + "||", "||" + idarraydentistas + "||");
+
+            if (idclassedentista.equals(idarraydentistas)) {
+                indiceDentista = i;
+            }
+        }
 
         TextView textoPacienteData = (TextView) findViewById(R.id.textoPacienteData);
         DateTimeFormatter formatData = DateTimeFormat.forPattern("dd/MM");
@@ -60,30 +77,36 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         DateTime hora = new DateTime(consulta.getDataConsulta());
         DateTime aux = DateTime.now();
         DateTime horaCorrida;
-        try{
-            String operador = aux.toString().substring(23,26);
-            int valor = Integer.parseInt(aux.toString().substring(24,26));
-            if(operador.contains("+")){
-                horaCorrida= hora.minusHours(valor);
+        try {
+            String operador = aux.toString().substring(23, 26);
+            int valor = Integer.parseInt(aux.toString().substring(24, 26));
+            if (operador.contains("+")) {
+                horaCorrida = hora.minusHours(valor);
+            } else {
+                horaCorrida = hora.plusHours(valor);
             }
-            else{
-                horaCorrida=  hora.plusHours(valor);
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             horaCorrida = hora;
         }
         textoPacienteHoraInicial.setText(formatHorario.print(horaCorrida));
 
-
-
-        TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
-        textoNomeDentista.setText(dentistas.get(idDentista-1).getNome() + " " + dentistas.get(idDentista-1).getSobreNome());
+        if (dentistas.get(indiceDentista).isMasculino()) {
+            TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
+            textoNomeDentista.setText("Dr. " + dentistas.get(indiceDentista).getNome() + " " + dentistas.get(indiceDentista).getSobreNome());
+        } else {
+            TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
+            textoNomeDentista.setText("Dra. " + dentistas.get(indiceDentista).getNome() + " " + dentistas.get(indiceDentista).getSobreNome());
+        }
 
         TextView textoEnderecoDentista = (TextView) findViewById(R.id.textoEnderecoDentista);
-        textoEnderecoDentista.setText(dentistas.get(idDentista-1).getEndereco().getRuaNumero());
+        textoEnderecoDentista.setText(dentistas.get(indiceDentista).getEndereco().getRuaNumero());
 
         TextView textoTipoConsulta = (TextView) findViewById(R.id.textoTipoConsulta);
         textoTipoConsulta.setText(consulta.getTipoConsulta());
 
+        TextView textoDuracao = (TextView) findViewById(R.id.textoDuracao);
+        Date date = new Date(consulta.getDuracao());
+        Format formato = new SimpleDateFormat("mm");
+        textoDuracao.setText(formato.format(date)+"min");
     }
 }

@@ -22,7 +22,6 @@ public class Consulta implements Serializable {
     private String tipoConsulta;
     private String idConsulta;
 
-
     public Consulta() {
     }
 
@@ -36,7 +35,6 @@ public class Consulta implements Serializable {
         this.nomePaciente = nomePaciente;
         this.duracao = duracao;
     }
-
 
     public Consulta(DataSnapshot dataSnapshot){
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));

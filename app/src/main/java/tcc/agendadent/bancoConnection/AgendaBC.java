@@ -2,6 +2,7 @@ package tcc.agendadent.bancoConnection;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.LinearLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,7 +52,7 @@ public class AgendaBC {
 
     }
 
-    public void insertConsulta(final Activity activity,final Consulta consulta, final String idDentista, final String semestreAno) {
+    public void insertConsulta(final Activity activity, final Consulta consulta, final String idDentista, final String semestreAno) {
         try {
             firebaseDatabaseReference.child("agendaSub").orderByKey().limitToLast(1)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,8 +79,8 @@ public class AgendaBC {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             firebaseDatabaseReference
                                     .child("agendaSubPaciente")
-                                    .child(consulta.getIdPaciente()+"")
-                                    .child(semestreAno).child("consultasMarcadas").push()
+                                    .child(consulta.getIdPaciente()+"").push()
+//                                    .child(semestreAno).child("consultasMarcadas").push()
                                     .setValue(consulta);
                         }
                         @Override
@@ -136,7 +137,7 @@ public class AgendaBC {
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
 
-                            if(tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")){
+                            if (tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")) {
                                 AgendaController.getInstance().setAgendaMarcacao(tela, consultas);
                             }
                             else{
@@ -153,59 +154,59 @@ public class AgendaBC {
         }
     }
 
-    public void getConsultasPaciente(final Activity tela, final int id) {
+    public void getConsultasPaciente(long idPaciente, String anoSemestre, final Activity tela, final LinearLayout layout, final boolean consulta) {
         final ArrayList<Consulta> consultasBC = new ArrayList<>();
-        try {
-            firebaseDatabaseReference.child("agendaSub")
-                    .child(String.valueOf(1))
-                    .child("20171")
-                    .child("consultasMarcadas")
-                    .orderByChild("dataConsulta")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                consultasBC.add(new Consulta(consultaBanco));
+            try {
+                firebaseDatabaseReference.child("agendaSubPaciente")
+                    .child(String.valueOf(idPaciente + ""))
+//                        .child(anoSemestre)
+//                        .child("consultasMarcadas")
+                        .orderByChild("dataConsulta")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                    consultasBC.add(new Consulta(consultaBanco));
+                                }
+                                AgendaController.getInstance().buscaAgendaBCAgendadas(tela, consultasBC, layout, consulta);
                             }
-                            AgendaController.getInstance().buscaAgendaBCAgendadas(tela, consultasBC, id);
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
-        } catch (Exception e) {
-        }
+                            }
+                        });
+            } catch (Exception e) {
+            }
     }
 
-    public void getHistoricoConsultas (final Activity tela, final int id){
-        final ArrayList<Consulta> consultasBC = new ArrayList<>();
-        try {
-            firebaseDatabaseReference.child("agendaSub")
-                    .child(String.valueOf(1))
-                    .child("20171")
-                    .child("consultasMarcadas")
-                    .orderByChild("dataConsulta")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                Consulta s1 = new Consulta(consultaBanco);
-                                s1.setIdConsulta(consultaBanco.getKey());
-                                consultasBC.add(s1);
-                            }
-                            AgendaController.getInstance().buscaAgendaBCHistorico(tela, consultasBC, id);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-        } catch (Exception e) {
-        }
-    }
+//    public void getHistoricoConsultas(long idPaciente, String anoSemestre, final Activity tela, final int id) {
+//        final ArrayList<Consulta> consultasBC = new ArrayList<>();
+//        try {
+//            firebaseDatabaseReference.child("agendaSubPaciente")
+//                    .child(String.valueOf(idPaciente))
+////                    .child(anoSemestre)
+////                    .child("consultasMarcadas")
+//                    .orderByChild("dataConsulta")
+//                    .addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+//                                Consulta s1 = new Consulta(consultaBanco);
+//                                s1.setIdConsulta(consultaBanco.getKey());
+//                                consultasBC.add(s1);
+//                            }
+//                            AgendaController.getInstance().buscaAgendaBCHistorico(tela, consultasBC, id);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//        } catch (Exception e) {
+//        }
+//    }
 
 
 }

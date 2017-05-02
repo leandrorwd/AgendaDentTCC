@@ -250,10 +250,10 @@ public class AgendaController {
                 for (Consulta c1 : consultasMarcadas) {
 
                     DateTime data = new DateTime(c1.getDataConsulta());
-                    DateTime dataAux = data.withZone(DateTimeZone.UTC);
-                    LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
-                    String auxAux = dateTimeFormatHora.print(dataAux);
-                    if (horariosAgenda.contains(auxAux)) {
+                        DateTime dataAux = data.withZone(DateTimeZone.UTC);
+                        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+                        String auxAux = dateTimeFormatHora.print(dataAux);
+                        if (horariosAgenda.contains(auxAux)) {
                         if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
                             TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
                             horarioDiario.addView(t1);
@@ -530,29 +530,37 @@ public class AgendaController {
         this.momento = new DateTime(ano, mes, dia, hora, minuto);
     }
 
-    public void getConsultasAgendadasBC(Activity tela, int id) {
-        agendaBC.getConsultasPaciente(tela, id);
+    //ok:
+    public void getConsultasAgendadasBC(long idPaciente, String anoSemestre, Activity tela, LinearLayout layout, boolean consulta) {
+        agendaBC.getConsultasPaciente(idPaciente, anoSemestre, tela, layout, consulta);
     }
-
-    public void getHistoricoConsultas(Activity tela, int id) {
-        agendaBC.getHistoricoConsultas(tela, id);
-    }
+//
+//    public void getHistoricoConsultas(long idPaciente, String anoSemestre, Activity tela, int id) {
+//        agendaBC.getHistoricoConsultas(idPaciente, anoSemestre, tela, id);
+//    }
 
     LinearLayout horarioDiario;
     ArrayList<Consulta> consultasBC;
     Activity tela;
 
-    public void buscaAgendaBCAgendadas(Activity tela, ArrayList<Consulta> consultasBC, int id) {
-        horarioDiario = (LinearLayout) tela.findViewById(id);
+    public void buscaAgendaBCAgendadas(Activity tela, ArrayList<Consulta> consultasBC, LinearLayout horario, boolean consulta) {
+        horarioDiario = horario;
         this.consultasBC = consultasBC;
         this.tela = tela;
-        DentistaController.getInstance().getDentistasBC();
+        DentistaController.getInstance().getDentistasBC(consulta);
     }
 
-    public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas) {
+    public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas, boolean consultaVerif) {
         boolean existeConsulta = false;
         for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) {
+            // próximas consultas
+            if (consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) {
+                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                existeConsulta = true;
+                horarioDiario.addView(popular);
+            } else
+            // histórico de consultas
+            if (!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()){
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 existeConsulta = true;
                 horarioDiario.addView(popular);
@@ -564,27 +572,27 @@ public class AgendaController {
         }
     }
 
-    public void buscaAgendaBCHistorico(Activity tela, ArrayList<Consulta> consultasBC, int id) {
-        horarioDiario = (LinearLayout) tela.findViewById(id);
-        this.consultasBC = consultasBC;
-        this.tela = tela;
-        DentistaController.getInstance().getDentistasBCHistorico();
-    }
-
-    public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
-        boolean existeConsulta = false;
-        for (Consulta consulta : consultasBC) {
-            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
-                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
-                existeConsulta = true;
-                horarioDiario.addView(popular);
-            }
-        }
-        DialogAux.dialogCarregandoSimplesDismiss();
-        if (!existeConsulta) {
-            DialogAux.dialogOkSimples(tela, "Informação", "Não há histórico de consultas passadas.");
-        }
-    }
+//    public void buscaAgendaBCHistorico(Activity tela, ArrayList<Consulta> consultasBC, int id) {
+//        horarioDiario = (LinearLayout) tela.findViewById(id);
+//        this.consultasBC = consultasBC;
+//        this.tela = tela;
+//        DentistaController.getInstance().getDentistasBCHistorico();
+//    }
+//
+//    public void buscaAgendaBCHistorico(ArrayList<UsuarioDentista> dentistas) {
+//        boolean existeConsulta = false;
+//        for (Consulta consulta : consultasBC) {
+//            if (consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
+//                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+//                existeConsulta = true;
+//                horarioDiario.addView(popular);
+//            }
+//        }
+//        DialogAux.dialogCarregandoSimplesDismiss();
+//        if (!existeConsulta) {
+//            DialogAux.dialogOkSimples(tela, "Informação", "Não há histórico de consultas passadas.");
+//        }
+//    }
 
 }
 

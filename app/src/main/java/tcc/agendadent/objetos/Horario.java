@@ -56,7 +56,6 @@ public class Horario implements Comparable<Horario>{
         return horaFinal;
     }
 
-
     public String getDuracao() {
         return duracao;
     }
@@ -72,7 +71,6 @@ public class Horario implements Comparable<Horario>{
     public void setDiasSemana(List<Boolean> diasSemana) {
         this.diasSemana = diasSemana;
     }
-
 
     @Override
     public int compareTo(Horario o) {

@@ -46,21 +46,21 @@ public class DentistaController {
         horariosTemporarios = new ArrayList<>();
     }
 
-    public void getDentistasBC() {
-        dentistaBC.getTodosDentistas();
+    public void getDentistasBC(boolean consulta) {
+        dentistaBC.getTodosDentistas(consulta);
     }
 
-    public void atualizaDentistas(ArrayList<UsuarioDentista> dentistas) {
-        AgendaController.getInstance().buscaAgendaBCAgendadas(dentistas);
+    public void atualizaDentistas(ArrayList<UsuarioDentista> dentistas, boolean consulta) {
+        AgendaController.getInstance().buscaAgendaBCAgendadas(dentistas, consulta);
     }
 
-    public void getDentistasBCHistorico() {
-        dentistaBC.getTodosDentistasHistorico();
-    }
+//    public void getDentistasBCHistorico() {
+//        dentistaBC.getTodosDentistasHistorico();
+//    }
 
-    public void atualizaDentistasHistorico(ArrayList<UsuarioDentista> dentistas) {
-        AgendaController.getInstance().buscaAgendaBCHistorico(dentistas);
-    }
+//    public void atualizaDentistasHistorico(ArrayList<UsuarioDentista> dentistas) {
+//        AgendaController.getInstance().buscaAgendaBCHistorico(dentistas);
+//    }
 
     public static DentistaController getInstance(){
         if(INSTANCE == null){

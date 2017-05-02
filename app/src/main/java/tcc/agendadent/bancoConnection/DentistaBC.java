@@ -232,7 +232,7 @@ public class DentistaBC {
         });
     }
 
-    public void getTodosDentistas() {
+    public void getTodosDentistas(final boolean consulta) {
         final ArrayList<UsuarioDentista> dentistasBC = new ArrayList<>();
         try {
             firebaseDatabaseReference.child("dentistas")
@@ -243,7 +243,7 @@ public class DentistaBC {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 dentistasBC.add(new UsuarioDentista(child));
                             }
-                            DentistaController.getInstance().atualizaDentistas(dentistasBC);
+                            DentistaController.getInstance().atualizaDentistas(dentistasBC, consulta);
                         }
 
                         @Override
@@ -254,27 +254,27 @@ public class DentistaBC {
         }
     }
 
-    public void getTodosDentistasHistorico() {
-        final ArrayList<UsuarioDentista> dentistasBC = new ArrayList<>();
-        try {
-            firebaseDatabaseReference.child("dentistas")
-                    .orderByChild("idDentista")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                dentistasBC.add(new UsuarioDentista(child));
-                            }
-                            DentistaController.getInstance().atualizaDentistasHistorico(dentistasBC);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-        } catch (Exception e) {
-        }
-    }
+//    public void getTodosDentistasHistorico() {
+//        final ArrayList<UsuarioDentista> dentistasBC = new ArrayList<>();
+//        try {
+//            firebaseDatabaseReference.child("dentistas")
+//                    .orderByChild("idDentista")
+//                    .addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+//                                dentistasBC.add(new UsuarioDentista(child));
+//                            }
+//                            DentistaController.getInstance().atualizaDentistasHistorico(dentistasBC);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                        }
+//                    });
+//        } catch (Exception e) {
+//        }
+//    }
 
     public void atualizaEspecilizacao(Activity activity) {
         try {

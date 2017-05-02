@@ -40,7 +40,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         pilhaTelas = new ArrayList<>();
         layoutMaster = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
         configuraMenu();
-        carregaBuscaDentista();
+        carregaProximasConsultas();
         mKillReceiver = new KillReceiver();
         registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
 
@@ -75,7 +75,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         }
     }
 
-    private void carregaBuscaDentista() {
+    private void carregaProximasConsultas() {
         LinearLayout main = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
 //        PacienteAgendarConsulta layout = new PacienteAgendarConsulta(Main_Paciente.this, -1);
         PacienteConsultasAgendadas layout = new PacienteConsultasAgendadas(Main_Paciente.this, -1);

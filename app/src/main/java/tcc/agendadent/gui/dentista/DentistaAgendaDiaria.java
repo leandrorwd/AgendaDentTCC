@@ -3,9 +3,13 @@ package tcc.agendadent.gui.dentista;
 import android.app.Activity;
 
 import android.content.Intent;
+import android.media.Image;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -26,7 +30,11 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
     private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
     public static DateTime indiceSlider = DateTime.now();
     private static TextView header;
-    public  static int idLayout;
+    public static int idLayout;
+    public static ImageButton setaDireita;
+    public static ImageButton setaEsquerda;
+
+
     public DentistaAgendaDiaria(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
@@ -72,6 +80,8 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         flipper = (ViewFlipper) findViewById(R.id.idViewFlipper);
         header = (TextView) findViewById(R.id.textHeader);
 
+        setaDireita = (ImageButton) findViewById(R.id.setaDireita);
+        setaEsquerda = (ImageButton) findViewById(R.id.setaEsquerda);
     }
 
     private void setEventos() {
@@ -79,48 +89,70 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         agendaDia.setOnTouchListener(new OnSwipeTouchListener(activity) {
 
             public void onSwipeRight() {
-                if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias)
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
-                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
-                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
-                indiceSlider = indiceSlider.minusDays(1);
-                flipper.setInAnimation(activity, R.anim.slide_in_left);
-                flipper.setOutAnimation(activity, R.anim.slide_out_right);
-                flipper.showNext();
-                AgendaController.getInstance().slideDiaria(activity,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
-            }
-            public void onSwipeLeft() {
-                //cuidar desse
-                if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
-                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
-                else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
-                    DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
-                indiceSlider = indiceSlider.plusDays(1);
-                flipper.setInAnimation(activity, R.anim.slide_in_right);
-                flipper.setOutAnimation(activity, R.anim.slide_out_left);
-                flipper.showPrevious();
-                AgendaController.getInstance().slideDiaria(activity,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
+                swipeRight();
             }
 
+            public void onSwipeLeft() {
+                swipeLeft();
+            }
         });
+        setaDireita.setOnClickListener(new OnClickListener() {
+                                           @Override
+                                           public void onClick(View view) {
+                                               swipeLeft();
+                                           }
+                                       }
+        );
+        setaEsquerda.setOnClickListener(new OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                swipeRight();
+                                            }
+                                        }
+        );
     }
+
+    private void swipeLeft() {
+        //cuidar desse
+        if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias) //OK
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+        else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias2)
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
+        else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias3)
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
+        indiceSlider = indiceSlider.plusDays(1);
+        flipper.setInAnimation(activity, R.anim.slide_in_right);
+        flipper.setOutAnimation(activity, R.anim.slide_out_left);
+        flipper.showPrevious();
+        AgendaController.getInstance().slideDiaria(activity, AgendaController.getInstance().getConsultasSemestre(), indiceSlider);
+    }
+
+    private void swipeRight() {
+        if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias)
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
+        else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias2)
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
+        else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias3)
+            DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
+        indiceSlider = indiceSlider.minusDays(1);
+        flipper.setInAnimation(activity, R.anim.slide_in_left);
+        flipper.setOutAnimation(activity, R.anim.slide_out_right);
+        flipper.showNext();
+        AgendaController.getInstance().slideDiaria(activity, AgendaController.getInstance().getConsultasSemestre(), indiceSlider);
+    }
+
 
     private void buscaAgendaDiaria() {
         DialogAux.dialogCarregandoSimples(activity);
         int mes = DateTime.now().monthOfYear().get();
-        String anoSemestre= DateTime.now().year().get()+"";
-        if(mes>=7){
-            anoSemestre = DateTime.now().year().get() +"A2";
-        }
-        else
-            anoSemestre = DateTime.now().year().get() +"A1";
-        anoSemestre = anoSemestre.replace("A","");
+        String anoSemestre = DateTime.now().year().get() + "";
+        if (mes >= 7) {
+            anoSemestre = DateTime.now().year().get() + "A2";
+        } else
+            anoSemestre = DateTime.now().year().get() + "A1";
+        anoSemestre = anoSemestre.replace("A", "");
         AgendaController.getInstance().getConsultasSemestre(DentistaController.getInstance().getDentistaLogado().getIdDentista()
-                ,anoSemestre,activity,false);
+                , anoSemestre, activity, false);
     }
 
 
@@ -138,13 +170,15 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
     public boolean needResume() {
         return true;
     }
+
     private int id;
+
     @Override
-    public int getIdMenu(){
+    public int getIdMenu() {
         return id;
     }
 
-    public void flipper(boolean next){
+    public void flipper(boolean next) {
         flipperHelper(activity, next);
     }
 
@@ -153,49 +187,56 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
 
     }
 
-    public static void flipperHelper(Activity tela, boolean next){
+    public static void flipperHelper(Activity tela, boolean next) {
 
-        if(next){
-            if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias)
+        if (next) {
+            if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias)
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
-            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+            else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias2)
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
-            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+            else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias3)
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
             indiceSlider = indiceSlider.minusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_left);
             flipper.setOutAnimation(tela, R.anim.slide_out_right);
             flipper.showNext();
-            AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
-        }
-        else{
-            if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias) //OK
+            AgendaController.getInstance().slideDiaria(tela, AgendaController.getInstance().getConsultasSemestre(), indiceSlider);
+        } else {
+            if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias) //OK
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias3;
-            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias2)
+            else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias2)
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias;
-            else if(DentistaAgendaDiaria.idLayout ==R.id.consultasDiarias3)
+            else if (DentistaAgendaDiaria.idLayout == R.id.consultasDiarias3)
                 DentistaAgendaDiaria.idLayout = R.id.consultasDiarias2;
             indiceSlider = indiceSlider.plusDays(1);
             flipper.setInAnimation(tela, R.anim.slide_in_right);
             flipper.setOutAnimation(tela, R.anim.slide_out_left);
             flipper.showPrevious();
-            AgendaController.getInstance().slideDiaria(tela,AgendaController.getInstance().getConsultasSemestre(),indiceSlider);
+            AgendaController.getInstance().slideDiaria(tela, AgendaController.getInstance().getConsultasSemestre(), indiceSlider);
 
         }
-
-
-
     }
 
-    public static void setTextoData(DateTime data){
+    public static void setTextoData(DateTime data) {
+        String dia = "";
+        String mes = "";
+        if (data.getDayOfMonth()<10) {
+            dia = "0" + data.getDayOfMonth();
+        } else {
+            dia = "" + data.getDayOfMonth();
+        }
 
-        String dataString = data.getDayOfMonth() + "/"+ data.getMonthOfYear()+"/"+data.getYear();
-        header.setText("Agenda - "+ dataString);
-        AgendaController.getInstance().setMomento(data.getYear(),data.getMonthOfYear(),
-                    data.getDayOfMonth(),11,11);
+        if (data.getMonthOfYear()<10) {
+            mes = "0" + data.getMonthOfYear();
+        } else {
+            mes = "" + data.getMonthOfYear();
+        }
+
+        String dataString = dia + "/" + mes + "/" + data.getYear();
+        header.setText(dataString);
+//        header.setText("Agenda - " + dataString);
+        AgendaController.getInstance().setMomento(data.getYear(), data.getMonthOfYear(),
+                data.getDayOfMonth(), 11, 11);
         DialogAux.dialogCarregandoSimplesDismiss();
-
-
-
     }
 }
