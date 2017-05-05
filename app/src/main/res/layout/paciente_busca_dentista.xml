@@ -217,6 +217,23 @@
                             android:text="@string/outro_local"
                             />
                     </RadioGroup>
+                    <RadioGroup
+                        android:id="@+id/radioGroup2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton android:id="@+id/idRadioMeuEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/meu_endereco"
+                            />
+                        <RadioButton android:id="@+id/idRadioAtual"
+                            android:layout_width="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/local_Atual"
+                            />
+                    </RadioGroup>
                     <LinearLayout android:id="@+id/layoutDinamico"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -261,6 +278,7 @@
                                     android:layout_marginTop="10dp"
                                     android:layout_marginLeft="10dp"
                                     android:textSize="16dp"
+                                    android:inputType="numberDecimal"
                                     android:textColor="@color/FontConteudo"
                                     android:fontFamily="sans-serif-light"
                                     android:layout_width="match_parent"

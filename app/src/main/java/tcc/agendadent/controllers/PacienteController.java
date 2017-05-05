@@ -2,17 +2,13 @@ package tcc.agendadent.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.Editable;
+import android.location.Location;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
-import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
-import tcc.agendadent.gui.dentista.DentistaConfigAgendaAdiciona;
-import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
 import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
 import tcc.agendadent.objetos.Consulta;
@@ -21,6 +17,7 @@ import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
+import tcc.agendadent.servicos.Utilitarios;
 import tcc.agendadent.servicos.ValidationTest;
 
 import static tcc.agendadent.servicos.DialogAux.dialogOkSimples;
@@ -77,14 +74,14 @@ public class PacienteController {
         }
     }
 
-    public void getDentistasFiltro(Activity activity, String nomeDentista, String tipoConsulta, String planoSaude, String especializacao, Endereco endereco, int distanciaKm) {
-        pacienteBC.getDentistasFiltro(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm);
+    public void getDentistasFiltro(Activity activity, String nomeDentista, String tipoConsulta, String planoSaude, String especializacao, Endereco endereco, int distanciaKm, double[] enderecoPaciente) {
+        pacienteBC.getDentistasFiltro(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm,enderecoPaciente);
     }
 
     public void filtraDentistas(Activity activity, String nomeDentista, String tipoConsulta,
                                 String planoSaude, String especializacao,
                                 Endereco endereco, int distanciaKm,
-                                ArrayList<UsuarioDentista> listaDentistas) {
+                                ArrayList<UsuarioDentista> listaDentistas, double[] enderecoPaciente) {
 
         ArrayList<UsuarioDentista> aux = new ArrayList<>();
         ArrayList<UsuarioDentista> retorno =listaDentistas;
@@ -190,14 +187,27 @@ public class PacienteController {
 
         //endregion
 
-        //TODO Distancia do google maps api bla bla bla
-        //        if(distanciaKm!=0){
-//            aux.clear();
-//            for (UsuarioDentista user:retorno) {
-//
-//            }
-//            retorno = aux;
-//        }
+       // TODO Distancia do google maps api bla bla bla
+        if(distanciaKm!=0){
+            aux.clear();
+            for (UsuarioDentista user:retorno) {
+                double[] dentistaEnd = Utilitarios.getLatitudeLongitude(activity,user.getEndereco());
+
+                Location loc1 = new Location("");
+                loc1.setLatitude(enderecoPaciente[0]);
+                loc1.setLongitude(enderecoPaciente[1]);
+
+                Location loc2 = new Location("");
+                loc2.setLatitude(dentistaEnd[0]);
+                loc2.setLongitude(dentistaEnd[1]);
+                float distanciaKmReal = loc1.distanceTo(loc2)/1000;
+                if(distanciaKm>=distanciaKmReal){
+                    aux.add(user);
+                }
+            }
+            retorno.clear();
+            retorno.addAll(aux);
+        }
 
         //region Filtra Endereco Outro Local
         if(endereco!=null){
@@ -350,5 +360,64 @@ public class PacienteController {
     private String horaConsultaInicial;
     public void setHoraConsultaInicial(String horaConsultaInicial) {
         this.horaConsultaInicial = horaConsultaInicial;
+    }
+
+    public void salvaEndereco(Activity activity, String cep, String estado, String cidade,
+                              String bairro, String rua, String numero, String complemento) {
+        String erro = activity.getResources().getString(R.string.erro);
+
+        if(!ValidationTest.verificaInternet(activity)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.internetSemConexao));
+            return;
+        }
+        if(!ValidationTest.validaString(cep)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.cepVazio));
+            return;
+        }
+
+        if(!ValidationTest.validaCep(cep)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.cepInvalido));
+            return;
+        }
+
+        if(!ValidationTest.validaString(estado)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.estadoVazio));
+            return;
+        }
+        if(!ValidationTest.validaString(cidade)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.cidadeVazio));
+            return;
+        }
+        if(!ValidationTest.validaString(bairro)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.bairroVazio));
+            return;
+        }
+        if(!ValidationTest.validaString(rua)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.ruaVazio));
+            return;
+        }
+        if(!ValidationTest.validaString(numero)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.numeroVazio));
+            return;
+        }
+        if(!ValidationTest.validaNumeroPuro(numero)){
+            DialogAux.dialogCarregandoSimplesDismiss();
+            dialogOkSimples(activity,erro,activity.getResources().getString(R.string.numeroInvalido));
+            return;
+        }
+        String cepAux = cep.replace("-","");
+        Endereco e1 = new Endereco("Brasil",estado,cidade,bairro,rua,complemento,
+                Integer.parseInt(numero),Integer.parseInt(cepAux));
+
+        pacienteBC.atualizaEndereco(activity,e1);
+
     }
 }

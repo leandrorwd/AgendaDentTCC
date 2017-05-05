@@ -2,24 +2,18 @@ package tcc.agendadent.gui.layout_auxiliares;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
-import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
-import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
 import tcc.agendadent.gui.paciente.PacienteVisualizaHorariosMarcacao;
 import tcc.agendadent.objetos.UsuarioDentista;
-import tcc.agendadent.R;
-import android.support.v7.widget.CardView;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.ImageView;
-
-import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 /**
@@ -76,7 +70,6 @@ public class TemplateCardDentista extends RelativeLayout {
                         layout.setPressed(true);
                         break;
                 }
-
                 PacienteController.getInstance().setDentistaMarcaConsulta(dentista);
                 activity.startActivity(new Intent(activity, PacienteVisualizaHorariosMarcacao.class));
             }

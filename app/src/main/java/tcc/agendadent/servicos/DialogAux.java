@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 import tcc.agendadent.R;
 import tcc.agendadent.gui.dentista.Main_Dentista;
+import tcc.agendadent.gui.paciente.Main_Paciente;
 
 
 public class DialogAux {
@@ -60,6 +61,21 @@ public class DialogAux {
                     public void onClick(DialogInterface dialog, int which)
                     {
                         Main_Dentista.animacaoTrocaJanelaVoltaExterno();
+                    }
+                })
+                .show();
+    }
+
+    public static void dialogOkSimplesInnerClassPacienteFinish(final Activity tela, String titulo, String mensagem){
+        new AlertDialog.Builder(tela)
+                .setTitle(titulo)
+                .setMessage(mensagem)
+                .setPositiveButton(tela.getResources().getString(R.string.ok), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        Main_Paciente.animacaoTrocaJanelaVoltaExterno();
                     }
                 })
                 .show();

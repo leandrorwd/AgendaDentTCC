@@ -6,7 +6,6 @@ package tcc.agendadent.servicos;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.StrictMode;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -14,8 +13,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 import tcc.agendadent.controllers.CadastroController;
+import tcc.agendadent.gui.paciente.PacienteEditarEndereco;
 import tcc.agendadent.objetos.Endereco;
 
 
@@ -53,8 +54,12 @@ public class BuscaEnderecoCep {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        String s = activity.getLocalClassName();
                         if(activity.getLocalClassName().equals("gui.CadastroGui") ){
                             CadastroController.getInstance().setCep(activity,endereco);
+                        }
+                        if(activity.getLocalClassName().equals("gui.paciente.Main_Paciente") ){
+                            PacienteEditarEndereco.setCep(activity,endereco);
                         }
 
                     }

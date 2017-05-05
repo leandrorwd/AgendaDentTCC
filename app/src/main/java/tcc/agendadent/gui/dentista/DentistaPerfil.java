@@ -118,6 +118,7 @@ public class DentistaPerfil extends LinearLayout implements Interface_Dentista {
                 AutenticacaoController.getInstance().resetSenha(DentistaController.getInstance().getDentistaLogado().getEmail(), activity);
             }
         });
+
     }
 
     @Override

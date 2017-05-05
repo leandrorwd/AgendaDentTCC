@@ -319,6 +319,7 @@ public class CadastroController {
         }
 
         UsuarioPaciente usuario = new UsuarioPaciente(email,nome,sobreNome,celular,masculino);
+        usuario.setEndereco(null);
         AutenticacaoController.getInstance().cadastraPaciente(activity,usuario,senha1);
     }
 
