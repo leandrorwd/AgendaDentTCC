@@ -66,6 +66,9 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
 
     @Override
     public void onResume() {
+        View.inflate(activity, R.layout.paciente_consultas_agendadas, this);
+        instanciaArtefatos();
+        setEventos();
     }
 
     @Override

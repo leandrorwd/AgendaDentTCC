@@ -24,12 +24,12 @@ public class PacienteHistoricoConsultas extends LinearLayout implements ClassesP
         this.activity = activity;
         View.inflate(activity, R.layout.paciente_historico_consultas, this);
         this.id = id_janela;
-        setEventos();
         instanciaArtefatos();
+        setEventos();
     }
 
     private void instanciaArtefatos() {
-         layout = (LinearLayout) findViewById(R.id.layoutConsultasAgendadas);
+         layout = (LinearLayout) findViewById(R.id.layoutHistoricoConsultas);
     }
 
     private void setEventos() {
