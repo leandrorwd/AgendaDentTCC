@@ -7,8 +7,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
-import tcc.agendadent.controllers.DentistaController;
+
+import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
@@ -134,7 +136,7 @@ public class PacienteBC {
         }
     }
 
-    public void getDentistasFiltro(final Activity activity, final String nomeDentista, final String tipoConsulta, final String planoSaude, final String especializacao, final Endereco endereco, final int distanciaKm) {
+    public void getDentistasFiltro(final Activity activity, final String nomeDentista, final String tipoConsulta, final String planoSaude, final String especializacao, final Endereco endereco, final int distanciaKm, final double[] enderecoPaciente) {
         final ArrayList<UsuarioDentista> listaDentistas = new ArrayList<UsuarioDentista>();
         try{
             firebaseDatabaseReference.child("dentistas")
@@ -144,7 +146,7 @@ public class PacienteBC {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 listaDentistas.add(child.getValue(UsuarioDentista.class));
                             }
-                           PacienteController.getInstance().filtraDentistas(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm,listaDentistas);
+                           PacienteController.getInstance().filtraDentistas(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm,listaDentistas,enderecoPaciente);
                         }
 
                         @Override
@@ -155,5 +157,24 @@ public class PacienteBC {
         catch (Exception e ){
             System.out.println("TRETA");
         }
+    }
+
+    public void atualizaEndereco(Activity activity, Endereco e1) {
+        try {
+            firebaseDatabaseReference
+                    .child("pacientes")
+                    .child(String.valueOf(PacienteController.getInstance().getPacienteLogado().getIdPaciente()))
+                    .child("endereco")
+                    .setValue(e1);
+
+                DialogAux.dialogCarregandoSimplesDismiss();
+                PacienteController.getInstance().getPacienteLogado().setEndereco(e1);
+                DialogAux.dialogOkSimplesInnerClassPacienteFinish(activity, activity.getString(R.string.Sucesso),
+                        activity.getString(R.string.dadosSalvosSucesso));
+
+        } catch (Exception e) {
+
+        }
+
     }
 }

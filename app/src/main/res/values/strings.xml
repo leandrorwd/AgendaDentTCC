@@ -206,6 +206,12 @@
     <string name="confirmar">Confirma</string>
     <string name="cancela">Cancela</string>
     <string name="sexo">Sexo:</string>
+    <string name="title_activity_teste">Map</string>
+    <string name="local_Atual">Local Atual.</string>
+    <string name="meu_endereco">Meu endereço    </string>
+    <string name="distMin">Digite uma distancia minima.</string>
+    <string name="endeNotCad">Endereço não cadastrado.</string>
+    <string name="erroLocalAtual">Ocorreu um erro ao coletar sua localização atual, tente novamente ou digite seu endereço.</string>
 
 
 </resources>

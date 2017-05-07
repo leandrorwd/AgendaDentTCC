@@ -5,13 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.gui.dentista.Interface_Dentista;
 
 public class Main_Paciente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,11 +31,12 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     private static LinearLayout layoutMaster;
     private KillReceiver mKillReceiver;
     private boolean firstTime = true;
-
+    private static Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paciente_menu);
+        activity = Main_Paciente.this;
         pilhaTelas = new ArrayList<>();
         layoutMaster = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
         configuraMenu();
@@ -168,6 +168,9 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         if (id == R.id.configuracoes_paciente) {
             navegaJanelaPaciente(R.id.configuracoes_paciente);
         }
+        if (id == R.id.editar_endereco_paciente) {
+            navegaJanelaPaciente(R.id.editar_endereco_paciente);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.BuscaDentista);
         drawer.closeDrawer(GravityCompat.START);
@@ -213,7 +216,9 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                     if (id_janela == R.id.configuracoes_paciente) {
                         view = new PacienteConfiguracoes(Main_Paciente.this, id_janela);
                     }
-
+                    if (id_janela == R.id.editar_endereco_paciente) {
+                        view = new PacienteEditarEndereco(Main_Paciente.this, id_janela);
+                    }
                     layoutMaster.removeAllViews();
                     layoutMaster.addView(view);
                     setTitle(setTitulo(view));
@@ -273,7 +278,23 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         if (view.getClass().getSimpleName().equals("PacienteListaEspera")) {
             return "Lista de Espera";
         }
+        if (view.getClass().getSimpleName().equals("PacienteEditarEndereco")) {
+            return "Editar Endereço";
+        }
 
         return "ConfigSetTitulo";
+    }
+    public static void animacaoTrocaJanelaVoltaExterno() {
+        final LinearLayout layoutMaster = (LinearLayout) activity.findViewById(R.id.layoutPacienteMaster);
+        layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                layoutMaster.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+                pilhaTelas.remove(pilhaTelas.get(pilhaTelas.size() - 1));
+                layoutMaster.removeAllViews();
+                layoutMaster.addView(pilhaTelas.get(pilhaTelas.size() - 1));
+                activity.setTitle(setTitulo(pilhaTelas.get(pilhaTelas.size() - 1)));
+            }
+        }).start();
     }
 }

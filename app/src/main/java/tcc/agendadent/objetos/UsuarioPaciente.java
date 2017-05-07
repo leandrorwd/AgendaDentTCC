@@ -11,6 +11,7 @@ public class UsuarioPaciente {
     private String nome;
     private String celular;
     private String sobreNome;
+    private Endereco endereco;
     private  boolean masculino;
     private long idPaciente;
 
@@ -43,6 +44,7 @@ public class UsuarioPaciente {
         this.sobreNome = String.valueOf(dataSnapshot.child("sobrenome").getValue());
         this.celular = String.valueOf(dataSnapshot.child("celular").getValue());
         this.idPaciente = Long.parseLong(String.valueOf(dataSnapshot.child("idPaciente").getValue()));
+        this.endereco = dataSnapshot.child("endereco").getValue(Endereco.class);
     }
 
     public String getEmail() {
@@ -93,5 +95,13 @@ public class UsuarioPaciente {
 
     public void setMasculino(boolean masculino) {
         this.masculino = masculino;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

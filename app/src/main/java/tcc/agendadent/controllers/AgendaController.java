@@ -89,7 +89,8 @@ public class AgendaController {
                 consultasHoje.add(c);
             }
         }
-
+        int i = consultasHoje.size();
+        int f = horarios.size();
         populaAgendaDiaria(tela, horarios, consultasHoje, R.id.consultasDiarias);
         populaAgendaLateral(tela, AgendaController.getInstance().getConsultasSemestre());
 

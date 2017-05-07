@@ -11,6 +11,10 @@
             android:id="@+id/editar_perfil_paciente"
             android:icon="@android:drawable/ic_menu_edit"
             android:title="Editar perfil" />
+        <item
+            android:id="@+id/editar_endereco_paciente"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Editar endereço" />
 
         <item
             android:id="@+id/historico_consultas_paciente"
