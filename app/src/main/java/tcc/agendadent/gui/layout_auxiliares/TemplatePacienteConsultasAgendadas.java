@@ -28,6 +28,7 @@ import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
+import tcc.agendadent.gui.paciente.PacienteVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
 import tcc.agendadent.servicos.DialogAux;
@@ -50,23 +51,51 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
     }
 
     private void setEventos() {
+        final CardView card = (CardView) findViewById(R.id.card_view);
+        if (card != null) {
+            card.setOnTouchListener(new OnSwipeTouchListener(tela) {
+                public void onClick(MotionEvent event) {
+                    Intent i = new Intent(tela, PacienteVisualizarConsulta.class);
+                    if (consulta != null) {
+                        i.putExtra("consulta", consulta);
+                        i.putExtra("user", "paciente");
+                        UsuarioDentista dentista = getDentista(consulta);
+                        i.putExtra("dentista", getNomeCompletoDentista(dentista));
+                        i.putExtra("email", dentista.getEmail());
+                        i.putExtra("telefone", dentista.getTelefone());
+                        tela.startActivity(i);
+                    }
+//                    else {
+//                        dialogSuspender();
+//                    }
+                }
+            });
+        }
     }
 
-    public void preencherCard() {
+    public UsuarioDentista getDentista(Consulta consulta) {
         int indiceDentista = 0;
-
         String idclassedentista, idarraydentistas;
-
         for (int i = 0; i < dentistas.size(); i++) {
             idclassedentista = Long.toString(consulta.getIdDentista());
             idarraydentistas = Long.toString(dentistas.get(i).getIdDentista());
-
-//            DialogAux.dialogOkSimples(tela, "||" + idclassedentista + "||", "||" + idarraydentistas + "||");
-
             if (idclassedentista.equals(idarraydentistas)) {
                 indiceDentista = i;
             }
         }
+        return dentistas.get(indiceDentista);
+    }
+
+    public String getNomeCompletoDentista(UsuarioDentista dentista) {
+        if (dentista.isMasculino()) {
+            return "Dr. " + dentista.getNome() + " " + dentista.getSobreNome();
+        } else {
+            return "Dra. " + dentista.getNome() + " " + dentista.getSobreNome();
+        }
+    }
+
+    public void preencherCard() {
+        UsuarioDentista dentista = getDentista(consulta);
 
         TextView textoPacienteData = (TextView) findViewById(R.id.textoPacienteData);
         DateTimeFormatter formatData = DateTimeFormat.forPattern("dd/MM");
@@ -90,16 +119,16 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         }
         textoPacienteHoraInicial.setText(formatHorario.print(horaCorrida));
 
-        if (dentistas.get(indiceDentista).isMasculino()) {
+        if (dentista.isMasculino()) {
             TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
-            textoNomeDentista.setText("Dr. " + dentistas.get(indiceDentista).getNome() + " " + dentistas.get(indiceDentista).getSobreNome());
+            textoNomeDentista.setText("Dr. " + dentista.getNome() + " " + dentista.getSobreNome());
         } else {
             TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
-            textoNomeDentista.setText("Dra. " + dentistas.get(indiceDentista).getNome() + " " + dentistas.get(indiceDentista).getSobreNome());
+            textoNomeDentista.setText("Dra. " + dentista.getNome() + " " + dentista.getSobreNome());
         }
 
         TextView textoEnderecoDentista = (TextView) findViewById(R.id.textoEnderecoDentista);
-        textoEnderecoDentista.setText(dentistas.get(indiceDentista).getEndereco().getRuaNumero());
+        textoEnderecoDentista.setText(dentista.getEndereco().getRuaNumero());
 
         TextView textoTipoConsulta = (TextView) findViewById(R.id.textoTipoConsulta);
         textoTipoConsulta.setText(consulta.getTipoConsulta());
@@ -107,6 +136,6 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         TextView textoDuracao = (TextView) findViewById(R.id.textoDuracao);
         Date date = new Date(consulta.getDuracao());
         Format formato = new SimpleDateFormat("mm");
-        textoDuracao.setText(formato.format(date)+"min");
+        textoDuracao.setText(formato.format(date) + "min");
     }
 }

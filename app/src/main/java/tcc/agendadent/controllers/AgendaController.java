@@ -27,6 +27,7 @@ import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.layout_auxiliares.TemplateConsultaAgenda;
 import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
 import tcc.agendadent.gui.layout_auxiliares.TemplateVisualizaMarcacaoConsultaPaciente;
+import tcc.agendadent.gui.paciente.PacienteVisualizarConsulta;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Horario;
@@ -573,6 +574,10 @@ public class AgendaController {
         if (!existeConsulta) {
             DialogAux.dialogOkSimples(tela, "Informação", "Não há consultas futuras agendadas.");
         }
+    }
+
+    public static void desmarcarConsulta(Activity pacienteVisualizarConsulta, Consulta consulta, String s) {
+        AgendaBC.desmarcarConsulta(pacienteVisualizarConsulta, consulta, "20171");
     }
 }
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
+import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
 import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
@@ -418,6 +419,5 @@ public class PacienteController {
                 Integer.parseInt(numero),Integer.parseInt(cepAux));
 
         pacienteBC.atualizaEndereco(activity,e1);
-
     }
 }
