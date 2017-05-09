@@ -133,7 +133,7 @@ public class PacienteVisualizarConsulta extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DialogAux.dialogCarregandoSimples(PacienteVisualizarConsulta.this);
-                AgendaController.desmarcarConsulta(PacienteVisualizarConsulta.this, consulta, "20171");
+                AgendaController.getInstance().desmarcarConsulta(PacienteVisualizarConsulta.this, consulta);
 
             }
         });

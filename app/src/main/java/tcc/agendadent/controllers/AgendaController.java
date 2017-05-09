@@ -26,6 +26,7 @@ import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.layout_auxiliares.TemplateConsultaAgenda;
 import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
+import tcc.agendadent.gui.layout_auxiliares.TemplateSemConsultas;
 import tcc.agendadent.gui.layout_auxiliares.TemplateVisualizaMarcacaoConsultaPaciente;
 import tcc.agendadent.gui.paciente.PacienteVisualizarConsulta;
 import tcc.agendadent.objetos.AgendaSub;
@@ -58,8 +59,8 @@ public class AgendaController {
         agendaBC.insertAgendaSub(ag, DentistaController.getInstance().getDentistaLogado());
     }
 
-    public void insertConsulta(Activity activity,Consulta consulta, String idDentista, String semestreAno) {
-        agendaBC.insertConsulta(activity,consulta, idDentista, semestreAno);
+    public void insertConsulta(Activity activity, Consulta consulta, String idDentista, String semestreAno) {
+        agendaBC.insertConsulta(activity, consulta, idDentista, semestreAno);
     }
 
     public void getConsultasSemestre(long idDentista, String anoSemestre, Activity tela, boolean banco) {
@@ -252,10 +253,10 @@ public class AgendaController {
                 for (Consulta c1 : consultasMarcadas) {
 
                     DateTime data = new DateTime(c1.getDataConsulta());
-                        DateTime dataAux = data.withZone(DateTimeZone.UTC);
-                        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
-                        String auxAux = dateTimeFormatHora.print(dataAux);
-                        if (horariosAgenda.contains(auxAux)) {
+                    DateTime dataAux = data.withZone(DateTimeZone.UTC);
+                    LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+                    String auxAux = dateTimeFormatHora.print(dataAux);
+                    if (horariosAgenda.contains(auxAux)) {
                         if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
                             TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
                             horarioDiario.addView(t1);
@@ -533,8 +534,8 @@ public class AgendaController {
     }
 
     //ok:
-    public void getConsultasAgendadasBC(long idPaciente, String anoSemestre, Activity tela, LinearLayout layout, boolean consulta) {
-        agendaBC.getConsultasPaciente(idPaciente, anoSemestre, tela, layout, consulta);
+    public void getConsultasAgendadasBC(long idPaciente, Activity tela, LinearLayout layout, boolean consulta) {
+        agendaBC.getConsultasPaciente(idPaciente, tela, layout, consulta);
     }
 //
 //    public void getHistoricoConsultas(long idPaciente, String anoSemestre, Activity tela, int id) {
@@ -563,22 +564,45 @@ public class AgendaController {
                 existeConsulta = true;
                 horarioDiario.addView(popular);
             } else
-            // histórico de consultas
-            if (!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()){
-                TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
-                existeConsulta = true;
-                horarioDiario.addView(popular);
-            }
+                // histórico de consultas
+                if (!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
+                    TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                    existeConsulta = true;
+                    horarioDiario.addView(popular);
+                }
         }
         DialogAux.dialogCarregandoSimplesDismiss();
         if (!existeConsulta) {
-            DialogAux.dialogOkSimples(tela, "Informação", "Não há consultas futuras agendadas.");
+            TemplateSemConsultas semconsulta = new TemplateSemConsultas(tela);
+            horarioDiario.addView(semconsulta);
+//            DialogAux.dialogOkSimples(tela, "Informação", "Não há consultas futuras agendadas.");
         }
     }
 
-    public static void desmarcarConsulta(Activity pacienteVisualizarConsulta, Consulta consulta, String s) {
-        AgendaBC.desmarcarConsulta(pacienteVisualizarConsulta, consulta, "20171");
+    public void desmarcarConsulta(Activity tela, Consulta consulta) {
+        int mes = consulta.getDataFormat().monthOfYear().get();
+        String ano = String.valueOf(consulta.getDataFormat().year().get());
+
+        if (mes <= 6) {
+            ano += "1";
+        } else ano += "2";
+
+        agendaBC.desmarcarConsulta(tela, consulta, ano);
     }
+
+//    public int count;
+//
+//    public void incrCount() {
+//        count++;
+//    }
+//
+//    public void setCount(int i) {
+//        count = i;
+//    }
+//
+//    public int getCount() {
+//        return count;
+//    }
 }
 
 

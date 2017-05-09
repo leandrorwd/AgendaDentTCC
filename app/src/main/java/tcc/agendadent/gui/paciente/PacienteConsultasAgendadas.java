@@ -56,12 +56,12 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
             public void onClick(View view) {
                 layout.removeAllViews();
                 DialogAux.dialogCarregandoSimples(activity);
-                AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), "20171", activity, layout, true);
+                AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), activity, layout, true);
             }
         });
 
         DialogAux.dialogCarregandoSimples(activity);
-        AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), "20171", activity, layout, true);
+        AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), activity, layout, true);
     }
 
     @Override

@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.gui.paciente.PacienteVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
+import tcc.agendadent.servicos.DialogAux;
 
 public class DentistaVisualizarConsulta extends AppCompatActivity {
     private TextView textoNomePaciente;
@@ -19,7 +22,7 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
     private TextView telefonePaciente;
     private TextView dataConsulta;
     private TextView horaConsulta;
-    private AppCompatButton botao;
+    private AppCompatButton botaoDesmarcarConsulta;
     private Consulta consulta;
     private String userTipo;
     @Override
@@ -56,9 +59,7 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
                     horaAux = horaAux +valor;
                 }
             }catch (Exception e){
-
             }
-
 
             if(consulta.getDataFormat().getDayOfMonth()>=9)
                 dia = "" + consulta.getDataFormat().getDayOfMonth();
@@ -94,15 +95,16 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
 
             }
             else{
-
             }
         }
     }
 
     private void setEventos() {
-        botao.setOnClickListener(new View.OnClickListener() {
+        botaoDesmarcarConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DialogAux.dialogCarregandoSimples(DentistaVisualizarConsulta.this);
+                AgendaController.getInstance().desmarcarConsulta(DentistaVisualizarConsulta.this, consulta);
             }
         });
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarVisualizarConsultaDetalhes));
@@ -120,6 +122,6 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         textoNomePaciente = (TextView) findViewById(R.id.textNomePaciente);
         dataConsulta = (TextView) findViewById(R.id.dataConsulta);
         horaConsulta = (TextView) findViewById(R.id.horaConsulta);
-        botao = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
+        botaoDesmarcarConsulta = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
     }
 }

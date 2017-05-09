@@ -18,7 +18,8 @@
             android:id="@+id/layoutConsultasAgendadas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

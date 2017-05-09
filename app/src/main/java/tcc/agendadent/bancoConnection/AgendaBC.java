@@ -24,7 +24,7 @@ import tcc.agendadent.servicos.DialogAux;
 
 public class AgendaBC {
     static DatabaseReference firebaseDatabaseReference;
-    public static int count;
+    public int count;
 
     public AgendaBC() {
         this.firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -155,13 +155,11 @@ public class AgendaBC {
         }
     }
 
-    public void getConsultasPaciente(long idPaciente, String anoSemestre, final Activity tela, final LinearLayout layout, final boolean consulta) {
+    public void getConsultasPaciente(long idPaciente, final Activity tela, final LinearLayout layout, final boolean consulta) {
         final ArrayList<Consulta> consultasBC = new ArrayList<>();
         try {
             firebaseDatabaseReference.child("agendaSubPaciente")
                     .child(String.valueOf(idPaciente + ""))
-//                        .child(anoSemestre)
-//                        .child("consultasMarcadas")
                     .orderByChild("dataConsulta")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -181,8 +179,8 @@ public class AgendaBC {
         }
     }
 
-    public static void desmarcarConsulta(final Activity tela, final Consulta consulta, String semestreAno) {
-        count = 0;
+    public void desmarcarConsulta(final Activity tela, final Consulta consulta, String semestreAno) {
+//        AgendaController.getInstance().setCount(0);
         try {
             firebaseDatabaseReference.child("agendaSub")
                     .child(consulta.getIdDentista() + "")
@@ -194,7 +192,7 @@ public class AgendaBC {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
                                     consultaBanco.getRef().removeValue();
-                                    count++;
+//                                    AgendaController.getInstance().incrCount();
                                 }
                             }
                         }
@@ -216,7 +214,7 @@ public class AgendaBC {
                                 if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString()))
                                         && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
                                     consultaBanco.getRef().removeValue();
-                                    count++;
+//                                    AgendaController.getInstance().incrCount();
                                 }
                             }
                         }
@@ -227,13 +225,25 @@ public class AgendaBC {
                     });
         } catch (Exception e) {
         }
-        DialogAux.dialogCarregandoSimplesDismiss();
-//        if (count == 0) {
+//        DialogAux.dialogCarregandoSimplesDismiss();
+//        if (AgendaController.getInstance().getCount() == 0) {
 //            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "A consulta não pode ser removida.");
-//        } else if (count == 1) {
+//        } else if (AgendaController.getInstance().getCount() == 1) {
 //            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Ocorreu um problema com uma das exclusões.");
-//        } else if (count == 2) {
+//        } else if (AgendaController.getInstance().getCount() == 2) {
             DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
 //        }
     }
+
+//    public void incrCount() {
+//        count++;
+//    }
+//
+//    public void setCount(int i) {
+//        count = i;
+//    }
+//
+//    public int getCount(){
+//        return count;
+//    }
 }
