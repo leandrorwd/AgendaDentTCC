@@ -1,8 +1,6 @@
 package tcc.agendadent.gui.layout_auxiliares;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
@@ -18,14 +16,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
-import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
-import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
 import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
-import tcc.agendadent.gui.paciente.PacienteVisualizaHorariosMarcacao;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Horario;
+import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 /**
@@ -71,6 +66,7 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
             c1.setCardBackgroundColor(getResources().getColor(R.color.livre));
             setEventos();
 
+
         }
         else if(PacienteController.getInstance().getTipoConsulta().equals("SUS")
                 && horario.isSus()){
@@ -80,6 +76,7 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
             c1.setCardBackgroundColor(getResources().getColor(R.color.livre));
             setEventos();
 
+
         }
         else if(PacienteController.getInstance().getTipoConsulta().equals("Convênio")
                 && horario.isConvenio()){
@@ -88,6 +85,7 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
             CardView c1 = (CardView) findViewById(R.id.card_view);
             c1.setCardBackgroundColor(getResources().getColor(R.color.livre));
             setEventos();
+
         }
         else{
             textoAux = (TextView) findViewById(R.id.textTipoConsulta);
@@ -145,6 +143,15 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
                         case MotionEvent.ACTION_CANCEL:
                             card.setPressed(true);
                             break;
+                    }
+                    if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
+                        if(AgendaController.getInstance().getDataAux().getDayOfYear() == DateTime.now().getDayOfYear()){
+                            if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()){
+                                DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroMarcarConsultaPassado));
+                                return;
+                            }
+                        }
+
                     }
                     PacienteController.getInstance().setHorarioConsulta(horario);
                     PacienteController.getInstance().setHoraConsultaInicial(horaInicial);

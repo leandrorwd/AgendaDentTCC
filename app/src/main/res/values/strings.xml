@@ -91,6 +91,12 @@
         <item>Masculino</item>
         <item>Feminino</item>
     </string-array>
+    <string-array name="picker_slots">
+        <item>1 Horário</item>
+        <item>2 Horários</item>
+        <item>3 Horários</item>
+        <item>4 Horários</item>
+    </string-array>
     <string-array name="picker_especializacao">
         <item>Clinico Geral</item>
         <item>Endodontia</item>
@@ -214,6 +220,12 @@
     <string name="distMin">Digite uma distancia minima.</string>
     <string name="endeNotCad">Endereço não cadastrado.</string>
     <string name="erroLocalAtual">Ocorreu um erro ao coletar sua localização atual, tente novamente ou digite seu endereço.</string>
+    <string name="erroSuspender">Não é possivel suspender um horario no passado.</string>
+    <string name="erroMarcarConsultaPassado">Não é possivel marcar uma consulta neste horario.</string>
+    <string name="SlotsHorario">Quantidade de slots usados para a consulta:</string>
+    <string name="PacienteCadastrado">Paciente já cadastrado no sistema?</string>
+    <string name="emailpaciente2">Email do Paciente:</string>
+    <string name="abrir_agenda">Abrir agenda</string>
 
 
 </resources>
