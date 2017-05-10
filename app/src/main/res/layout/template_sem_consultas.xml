@@ -1,0 +1,11 @@
+<TextView android:fontFamily="sans-serif-light"
+    android:id="@+id/textoTipoConsulta"
+    android:text="Não há consultas"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    android:paddingTop="30dp"
+    android:textSize="20sp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textAlignment="center" />

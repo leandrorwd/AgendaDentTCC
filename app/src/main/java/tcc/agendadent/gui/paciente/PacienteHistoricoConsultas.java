@@ -34,7 +34,7 @@ public class PacienteHistoricoConsultas extends LinearLayout implements ClassesP
 
     private void setEventos() {
         DialogAux.dialogCarregandoSimples(activity);
-        AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), "20171", activity, layout, false);
+        AgendaController.getInstance().getConsultasAgendadasBC(PacienteController.getInstance().getPacienteLogado().getIdPaciente(), activity, layout, false);
     }
 
     @Override
