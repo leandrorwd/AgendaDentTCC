@@ -22,6 +22,7 @@ import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
+import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
 public class TemplateConsultaAgenda extends RelativeLayout {
@@ -40,25 +41,27 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         consulta = c1;
         setEventos();
     }
-    public TemplateConsultaAgenda(Activity tela, String horaInicial,String usuario) {
+    private LocalDateTime horaConsultaAuxiliar;
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, LocalDateTime aux1) {
         super(tela);
         this.tela=tela;
         usuarioTipo=usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
-        setEventos();
         this.horaInicial = horaInicial;
+        this.horaConsultaAuxiliar = aux1;
+        setEventos();
         horarioLivre(horaInicial);
     }
 
     private void horarioLivre(String horaInicial) {
         TextView textoAux = (TextView) findViewById(R.id.textNomePaciente);
         textoAux.setText("Livre");
-
+        textoAux.setPadding(12,52,0,0);
         textoAux = (TextView) findViewById(R.id.textoHora);
         textoAux.setText(horaInicial);
-
         textoAux = (TextView) findViewById(R.id.textTipoConsulta);
-        textoAux.setText("?????");
+        textoAux.setVisibility(View.GONE);
+
     }
 
     private void preencheHorario(Consulta c) {
@@ -108,18 +111,37 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                             break;
                     }
 
+
                     Intent i = new Intent(tela, DentistaVisualizarConsulta.class);
                     if(usuarioTipo.equals("dentista")){
+                        if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+
+
+
+
+
+                        }else{
                         if(consulta!=null){
                             i.putExtra("consulta", consulta);
                             i.putExtra("user",usuarioTipo);
                             tela.startActivity(i);
                         }
                         else{
+                            if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
+                                if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()-1){
+                                    DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroSuspender));
+                                    return;
+                                }
+                            }
                             dialogSuspender();
+                        }
                         }
                     }
                    else{
+                        if(consulta.getDataFormat().minusHours(1).isAfter(DateTime.now())){
+                            DialogAux.dialogOkSimples(tela,"Erro","Não é possivel realizar uma operação neste horario.");
+                            return;
+                        }
                         i.putExtra("consulta", consulta);
                         i.putExtra("user",usuarioTipo);
                         tela.startActivity(i);

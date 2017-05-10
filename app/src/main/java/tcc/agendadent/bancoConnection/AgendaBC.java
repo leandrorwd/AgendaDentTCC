@@ -16,6 +16,7 @@ import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
+import tcc.agendadent.objetos.UsuarioPaciente;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
@@ -141,7 +142,10 @@ public class AgendaBC {
 
                             if (tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")) {
                                 AgendaController.getInstance().setAgendaMarcacao(tela, consultas);
-                            } else {
+                            }
+                            if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+                                AgendaController.getInstance().setAgendaCompleta(tela, consultas);
+                            }else {
                                 AgendaController.getInstance().setAgendaCompleta(tela, consultas);
                             }
                         }
@@ -246,4 +250,27 @@ public class AgendaBC {
 //    public int getCount(){
 //        return count;
 //    }
+
+    public void getPacienteViaMarcacaoConsulta(String email, final Activity activity, final int numeroHorarios) {
+        final UsuarioPaciente[] p1 = new UsuarioPaciente[1];
+        try{
+            firebaseDatabaseReference.child("pacientes")
+                    .orderByChild("email")
+                    .equalTo(email)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                p1[0] = new UsuarioPaciente(child);
+                            }
+                            AgendaController.getInstance().navegaAgendaEspecial(activity,p1[0],numeroHorarios);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
+        catch (Exception e ){
+        }
+    }
 }

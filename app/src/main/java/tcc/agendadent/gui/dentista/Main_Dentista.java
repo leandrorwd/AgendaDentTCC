@@ -2,20 +2,20 @@ package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
-import tcc.agendadent.gui.paciente.ClassesPaciente;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -99,6 +99,9 @@ public class Main_Dentista extends AppCompatActivity implements NavigationView.O
         }
         if (id == R.id.editarConvenios) {
             navegaJanela(R.id.editarConvenios);
+        }
+        if (id == R.id.agendaEsp) {
+            navegaJanela(R.id.agendaEsp);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.AgendaDiaria);
@@ -185,6 +188,8 @@ public class Main_Dentista extends AppCompatActivity implements NavigationView.O
                     view = new DentistaEspecializacoes(Main_Dentista.this, id_janela);
                 if (id_janela == R.id.editarConvenios)
                     view = new DentistaConvenios(Main_Dentista.this, id_janela);
+                if (id_janela == R.id.agendaEsp)
+                    view = new DentistaAgendarEspecial(Main_Dentista.this, id_janela);
                 layoutMaster.removeAllViews();
                 layoutMaster.addView(view);
                 activity.setTitle(setTitulo(view));

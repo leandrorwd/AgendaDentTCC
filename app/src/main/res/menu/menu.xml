@@ -26,6 +26,10 @@
             android:id="@+id/editarConvenios"
             android:icon="@drawable/ic_photo"
             android:title="Editar Convênios" />
+        <item
+            android:id="@+id/agendaEsp"
+            android:icon="@drawable/ic_photo"
+            android:title="Agenda Especial" />
 
     </group>
 

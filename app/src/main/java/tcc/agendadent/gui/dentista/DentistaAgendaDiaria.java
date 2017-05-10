@@ -1,14 +1,10 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
-
 import android.content.Intent;
-import android.media.Image;
-import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +15,6 @@ import org.joda.time.DateTime;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
-import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
@@ -45,6 +40,8 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         instanciaArtefatos();
         setEventos();
         setTextoData(DateTime.now());
+        AgendaController.getInstance().setDiaAtual(DateTime.now().year().get(),DateTime.now().monthOfYear().get()
+                ,DateTime.now().dayOfMonth().get(),DateTime.now().hourOfDay().get());
     }
 
     private void blala() {
@@ -163,6 +160,7 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         buscaAgendaDiaria();
         instanciaArtefatos();
         setEventos();
+        indiceSlider = DateTime.now();
         setTextoData(DateTime.now());
     }
 
@@ -231,7 +229,8 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
         } else {
             mes = "" + data.getMonthOfYear();
         }
-
+        AgendaController.getInstance().setDiaAtual(data.year().get(),data.monthOfYear().get()
+                ,data.dayOfMonth().get(),data.hourOfDay().get());
         String dataString = dia + "/" + mes + "/" + data.getYear();
         header.setText(dataString);
 //        header.setText("Agenda - " + dataString);

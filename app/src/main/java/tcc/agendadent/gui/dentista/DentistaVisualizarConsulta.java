@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
@@ -43,6 +45,9 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
     }
 
     private void carregaConsulta() {
+        if(consulta.getDataFormat().isBefore(DateTime.now())){
+            botao.setVisibility(View.GONE);
+        }
         if(userTipo.equals("dentista")){
             String dia;
             String mes;
