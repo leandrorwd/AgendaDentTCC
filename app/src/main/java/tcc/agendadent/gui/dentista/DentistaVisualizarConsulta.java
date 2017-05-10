@@ -46,7 +46,7 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
 
     private void carregaConsulta() {
         if(consulta.getDataFormat().isBefore(DateTime.now())){
-            botao.setVisibility(View.GONE);
+            botaoDesmarcarConsulta.setVisibility(View.GONE);
         }
         if(userTipo.equals("dentista")){
             String dia;
