@@ -27,6 +27,7 @@ import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaAgendarConsultaEspecial;
 import tcc.agendadent.gui.layout_auxiliares.TemplateConsultaAgenda;
 import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteConsultasAgendadas;
+import tcc.agendadent.gui.layout_auxiliares.TemplatePacienteHistoricoConsultas;
 import tcc.agendadent.gui.layout_auxiliares.TemplateSemConsultas;
 import tcc.agendadent.gui.layout_auxiliares.TemplateVisualizaMarcacaoConsultaPaciente;
 import tcc.agendadent.objetos.AgendaSub;
@@ -614,14 +615,9 @@ public class AgendaController {
         this.momento = new DateTime(ano, mes, dia, hora, minuto);
     }
 
-    //ok:
     public void getConsultasAgendadasBC(long idPaciente, Activity tela, LinearLayout layout, boolean consulta) {
         agendaBC.getConsultasPaciente(idPaciente, tela, layout, consulta);
     }
-//
-//    public void getHistoricoConsultas(long idPaciente, String anoSemestre, Activity tela, int id) {
-//        agendaBC.getHistoricoConsultas(idPaciente, anoSemestre, tela, id);
-//    }
 
     LinearLayout horarioDiario;
     ArrayList<Consulta> consultasBC;
@@ -647,7 +643,7 @@ public class AgendaController {
             } else
                 // histórico de consultas
                 if (!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
-                    TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                    TemplatePacienteHistoricoConsultas popular = new TemplatePacienteHistoricoConsultas(tela, consulta, dentistas);
                     existeConsulta = true;
                     horarioDiario.addView(popular);
                 }

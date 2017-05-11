@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -36,9 +37,9 @@
         <activity android:name=".gui.dentista.Main_Dentista" />
         <activity android:name=".gui.dentista.DentistaVisualizarConsulta" />
         <activity android:name=".gui.dentista.DentistaPerfil" />
-        <activity android:name=".gui.dentista.DentistaAgendarConsultaEspecial" />
+        <activity android:name=".gui.paciente.PacienteListarDentistas" />
         <activity android:name=".gui.paciente.PacienteVisualizarHorarios" />
-
+        <activity android:name=".gui.dentista.DentistaEspecializacoes" />
         <activity android:name=".gui.paciente.PacienteVisualizaDentistas" />
         <activity android:name=".gui.paciente.PacienteVisualizaHorariosMarcacao" />
         <activity android:name=".gui.paciente.PacienteMarcaConsulta" />
