@@ -27,6 +27,7 @@ public class PacienteVisualizaDentistas extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_paciente_visualiza_dentistas);
         layout.removeAllViews();
         for (UsuarioDentista dentista : PacienteController.getInstance().getDentistas()) {
+            System.out.println("teste");
             TemplateCardDentista t1 = new TemplateCardDentista(PacienteVisualizaDentistas.this, dentista);
             layout.addView(t1);
         }

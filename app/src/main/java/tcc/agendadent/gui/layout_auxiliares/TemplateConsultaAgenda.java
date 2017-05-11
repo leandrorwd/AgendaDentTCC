@@ -63,7 +63,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         textoAux.setVisibility(View.GONE);
 
     }
-
+//okok
     private void preencheHorario(Consulta c) {
         TextView textoAux = (TextView) findViewById(R.id.textoHora);
         DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");

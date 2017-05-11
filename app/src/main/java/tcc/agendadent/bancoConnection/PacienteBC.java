@@ -144,7 +144,8 @@ public class PacienteBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                listaDentistas.add(child.getValue(UsuarioDentista.class));
+                                UsuarioDentista user = new UsuarioDentista(child);
+                                listaDentistas.add(user);
                             }
                            PacienteController.getInstance().filtraDentistas(activity,nomeDentista,tipoConsulta,planoSaude,especializacao,endereco,distanciaKm,listaDentistas,enderecoPaciente);
                         }

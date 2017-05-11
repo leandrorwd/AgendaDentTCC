@@ -1,8 +1,8 @@
 package tcc.agendadent.gui.dentista;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,7 +13,6 @@ import org.joda.time.DateTime;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.gui.paciente.PacienteVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.servicos.DialogAux;
 
@@ -24,9 +23,10 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
     private TextView telefonePaciente;
     private TextView dataConsulta;
     private TextView horaConsulta;
-    private AppCompatButton botaoDesmarcarConsulta;
+    private AppCompatButton botao;
     private Consulta consulta;
     private String userTipo;
+    private AppCompatButton botaoDesmarcarConsulta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +55,8 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
             String minuto;
             int horaAux =consulta.getDataFormat().getHourOfDay();
             try{
-            String operador = consulta.getDataFormat().toString().substring(23,26);
-            int valor = Integer.parseInt(consulta.getDataFormat().toString().substring(24,26));
+                String operador = consulta.getDataFormat().toString().substring(23,26);
+                int valor = Integer.parseInt(consulta.getDataFormat().toString().substring(24,26));
                 if(operador.contains("+")){
                     horaAux = horaAux-valor;
                 }
@@ -64,7 +64,9 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
                     horaAux = horaAux +valor;
                 }
             }catch (Exception e){
+
             }
+
 
             if(consulta.getDataFormat().getDayOfMonth()>=9)
                 dia = "" + consulta.getDataFormat().getDayOfMonth();
@@ -100,11 +102,17 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
 
             }
             else{
+
             }
         }
     }
 
     private void setEventos() {
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
         botaoDesmarcarConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +125,8 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+
     }
 
     private void instanciaArtefatos() {
@@ -127,6 +137,7 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
         textoNomePaciente = (TextView) findViewById(R.id.textNomePaciente);
         dataConsulta = (TextView) findViewById(R.id.dataConsulta);
         horaConsulta = (TextView) findViewById(R.id.horaConsulta);
+        botao = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
         botaoDesmarcarConsulta = (AppCompatButton) findViewById(R.id.botaoDesmarcarDentista);
     }
 }

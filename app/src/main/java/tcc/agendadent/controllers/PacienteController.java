@@ -309,6 +309,7 @@ public class PacienteController {
             DialogAux.dialogOkSimples(activity, activity.getString(R.string.Aviso), activity.getString(R.string.nenhumDentistaEncontrado));
         }
         else{
+            UsuarioDentista aux13 = retorno.get(0);
             setDentistas(retorno);
             activity.startActivity(new Intent(activity, PacienteVisualizaDentistas.class));
         }

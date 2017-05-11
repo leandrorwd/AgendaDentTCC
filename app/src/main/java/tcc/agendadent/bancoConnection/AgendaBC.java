@@ -143,7 +143,7 @@ public class AgendaBC {
                             if (tela.getLocalClassName().equals("gui.paciente.PacienteVisualizaHorariosMarcacao")) {
                                 AgendaController.getInstance().setAgendaMarcacao(tela, consultas);
                             }
-                            if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+                            else if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
                                 AgendaController.getInstance().setAgendaCompleta(tela, consultas);
                             }else {
                                 AgendaController.getInstance().setAgendaCompleta(tela, consultas);
