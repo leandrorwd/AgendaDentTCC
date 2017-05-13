@@ -31,9 +31,11 @@ public class TemplateConsultaAgenda extends RelativeLayout {
     private Consulta consulta;
     private String usuarioTipo;
     private String horaInicial;
+    private boolean isLivre;
     public TemplateConsultaAgenda(Activity tela, Consulta c1,String usuario) {
         super(tela);
         this.tela=tela;
+        isLivre = false;
         usuarioTipo=usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         setEventos();
@@ -41,19 +43,40 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         consulta = c1;
         setEventos();
     }
-    private LocalDateTime horaConsultaAuxiliar;
-    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, LocalDateTime aux1) {
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario) {
         super(tela);
         this.tela=tela;
         usuarioTipo=usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         this.horaInicial = horaInicial;
-        this.horaConsultaAuxiliar = aux1;
         setEventos();
         horarioLivre(horaInicial);
     }
 
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario,boolean tempo) {
+        super(tela);
+        this.tela=tela;
+        isLivre = true;
+        usuarioTipo=usuario;
+        View.inflate(tela, R.layout.template_consulta_agenda, this);
+        this.horaInicial = horaInicial;
+        setEventos();
+        horarioLivre(horaInicial,tempo);
+    }
+    private void horarioLivre(String horaInicial,boolean f) {
+        isLivre = true;
+        TextView textoAux = (TextView) findViewById(R.id.textNomePaciente);
+        textoAux.setText("Tempo insuficiente.");
+        textoAux.setPadding(12,52,0,0);
+        textoAux = (TextView) findViewById(R.id.textoHora);
+        textoAux.setText(horaInicial);
+        textoAux = (TextView) findViewById(R.id.textTipoConsulta);
+        textoAux.setVisibility(View.GONE);
+
+    }
+
     private void horarioLivre(String horaInicial) {
+        isLivre = true;
         TextView textoAux = (TextView) findViewById(R.id.textNomePaciente);
         textoAux.setText("Livre");
         textoAux.setPadding(12,52,0,0);
@@ -127,14 +150,28 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                             tela.startActivity(i);
                         }
                         else{
-                            if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
-                                if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()-1){
-                                    DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroSuspender));
-                                    return;
+                            if(AgendaController.getInstance().getDataAux().getYear() <= DateTime.now().getYear()){
+                                if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
+                                    if(AgendaController.getInstance().getDataAux().getDayOfYear() == DateTime.now().getDayOfYear()){
+                                        if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()){
+                                            DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroSuspender));
+                                            return;
+                                        }
+                                        else{
+                                            DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroMarcarConsultaPassado));
+                                            return;
+                                        }
+                                    }
+                                    else{
+                                        DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroSuspender));
+                                        return;
+                                    }
                                 }
                             }
-                            dialogSuspender();
-                        }
+                            else{
+                                dialogSuspender();
+                            }
+                            }
                         }
                     }
                    else{
@@ -206,5 +243,13 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                     }
                 })
                 .show();
+    }
+
+    public boolean isLivre() {
+        return isLivre;
+    }
+
+    public Consulta getConsulta() {
+        return consulta;
     }
 }

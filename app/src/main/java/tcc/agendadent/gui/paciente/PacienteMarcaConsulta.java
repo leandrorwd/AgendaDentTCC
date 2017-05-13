@@ -48,8 +48,7 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paciente_marca_consulta);
-        AgendaController.getInstance().setMomento(DateTime.now().year().get(),DateTime.now().monthOfYear().get(),
-                DateTime.now().dayOfMonth().get(),DateTime.now().hourOfDay().get(),0);
+
         dentista = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta();
         instanciaArtefatos();
         setEventos();

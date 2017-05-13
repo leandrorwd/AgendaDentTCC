@@ -144,14 +144,19 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
                             card.setPressed(true);
                             break;
                     }
-                    if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
-                        if(AgendaController.getInstance().getDataAux().getDayOfYear() == DateTime.now().getDayOfYear()){
-                            if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()){
+                    if(AgendaController.getInstance().getDataAux().getYear() <= DateTime.now().getYear()){
+                        if(AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()){
+                            if(AgendaController.getInstance().getDataAux().getDayOfYear() == DateTime.now().getDayOfYear()){
+                                if(Integer.parseInt(horaInicial.substring(0,2))<=DateTime.now().getHourOfDay()){
+                                    DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroMarcarConsultaPassado));
+                                    return;
+                                }
+                            }
+                            else{
                                 DialogAux.dialogOkSimples(tela,tela.getString(R.string.erro),tela.getString(R.string.erroMarcarConsultaPassado));
                                 return;
                             }
                         }
-
                     }
                     PacienteController.getInstance().setHorarioConsulta(horario);
                     PacienteController.getInstance().setHoraConsultaInicial(horaInicial);

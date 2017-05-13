@@ -180,7 +180,11 @@ public class AgendaController {
                                 consultasOntem.add(c);
                             }
                         }
-                        populaAgendaDiaria(tela, horarios, consultasOntem, finalAnterior);
+                        if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+                            populaAgendaDiariaEspecial(tela, horarios, consultasOntem, finalAnterior);
+                        }
+                        else
+                            populaAgendaDiaria(tela, horarios, consultasOntem, finalAnterior);
 
                         DateTime data1;
                         data1 = newHoje.plusDays(1);
@@ -274,7 +278,7 @@ public class AgendaController {
                     }
                 }
                 if (!entrou) {
-                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista",aux1);
+                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista");
                     horarioDiario.addView(t1);
                 } else {
                     consultasMarcadas.remove(aux);
@@ -328,6 +332,8 @@ public class AgendaController {
                 horariosAgenda.add(horaInicial);
             }
             DateTimeFormatter dateTimeFormatHora = DateTimeFormat.forPattern("HH:mm");
+            int controleHorarios = numeroHorarios;
+            ArrayList<TemplateConsultaAgenda> listaDia = new ArrayList<>();
             for (String s : horariosAgenda) {
                 boolean entrou = false;
                 Consulta aux = null;
@@ -341,7 +347,8 @@ public class AgendaController {
                     if (horariosAgenda.contains(auxAux)) {
                         if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
                             TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
-                            horarioDiario.addView(t1);
+                            listaDia.add(t1);
+                          //  horarioDiario.addView(t1);
                             entrou = true;
                             aux = c1;
                             break;
@@ -349,12 +356,40 @@ public class AgendaController {
                     }
                 }
                 if (!entrou) {
-                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista",aux1);
-                    horarioDiario.addView(t1);
+                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista");
+                    listaDia.add(t1);
+                 //   horarioDiario.addView(t1);
                 } else {
                     consultasMarcadas.remove(aux);
                 }
             }
+            int i =0;
+            int j = numeroHorarios-1;
+            for(;j<=horariosAgenda.size();i++,j++){
+                boolean possivel = true;
+                for(int n = i;n<j;n++){
+                    if(listaDia.get(n).isLivre()){
+                        continue;
+                    }
+                    else{
+                        possivel = false;
+                        break;
+                    }
+                }
+                if(!possivel){
+                    if(listaDia.get(i).isLivre()){
+                        TemplateConsultaAgenda aux =new TemplateConsultaAgenda(tela, horariosAgenda.get(i), "dentista",true);
+                        listaDia.remove(i);
+                        listaDia.add(i,aux);
+                    }
+                }
+            }
+            //TODO LASTs HORARIO
+
+            for (TemplateConsultaAgenda t1:listaDia){
+                horarioDiario.addView(t1);
+            }
+
             horariosAgenda.clear();
         }
 
@@ -470,8 +505,11 @@ public class AgendaController {
                 consultasHoje.add(c);
             }
         }
-
-        populaAgendaDiaria(tela, horarios, consultasHoje, R.id.layoutConsultas);
+        if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+            populaAgendaDiariaEspecial(tela, horarios, consultasHoje, R.id.layoutConsultas);
+        }
+        else
+            populaAgendaDiaria(tela, horarios, consultasHoje, R.id.layoutConsultas);
     }
 
     public void setAgendaMarcacao(Activity tela, ArrayList<Consulta> consultas) {
@@ -542,7 +580,11 @@ public class AgendaController {
             public void run() {
                 tela.runOnUiThread(new Runnable() {
                     public void run() {
-                        populaAgendaDiaria(tela, horarios, consultasData, layout);
+                        if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
+                            populaAgendaDiariaEspecial(tela, horarios, consultasData, R.id.layoutConsultas);
+                        }
+                        else
+                            populaAgendaDiaria(tela, horarios, consultasData, R.id.layoutConsultas);
                     }
                 });
             }
@@ -682,7 +724,6 @@ public class AgendaController {
     public void navegaAgendaEspecial(Activity activity, UsuarioPaciente usuarioPaciente, int numeroHorarios) {
         this.numeroHorarios =numeroHorarios;
         this.usuarioPaciente=usuarioPaciente;
-
         activity.startActivity(new Intent(activity, DentistaAgendarConsultaEspecial.class));
     }
 
