@@ -109,7 +109,10 @@ public class AgendaBC {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 Consulta s1 = new Consulta(consultaBanco);
                                 s1.setIdConsulta(consultaBanco.getKey());
-                                consultas.add(s1);
+                                if(!s1.getCancelada()){
+                                    consultas.add(s1);
+                                }
+
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
                             AgendaController.getInstance().setAgendaDiaria(tela, consultas);
@@ -136,7 +139,9 @@ public class AgendaBC {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 Consulta s1 = new Consulta(consultaBanco);
                                 s1.setIdConsulta(consultaBanco.getKey());
-                                consultas.add(s1);
+                                if(!s1.getCancelada()){
+                                    consultas.add(s1);
+                                }
                             }
                             AgendaController.getInstance().setAgendaSemestreAtual(consultas);
 
@@ -169,7 +174,12 @@ public class AgendaBC {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
-                                consultasBC.add(new Consulta(consultaBanco));
+                                Consulta s1 = new Consulta(consultaBanco);
+                                if(!s1.getCancelada()){
+                                    if(!s1.isConsultaMultipla()){
+                                        consultasBC.add(s1);
+                                    }
+                                }
                             }
                             AgendaController.getInstance().buscaAgendaBCAgendadas(tela, consultasBC, layout, consulta);
                         }
@@ -196,7 +206,7 @@ public class AgendaBC {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
 //                                    consultaBanco.getRef().removeValue();
-                                    consultaBanco.getRef().child("cancelada").push().setValue(true);
+                                    consultaBanco.getRef().child("cancelada").setValue(true);
 //                                      DialogAux.dialogOkSimples(tela, "msg", consultaBanco.getRef().child("cancelada").setValue("true"));
 
 //                                    firebaseDatabaseReference.child("agendaSub")

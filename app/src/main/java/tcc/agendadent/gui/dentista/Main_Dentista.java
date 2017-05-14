@@ -228,6 +228,9 @@ public class Main_Dentista extends AppCompatActivity implements NavigationView.O
         if (view.getClass().getSimpleName().equals("DentistaConvenios")) {
             return "Editar Convênios";
         }
+        if (view.getClass().getSimpleName().equals("DentistaAgendarEspecial")) {
+            return "Agendar Consulta";
+        }
 
         return "ConfigSetTitulo";
     }

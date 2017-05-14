@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by natha on 09/05/2017.
@@ -22,6 +24,8 @@ public class DentistaAgendarEspecial extends LinearLayout implements Interface_D
     private Activity activity;
     private LinearLayout principal;
     private Spinner spinnerHorarios;
+    private Spinner tipoConsulta;
+    private Spinner planosDeSaude;
     private RadioButton radioSim;
     private RadioButton radioNao;
     private EditText emailSim;
@@ -51,6 +55,8 @@ public class DentistaAgendarEspecial extends LinearLayout implements Interface_D
         celular = (EditText) findViewById(R.id.celular);
         sim = (CardView) findViewById(R.id.cardviewSim);
         nao = (CardView) findViewById(R.id.cardviewnao);
+        tipoConsulta = (Spinner) findViewById(R.id.tipoConsulta);
+        planosDeSaude = (Spinner) findViewById(R.id.idPlanosDeSaude);
         butt = (Button) findViewById(R.id.botaoAbreAgenda);
 
 
@@ -74,17 +80,42 @@ public class DentistaAgendarEspecial extends LinearLayout implements Interface_D
         butt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                String planoSaude;
+                if (!tipoConsulta.getSelectedItem().toString().equals("Convênio")) {
+                    planoSaude = "null";
+                } else {
+                    planoSaude = planosDeSaude.getSelectedItem().toString();
+                }
                 if(radioSim.isChecked()){
+                    DialogAux.dialogCarregandoSimples(activity);
                     AgendaController.getInstance().getPacienteViaMarcacaoConsulta
-                            (emailSim.getText().toString(),activity,spinnerHorarios.getSelectedItemPosition());
-                    //setar no controler,abrir agenda especial,marcar consulta
+                            (emailSim.getText().toString(),activity,spinnerHorarios.getSelectedItemPosition(), tipoConsulta.getSelectedItem().toString(), planoSaude);
                 }
                 else{
-
+                    AgendaController.getInstance().insertDummyPaciente(emailNao.getText().toString(),activity,
+                            spinnerHorarios.getSelectedItemPosition(), tipoConsulta.getSelectedItem().toString(),
+                            planoSaude,celular.getText().toString(),nomePaciente.getText().toString());
+                   // UsuarioPaciente usuario = new UsuarioPaciente(email,nome,sobreNome,celular,masculino);
+                //    usuario.setEndereco(null);
                 }
             }
         });
+
+        tipoConsulta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if (tipoConsulta.getSelectedItem().toString().equals("Convênio")) {
+                    planosDeSaude.setVisibility(View.VISIBLE);
+                } else
+                    planosDeSaude.setVisibility(View.GONE);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         radioSim.setChecked(true);
+
+
     }
 
     @Override

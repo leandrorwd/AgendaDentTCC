@@ -226,6 +226,7 @@
     <string name="PacienteCadastrado">Paciente já cadastrado no sistema?</string>
     <string name="emailpaciente2">Email do Paciente:</string>
     <string name="abrir_agenda">Abrir agenda</string>
+    <string name="confirmaConsulta">Tem certeza que deseja marcar está consulta?</string>
 
 
 </resources>

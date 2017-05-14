@@ -16,12 +16,15 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
+import tcc.agendadent.objetos.Horario;
 import tcc.agendadent.servicos.DialogAux;
 import tcc.agendadent.servicos.OnSwipeTouchListener;
 
@@ -32,12 +35,14 @@ public class TemplateConsultaAgenda extends RelativeLayout {
     private String usuarioTipo;
     private String horaInicial;
     private boolean isLivre;
+    private Horario horario;
 
-    public TemplateConsultaAgenda(Activity tela, Consulta c1, String usuario) {
+    public TemplateConsultaAgenda(Activity tela, Consulta c1, String usuario, Horario horario) {
         super(tela);
         this.tela = tela;
         isLivre = false;
         usuarioTipo = usuario;
+        this.horario = horario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         setEventos();
         preencheHorario(c1);
@@ -45,29 +50,35 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         setEventos();
     }
 
-    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario) {
+
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario,Horario horario) {
         super(tela);
         this.tela = tela;
+        this.horario = horario;
         usuarioTipo = usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         this.horaInicial = horaInicial;
+        isLivre = false;
         setEventos();
         horarioLivre(horaInicial);
     }
 
-    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, boolean tempo) {
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, boolean tempo,Horario horario) {
         super(tela);
         this.tela = tela;
         isLivre = true;
+        this.horario = horario;
         usuarioTipo = usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         this.horaInicial = horaInicial;
-        setEventos();
+       // setEventos();
         horarioLivre(horaInicial, tempo);
     }
 
     private void horarioLivre(String horaInicial, boolean f) {
         isLivre = true;
+        CardView card = (CardView) findViewById(R.id.card_view);
+        card.setClickable(false);
         TextView textoAux = (TextView) findViewById(R.id.textNomePaciente);
         textoAux.setText("Tempo insuficiente.");
         textoAux.setPadding(12, 52, 0, 0);
@@ -143,7 +154,27 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                     Intent i = new Intent(tela, DentistaVisualizarConsulta.class);
                     if (usuarioTipo.equals("dentista")) {
                         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
-
+                           if(isLivre()){
+                            new AlertDialog.Builder(tela)
+                                    .setTitle(tela.getResources().getString(R.string.Salvar))
+                                    .setMessage(tela.getResources().getString(R.string.confirmaConsulta))
+                                    .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                            DialogAux.dialogCarregandoSimples(tela);
+                                            salvaConsultaEspecial(true);
+                                        }
+                                    }).setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which)
+                                        {
+                                        }
+                                    })
+                                    .show();
+                        }
 
                         } else {
                             if (consulta != null) {
@@ -184,6 +215,79 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                 }
 
             });
+        }
+    }
+
+    public void salvaConsultaEspecial(boolean principal) {
+
+        int slotConsultas = AgendaController.getInstance().getNumeroHorarios();
+        ArrayList<TemplateConsultaAgenda> lista = AgendaController.getInstance().getListaDia();
+
+        String tipoConsultaString = "";
+        if(AgendaController.getInstance().getTipoConsultaEspecial().equals("Convênio")){
+            tipoConsultaString=AgendaController.getInstance().getTipoConsultaEspecial()+ " - "
+                    +(AgendaController.getInstance().getPlanoSaudeEspecial());
+        }
+        else{
+            tipoConsultaString =AgendaController.getInstance().getTipoConsultaEspecial();
+        }
+
+        String[] parts = horaInicial.split(":");
+        DateTime dateDataConsultaInicial = new DateTime(AgendaController.getInstance().getMomento().getYear(),
+                AgendaController.getInstance().getMomento().getMonthOfYear(),
+                AgendaController.getInstance().getMomento().getDayOfMonth(),
+                Integer.parseInt(parts[0]),
+                Integer.parseInt(parts[1]), 0, 0);
+
+        String[] parts2 = horario.getDuracao().split(":");
+
+        long valor =((Integer.parseInt(parts2[0])*60) + Integer.parseInt(parts2[1]))*60000 ;
+
+        int mes = DateTime.now().monthOfYear().get();
+        String anoSemestre;
+        if(mes>=7){
+            anoSemestre = DateTime.now().year().get() +"A2";
+        }
+        else
+            anoSemestre = DateTime.now().year().get() +"A1";
+        anoSemestre = anoSemestre.replace("A","");
+        long valorAux = 0;
+        try{
+            String operador = DateTime.now().toString().substring(23,26);
+            valorAux = Integer.parseInt( DateTime.now().toString().substring(24,26));
+            if(operador.contains("+")){
+                valorAux = valorAux * 3600000;
+            }
+            else{
+                valorAux = (valorAux * 3600000) - (valorAux * 3600000)*2;
+            }
+        }catch (Exception e){
+            valorAux =0;
+        }
+
+        if(principal){
+            Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
+                    , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
+                    dateDataConsultaInicial.getMillis()+valorAux
+                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor*slotConsultas, false);
+            AgendaController.getInstance().insertConsulta(tela,c1,
+                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
+            DialogAux.dialogCarregandoSimplesDismiss();
+
+            for(int i =indexTela+1;i<slotConsultas;i++){
+                lista.get(i).salvaConsultaEspecial(false);
+            }
+            DialogAux.dialogCarregandoSimplesDismiss();
+            tela.finish();
+        }
+        else{
+            Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
+                    , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
+                    dateDataConsultaInicial.getMillis()+valorAux
+                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor, false);
+            c1.setConsultaMultipla(true);
+            AgendaController.getInstance().insertConsulta(tela,c1,
+                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
         }
     }
 
@@ -240,5 +344,10 @@ public class TemplateConsultaAgenda extends RelativeLayout {
 
     public Consulta getConsulta() {
         return consulta;
+    }
+
+    private int indexTela;
+    public void setIndexTela(int indexTela) {
+        this.indexTela = indexTela;
     }
 }

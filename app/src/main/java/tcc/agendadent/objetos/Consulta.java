@@ -3,8 +3,6 @@ package tcc.agendadent.objetos;
 import com.google.firebase.database.DataSnapshot;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.io.Serializable;
 
@@ -22,6 +20,7 @@ public class Consulta implements Serializable {
     private String tipoConsulta;
     private String idConsulta;
     private boolean cancelada;
+    private boolean consultaMultipla;
 
     public Consulta() {
     }
@@ -36,6 +35,7 @@ public class Consulta implements Serializable {
         this.nomePaciente = nomePaciente;
         this.duracao = duracao;
         this.cancelada = cancelada;
+        this.consultaMultipla = false;
     }
 
     public Consulta(DataSnapshot dataSnapshot) {
@@ -51,6 +51,12 @@ public class Consulta implements Serializable {
         this.tipoConsulta = String.valueOf(dataSnapshot.child("tipoConsulta").getValue());
         this.nomePaciente = String.valueOf(dataSnapshot.child("nomePaciente").getValue());
         this.cancelada = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("cancelada").getValue()));
+        try{
+        this.consultaMultipla = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("consultaMultipla").getValue()));}
+        catch (Exception e){
+            consultaMultipla = false;
+        }
+
     }
 
     public long getIdDentista() {
@@ -118,4 +124,12 @@ public class Consulta implements Serializable {
     public boolean getCancelada() { return cancelada; }
 
     public void setCancelada(boolean cancelada) { this.cancelada = cancelada; }
+
+    public boolean isConsultaMultipla() {
+        return consultaMultipla;
+    }
+
+    public void setConsultaMultipla(boolean consultaMultipla) {
+        this.consultaMultipla = consultaMultipla;
+    }
 }

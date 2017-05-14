@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
@@ -177,5 +178,40 @@ public class PacienteBC {
 
         }
 
+    }
+
+    public void insertPaciente(final UsuarioPaciente usuarioPaciente, final String email, final Activity activity, final int selectedItemPosition) {
+        try {
+            firebaseDatabaseReference.child("pacientes").orderByKey().limitToLast(1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() == null) {
+                                usuarioPaciente.setIdPaciente(1);
+                                firebaseDatabaseReference
+                                        .child("pacientes")
+                                        .child("1")
+                                        .setValue(usuarioPaciente);
+                            } else {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    usuarioPaciente.setIdPaciente(Integer.parseInt(child.getKey()) + 1);
+                                    firebaseDatabaseReference
+                                            .child("pacientes")
+                                            .child(String.valueOf(Integer.parseInt(child.getKey()) + 1))
+                                            .setValue(usuarioPaciente);
+                                }
+                            }
+                            AgendaController.getInstance().setUsuarioPacienteConsultaEspecial(usuarioPaciente);
+                            AgendaBC agendaBC = new AgendaBC();
+                            agendaBC.getPacienteViaMarcacaoConsulta(email, activity, selectedItemPosition + 1);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+
+        }
     }
 }
