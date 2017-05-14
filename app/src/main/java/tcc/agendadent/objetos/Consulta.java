@@ -21,12 +21,13 @@ public class Consulta implements Serializable {
     private long avaliacao;
     private String tipoConsulta;
     private String idConsulta;
+    private boolean cancelada;
 
     public Consulta() {
     }
 
     public Consulta(long idDentista, long idPaciente, long dataConsulta, long avaliacao,
-                    String tipoConsulta,String nomePaciente,long duracao) {
+                    String tipoConsulta, String nomePaciente, long duracao, boolean cancelada) {
         this.idDentista = idDentista;
         this.idPaciente = idPaciente;
         this.dataConsulta = dataConsulta;
@@ -34,20 +35,22 @@ public class Consulta implements Serializable {
         this.tipoConsulta = tipoConsulta;
         this.nomePaciente = nomePaciente;
         this.duracao = duracao;
+        this.cancelada = cancelada;
     }
 
-    public Consulta(DataSnapshot dataSnapshot){
+    public Consulta(DataSnapshot dataSnapshot) {
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));
         this.idPaciente = Long.parseLong(String.valueOf(dataSnapshot.child("idPaciente").getValue()));
         this.dataConsulta = Long.parseLong(String.valueOf(dataSnapshot.child("dataConsulta").getValue()));
         this.avaliacao = Long.parseLong(String.valueOf(dataSnapshot.child("avaliacao").getValue()));
-        try{
+        try {
             this.duracao = Long.parseLong(String.valueOf(dataSnapshot.child("duracao").getValue()));
-        }catch (Exception e){
+        } catch (Exception e) {
             this.duracao = 1800000;
         }
         this.tipoConsulta = String.valueOf(dataSnapshot.child("tipoConsulta").getValue());
         this.nomePaciente = String.valueOf(dataSnapshot.child("nomePaciente").getValue());
+        this.cancelada = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("cancelada").getValue()));
     }
 
     public long getIdDentista() {
@@ -90,8 +93,8 @@ public class Consulta implements Serializable {
         this.tipoConsulta = tipoConsulta;
     }
 
-    public DateTime getDataFormat(){
-        return  new DateTime(dataConsulta);
+    public DateTime getDataFormat() {
+        return new DateTime(dataConsulta);
     }
 
     public String getNomePaciente() {
@@ -102,14 +105,17 @@ public class Consulta implements Serializable {
         this.nomePaciente = nomePaciente;
     }
 
-    public long getDuracao(){
+    public long getDuracao() {
         return duracao;
     }
-    public DateTime getHoraFinalDateTime(){
-        return  new DateTime(dataConsulta+duracao);
+
+    public DateTime getHoraFinalDateTime() {
+        return new DateTime(dataConsulta + duracao);
     }
 
-    public void setIdConsulta(String idConsulta) {
-        this.idConsulta = idConsulta;
-    }
+    public void setIdConsulta(String idConsulta) { this.idConsulta = idConsulta; }
+
+    public boolean getCancelada() { return cancelada; }
+
+    public void setCancelada(boolean cancelada) { this.cancelada = cancelada; }
 }

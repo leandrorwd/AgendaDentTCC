@@ -115,7 +115,7 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
                 Consulta c1 = new Consulta(PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getIdDentista()
                         , PacienteController.getInstance().getPacienteLogado().getIdPaciente(),
                         dateDataConsultaInicial.getMillis()+valorAux
-                        ,5, tipoConsultaString,PacienteController.getInstance().getPacienteLogado().getNome(),valor);
+                        ,5, tipoConsultaString,PacienteController.getInstance().getPacienteLogado().getNome(),valor, false);
                 AgendaController.getInstance().insertConsulta(PacienteMarcaConsulta.this,c1,
                         PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getIdDentista()+"",anoSemestre);
             }

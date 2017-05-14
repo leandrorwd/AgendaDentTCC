@@ -34,18 +34,6 @@
             android:background="@color/gray"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/idTextDentistaDadosConsulta"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center_vertical"
-                android:text="DADOS DA CONSULTA"
-                android:textAlignment="center"
-                android:textColor="@color/cardview_dark_background"
-                android:textSize="18sp" />
-
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card_view"

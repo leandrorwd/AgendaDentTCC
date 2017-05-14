@@ -108,6 +108,7 @@ public class DentistaVisualizarConsulta extends AppCompatActivity {
     }
 
     private void setEventos() {
+        setTitle("Dados da Consulta");
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

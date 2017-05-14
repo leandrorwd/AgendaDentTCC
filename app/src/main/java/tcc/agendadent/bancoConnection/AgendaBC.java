@@ -195,7 +195,18 @@ public class AgendaBC {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
-                                    consultaBanco.getRef().removeValue();
+//                                    consultaBanco.getRef().removeValue();
+                                    consultaBanco.getRef().child("cancelada").push().setValue(true);
+//                                      DialogAux.dialogOkSimples(tela, "msg", consultaBanco.getRef().child("cancelada").setValue("true"));
+
+//                                    firebaseDatabaseReference.child("agendaSub")
+//                                            .child(consulta.getIdDentista() + "")
+//                                            .child("20171")
+//                                            .child("consultasMarcadas")
+//                                            .child(consultaBanco.getKey())
+//
+
+
 //                                    AgendaController.getInstance().incrCount();
                                 }
                             }
@@ -217,7 +228,10 @@ public class AgendaBC {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString()))
                                         && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
-                                    consultaBanco.getRef().removeValue();
+                                    consultaBanco.getRef().child("cancelada").setValue(true);
+//                                    DialogAux.dialogOkSimples(tela, "msg", consultaBanco.getRef().toString());
+
+//                                    consultaBanco.getRef().removeValue();
 //                                    AgendaController.getInstance().incrCount();
                                 }
                             }
@@ -235,7 +249,11 @@ public class AgendaBC {
 //        } else if (AgendaController.getInstance().getCount() == 1) {
 //            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Ocorreu um problema com uma das exclusões.");
 //        } else if (AgendaController.getInstance().getCount() == 2) {
-            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
+
+
+        DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
+
+
 //        }
     }
 

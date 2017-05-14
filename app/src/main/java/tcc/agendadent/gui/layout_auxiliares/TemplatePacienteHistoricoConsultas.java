@@ -109,12 +109,16 @@ public class TemplatePacienteHistoricoConsultas extends RelativeLayout {
         }
         textoPacienteHoraInicial.setText(formatHorario.print(horaCorrida));
 
+        String cancelada = "";
+        if(consulta.getCancelada()) {
+            cancelada = "(cancel.) ";
+        }
         if (dentista.isMasculino()) {
             TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
-            textoNomeDentista.setText("Dr. " + dentista.getNome() + " " + dentista.getSobreNome());
+            textoNomeDentista.setText(cancelada + "Dr. " + dentista.getNome() + " " + dentista.getSobreNome());
         } else {
             TextView textoNomeDentista = (TextView) findViewById(R.id.textoNomeDentista);
-            textoNomeDentista.setText("Dra. " + dentista.getNome() + " " + dentista.getSobreNome());
+            textoNomeDentista.setText(cancelada + "Dra. " + dentista.getNome() + " " + dentista.getSobreNome());
         }
 
         TextView textoEnderecoDentista = (TextView) findViewById(R.id.textoEnderecoDentista);

@@ -182,8 +182,7 @@ public class AgendaController {
                         }
                         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
                             populaAgendaDiariaEspecial(tela, horarios, consultasOntem, finalAnterior);
-                        }
-                        else
+                        } else
                             populaAgendaDiaria(tela, horarios, consultasOntem, finalAnterior);
 
                         DateTime data1;
@@ -205,8 +204,7 @@ public class AgendaController {
                         }
                         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
                             populaAgendaDiariaEspecial(tela, horarios2, consultasAmanha, finalPosterior);
-                        }
-                        else
+                        } else
                             populaAgendaDiaria(tela, horarios2, consultasAmanha, finalPosterior);
                     }
                 });
@@ -260,20 +258,21 @@ public class AgendaController {
             for (String s : horariosAgenda) {
                 boolean entrou = false;
                 Consulta aux = null;
-                LocalDateTime aux1=null;
+                LocalDateTime aux1 = null;
                 for (Consulta c1 : consultasMarcadas) {
-
-                    DateTime data = new DateTime(c1.getDataConsulta());
-                    DateTime dataAux = data.withZone(DateTimeZone.UTC);
-                    LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
-                    String auxAux = dateTimeFormatHora.print(dataAux);
-                    if (horariosAgenda.contains(auxAux)) {
-                        if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
-                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
-                            horarioDiario.addView(t1);
-                            entrou = true;
-                            aux = c1;
-                            break;
+                    if (!c1.getCancelada()) {
+                        DateTime data = new DateTime(c1.getDataConsulta());
+                        DateTime dataAux = data.withZone(DateTimeZone.UTC);
+                        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+                        String auxAux = dateTimeFormatHora.print(dataAux);
+                        if (horariosAgenda.contains(auxAux)) {
+                            if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
+                                TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
+                                horarioDiario.addView(t1);
+                                entrou = true;
+                                aux = c1;
+                                break;
+                            }
                         }
                     }
                 }
@@ -337,56 +336,56 @@ public class AgendaController {
             for (String s : horariosAgenda) {
                 boolean entrou = false;
                 Consulta aux = null;
-                LocalDateTime aux1=null;
+                LocalDateTime aux1 = null;
                 for (Consulta c1 : consultasMarcadas) {
-
-                    DateTime data = new DateTime(c1.getDataConsulta());
-                    DateTime dataAux = data.withZone(DateTimeZone.UTC);
-                    LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
-                    String auxAux = dateTimeFormatHora.print(dataAux);
-                    if (horariosAgenda.contains(auxAux)) {
-                        if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
-                            TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
-                            listaDia.add(t1);
-                          //  horarioDiario.addView(t1);
-                            entrou = true;
-                            aux = c1;
-                            break;
+                    if (!c1.getCancelada()) {
+                        DateTime data = new DateTime(c1.getDataConsulta());
+                        DateTime dataAux = data.withZone(DateTimeZone.UTC);
+                        LocalDateTime dataSemFuso = dataAux.toLocalDateTime();
+                        String auxAux = dateTimeFormatHora.print(dataAux);
+                        if (horariosAgenda.contains(auxAux)) {
+                            if (dateTimeFormatHora.print(dataSemFuso).equals(s)) {
+                                TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, c1, "dentista");
+                                listaDia.add(t1);
+                                //  horarioDiario.addView(t1);
+                                entrou = true;
+                                aux = c1;
+                                break;
+                            }
                         }
                     }
                 }
                 if (!entrou) {
-                    TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista");
-                    listaDia.add(t1);
-                 //   horarioDiario.addView(t1);
+                        TemplateConsultaAgenda t1 = new TemplateConsultaAgenda(tela, s, "dentista");
+                        listaDia.add(t1);
+                        //   horarioDiario.addView(t1);
                 } else {
                     consultasMarcadas.remove(aux);
                 }
             }
-            int i =0;
-            int j = numeroHorarios-1;
-            for(;j<=horariosAgenda.size();i++,j++){
+            int i = 0;
+            int j = numeroHorarios - 1;
+            for (; j <= horariosAgenda.size(); i++, j++) {
                 boolean possivel = true;
-                for(int n = i;n<j;n++){
-                    if(listaDia.get(n).isLivre()){
+                for (int n = i; n < j; n++) {
+                    if (listaDia.get(n).isLivre()) {
                         continue;
-                    }
-                    else{
+                    } else {
                         possivel = false;
                         break;
                     }
                 }
-                if(!possivel){
-                    if(listaDia.get(i).isLivre()){
-                        TemplateConsultaAgenda aux =new TemplateConsultaAgenda(tela, horariosAgenda.get(i), "dentista",true);
+                if (!possivel) {
+                    if (listaDia.get(i).isLivre()) {
+                        TemplateConsultaAgenda aux = new TemplateConsultaAgenda(tela, horariosAgenda.get(i), "dentista", true);
                         listaDia.remove(i);
-                        listaDia.add(i,aux);
+                        listaDia.add(i, aux);
                     }
                 }
             }
             //TODO LASTs HORARIO
 
-            for (TemplateConsultaAgenda t1:listaDia){
+            for (TemplateConsultaAgenda t1 : listaDia) {
                 horarioDiario.addView(t1);
             }
 
@@ -507,8 +506,7 @@ public class AgendaController {
         }
         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
             populaAgendaDiariaEspecial(tela, horarios, consultasHoje, R.id.layoutConsultas);
-        }
-        else
+        } else
             populaAgendaDiaria(tela, horarios, consultasHoje, R.id.layoutConsultas);
     }
 
@@ -582,8 +580,7 @@ public class AgendaController {
                     public void run() {
                         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
                             populaAgendaDiariaEspecial(tela, horarios, consultasData, R.id.layoutConsultas);
-                        }
-                        else
+                        } else
                             populaAgendaDiaria(tela, horarios, consultasData, R.id.layoutConsultas);
                     }
                 });
@@ -678,13 +675,14 @@ public class AgendaController {
             horarioDiario.removeAllViews();
         for (Consulta consulta : consultasBC) {
             // próximas consultas
-            if (consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) {
+            if ((consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) && !consulta.getCancelada()) {
+//                DialogAux.dialogOkSimples(tela, "msg", String.valueOf(consulta.getCancelada()));
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
                 existeConsulta = true;
                 horarioDiario.addView(popular);
             } else
                 // histórico de consultas
-                if (!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) {
+                if ((!consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() < DateTime.now().getMillis()) || (!consultaVerif && consulta.getCancelada())) {
                     TemplatePacienteHistoricoConsultas popular = new TemplatePacienteHistoricoConsultas(tela, consulta, dentistas);
                     existeConsulta = true;
                     horarioDiario.addView(popular);
@@ -694,7 +692,6 @@ public class AgendaController {
         if (!existeConsulta) {
             TemplateSemConsultas semconsulta = new TemplateSemConsultas(tela);
             horarioDiario.addView(semconsulta);
-//            DialogAux.dialogOkSimples(tela, "Informação", "Não há consultas futuras agendadas.");
         }
     }
 
@@ -708,22 +705,27 @@ public class AgendaController {
 
         agendaBC.desmarcarConsulta(tela, consulta, ano);
     }
+
     DateTime auxiliar;
-    public void setDiaAtual(int ano,int mes,int dia,int hora){
-        auxiliar = new DateTime(ano,mes,dia,hora,0);
+
+    public void setDiaAtual(int ano, int mes, int dia, int hora) {
+        auxiliar = new DateTime(ano, mes, dia, hora, 0);
     }
 
-    public DateTime getDataAux(){return auxiliar;}
+    public DateTime getDataAux() {
+        return auxiliar;
+    }
 
     public void getPacienteViaMarcacaoConsulta(String email, Activity activity, int posicaoSpinner) {
-        agendaBC.getPacienteViaMarcacaoConsulta(email,activity,posicaoSpinner+1);
+        agendaBC.getPacienteViaMarcacaoConsulta(email, activity, posicaoSpinner + 1);
     }
 
     private UsuarioPaciente usuarioPaciente;
     private int numeroHorarios;
+
     public void navegaAgendaEspecial(Activity activity, UsuarioPaciente usuarioPaciente, int numeroHorarios) {
-        this.numeroHorarios =numeroHorarios;
-        this.usuarioPaciente=usuarioPaciente;
+        this.numeroHorarios = numeroHorarios;
+        this.usuarioPaciente = usuarioPaciente;
         activity.startActivity(new Intent(activity, DentistaAgendarConsultaEspecial.class));
     }
 
