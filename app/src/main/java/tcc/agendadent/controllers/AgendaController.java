@@ -74,6 +74,9 @@ public class AgendaController {
     public void insertConsulta(Activity activity, Consulta consulta, String idDentista, String semestreAno) {
         agendaBC.insertConsulta(activity, consulta, idDentista, semestreAno);
     }
+    public void insertConsultaSecundaria(Activity activity, Consulta consulta, String idDentista, String semestreAno,Consulta consultaMestre) {
+        agendaBC.insertConsultaSecundaria(activity, consulta, idDentista, semestreAno,consultaMestre);
+    }
 
     public void getConsultasSemestre(long idDentista, String anoSemestre, Activity tela, boolean banco) {
         if (!banco) {
@@ -813,6 +816,8 @@ public class AgendaController {
     public void setUsuarioPacienteConsultaEspecial(UsuarioPaciente usuarioPacienteConsultaEspecial) {
         this.usuarioPaciente = usuarioPacienteConsultaEspecial;
     }
+
+
 }
 
 

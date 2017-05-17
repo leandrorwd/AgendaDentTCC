@@ -95,6 +95,49 @@ public class AgendaBC {
         }
     }
 
+    public void insertConsultaSecundaria(final Activity activity, final Consulta consulta, final String idDentista, final String semestreAno,Consulta consultaPrimaria) {
+        try {
+            firebaseDatabaseReference.child("agendaSub").orderByKey().limitToLast(1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            firebaseDatabaseReference
+                                    .child("agendaSub")
+                                    .child(idDentista)
+                                    .child(semestreAno).child("consultasMarcadas").push()
+                                    .setValue(consulta);
+                            Intent intent = new Intent("kill");
+                            intent.setType("text/plain");
+                            activity.sendBroadcast(intent);
+                            DialogAux.dialogCarregandoSimplesDismiss();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            firebaseDatabaseReference.child("agendaSubPaciente").orderByKey().limitToLast(1)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            firebaseDatabaseReference
+                                    .child("agendaSubPaciente")
+                                    .child(consulta.getIdPaciente() + "").push()
+//                                    .child(semestreAno).child("consultasMarcadas").push()
+                                    .setValue(consulta);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+       //recortei new1
+        } catch (Exception e) {
+            String s = "treta";
+        }
+    }
+
 
     public void getConsultaSemestre(long idDentista, String anoSemestre, final Activity tela) {
         final ArrayList<Consulta> consultas = new ArrayList<>();
@@ -198,26 +241,14 @@ public class AgendaBC {
         try {
             firebaseDatabaseReference.child("agendaSub")
                     .child(consulta.getIdDentista() + "")
-                    .child("20171")
+                    .child(semestreAno)
                     .child("consultasMarcadas")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
                                 if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
-//                                    consultaBanco.getRef().removeValue();
                                     consultaBanco.getRef().child("cancelada").setValue(true);
-//                                      DialogAux.dialogOkSimples(tela, "msg", consultaBanco.getRef().child("cancelada").setValue("true"));
-
-//                                    firebaseDatabaseReference.child("agendaSub")
-//                                            .child(consulta.getIdDentista() + "")
-//                                            .child("20171")
-//                                            .child("consultasMarcadas")
-//                                            .child(consultaBanco.getKey())
-//
-
-
-//                                    AgendaController.getInstance().incrCount();
                                 }
                             }
                         }
@@ -239,10 +270,6 @@ public class AgendaBC {
                                 if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString()))
                                         && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
                                     consultaBanco.getRef().child("cancelada").setValue(true);
-//                                    DialogAux.dialogOkSimples(tela, "msg", consultaBanco.getRef().toString());
-
-//                                    consultaBanco.getRef().removeValue();
-//                                    AgendaController.getInstance().incrCount();
                                 }
                             }
                         }
@@ -253,18 +280,65 @@ public class AgendaBC {
                     });
         } catch (Exception e) {
         }
-//        DialogAux.dialogCarregandoSimplesDismiss();
-//        if (AgendaController.getInstance().getCount() == 0) {
-//            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "A consulta não pode ser removida.");
-//        } else if (AgendaController.getInstance().getCount() == 1) {
-//            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Ocorreu um problema com uma das exclusões.");
-//        } else if (AgendaController.getInstance().getCount() == 2) {
+
+        if(consulta.isConsultaMultiplaPai()) {
+
+            try {
+                firebaseDatabaseReference.child("agendaSub")
+                        .child(consulta.getIdDentista() + "")
+                        .child(semestreAno)
+                        .child("consultasMarcadas")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                    try{
+                                    if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsultaPrimaria").getValue().toString())) {
+                                        consultaBanco.getRef().child("cancelada").setValue(true);
+                                    }
+                                    }catch (Exception e){
+                                        continue;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+
+            } catch (Exception e) {
+            }
+
+            try {
+                firebaseDatabaseReference.child("agendaSubPaciente")
+                        .child(consulta.getIdPaciente() + "")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                    try{
+                                    if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsultaPrimaria").getValue().toString()))
+                                            && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
+                                        consultaBanco.getRef().child("cancelada").setValue(true);
+                                    }}catch (Exception e) {continue;}
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+            } catch (Exception e) {
+            }
 
 
-        DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
 
 
-//        }
+
+
+            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
+        }
     }
 
 //    public void incrCount() {
@@ -301,4 +375,5 @@ public class AgendaBC {
         catch (Exception e ){
         }
     }
+
 }

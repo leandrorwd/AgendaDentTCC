@@ -164,7 +164,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                                         public void onClick(DialogInterface dialog, int which)
                                         {
                                             DialogAux.dialogCarregandoSimples(tela);
-                                            salvaConsultaEspecial(true);
+                                            salvaConsultaEspecial(true,null);
                                         }
                                     }).setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
                                     {
@@ -218,7 +218,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         }
     }
 
-    public void salvaConsultaEspecial(boolean principal) {
+    public void salvaConsultaEspecial(boolean principal,Consulta consultaMestre) {
 
         int slotConsultas = AgendaController.getInstance().getNumeroHorarios();
         ArrayList<TemplateConsultaAgenda> lista = AgendaController.getInstance().getListaDia();
@@ -270,13 +270,19 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                     , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
                     dateDataConsultaInicial.getMillis()+valorAux
                     ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor*slotConsultas, false);
-            AgendaController.getInstance().insertConsulta(tela,c1,
-                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
-            DialogAux.dialogCarregandoSimplesDismiss();
-
-            for(int i =indexTela+1;i<slotConsultas;i++){
-                lista.get(i).salvaConsultaEspecial(false);
+            if(1<slotConsultas){
+                c1.setConsultaMultiplaPai(true);
             }
+                AgendaController.getInstance().insertConsulta(tela,c1,
+                        DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
+
+
+            DialogAux.dialogCarregandoSimplesDismiss();
+            for(int i =1;i<slotConsultas;i++){
+                lista.get(indexTela).salvaConsultaEspecial(false,c1);
+                indexTela++;
+            }
+
             DialogAux.dialogCarregandoSimplesDismiss();
             tela.finish();
         }
@@ -286,8 +292,10 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                     dateDataConsultaInicial.getMillis()+valorAux
                     ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor, false);
             c1.setConsultaMultipla(true);
-            AgendaController.getInstance().insertConsulta(tela,c1,
-                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
+            c1.setDataConsultaPrimaria(consultaMestre.getDataConsulta());
+            AgendaController.getInstance().insertConsultaSecundaria(tela,c1,
+                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre,consultaMestre);
+
         }
     }
 

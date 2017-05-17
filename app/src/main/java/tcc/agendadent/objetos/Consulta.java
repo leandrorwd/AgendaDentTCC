@@ -15,12 +15,15 @@ public class Consulta implements Serializable {
     private long idPaciente;
     private String nomePaciente;
     private long dataConsulta;
+    private long dataConsultaPrimaria;
+
     private long duracao;
     private long avaliacao;
     private String tipoConsulta;
     private String idConsulta;
     private boolean cancelada;
     private boolean consultaMultipla;
+    private boolean consultaMultiplaPai;
 
     public Consulta() {
     }
@@ -42,6 +45,14 @@ public class Consulta implements Serializable {
         this.idDentista = Long.parseLong(String.valueOf(dataSnapshot.child("idDentista").getValue()));
         this.idPaciente = Long.parseLong(String.valueOf(dataSnapshot.child("idPaciente").getValue()));
         this.dataConsulta = Long.parseLong(String.valueOf(dataSnapshot.child("dataConsulta").getValue()));
+        try{
+            this.dataConsultaPrimaria = Long.parseLong(String.valueOf(dataSnapshot.child("dataConsultaPrimaria").getValue()));
+        }catch(Exception e){
+            this.dataConsultaPrimaria = dataConsulta;
+        }
+        if(dataConsultaPrimaria==0){
+            this.dataConsultaPrimaria = dataConsulta;
+        }
         this.avaliacao = Long.parseLong(String.valueOf(dataSnapshot.child("avaliacao").getValue()));
         try {
             this.duracao = Long.parseLong(String.valueOf(dataSnapshot.child("duracao").getValue()));
@@ -53,6 +64,11 @@ public class Consulta implements Serializable {
         this.cancelada = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("cancelada").getValue()));
         try{
         this.consultaMultipla = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("consultaMultipla").getValue()));}
+        catch (Exception e){
+            consultaMultipla = false;
+        }
+        try{
+            this.consultaMultiplaPai = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("consultaMultiplaPai").getValue()));}
         catch (Exception e){
             consultaMultipla = false;
         }
@@ -131,5 +147,24 @@ public class Consulta implements Serializable {
 
     public void setConsultaMultipla(boolean consultaMultipla) {
         this.consultaMultipla = consultaMultipla;
+    }
+
+    public long getDataConsultaPrimaria() {
+        return dataConsultaPrimaria;
+    }
+
+    public void setDataConsultaPrimaria(long dataConsultaPrimaria) {
+        this.dataConsultaPrimaria = dataConsultaPrimaria;
+    }
+
+
+    public boolean isConsultaMultiplaPai() {
+        return consultaMultiplaPai;
+    }
+
+
+
+    public void setConsultaMultiplaPai(boolean consultaMultiplaPai) {
+        this.consultaMultiplaPai = consultaMultiplaPai;
     }
 }
