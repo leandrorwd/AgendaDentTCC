@@ -220,7 +220,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
 
     public void salvaConsultaEspecial(boolean principal,Consulta consultaMestre) {
 
-        int slotConsultas = AgendaController.getInstance().getNumeroHorarios();
+        int slotConsultas = AgendaController.getInstance().getNumeroHorarios()+1;
         ArrayList<TemplateConsultaAgenda> lista = AgendaController.getInstance().getListaDia();
         long duracaoConsultaHorario = 0;
         String tipoConsultaString = "";
