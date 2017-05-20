@@ -112,6 +112,8 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
                 }catch (Exception e){
                     valorAux =0;
                 }
+                String s = dateDataConsultaInicial.getMillis()+"";
+                String s2 = valorAux+"";
                 Consulta c1 = new Consulta(PacienteController.getInstance().getUsuarioDentistaMarcaConsulta().getIdDentista()
                         , PacienteController.getInstance().getPacienteLogado().getIdPaciente(),
                         dateDataConsultaInicial.getMillis()+valorAux

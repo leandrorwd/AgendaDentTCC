@@ -222,7 +222,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
 
         int slotConsultas = AgendaController.getInstance().getNumeroHorarios();
         ArrayList<TemplateConsultaAgenda> lista = AgendaController.getInstance().getListaDia();
-
+        long duracaoConsultaHorario = 0;
         String tipoConsultaString = "";
         if(AgendaController.getInstance().getTipoConsultaEspecial().equals("Convênio")){
             tipoConsultaString=AgendaController.getInstance().getTipoConsultaEspecial()+ " - "
@@ -242,7 +242,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         String[] parts2 = horario.getDuracao().split(":");
 
         long valor =((Integer.parseInt(parts2[0])*60) + Integer.parseInt(parts2[1]))*60000 ;
-
+        duracaoConsultaHorario = valor;
         int mes = DateTime.now().monthOfYear().get();
         String anoSemestre;
         if(mes>=7){
@@ -266,10 +266,12 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         }
 
         if(principal){
+            String s = dateDataConsultaInicial.getMillis()+"";
+            String s2 = valorAux+"";
             Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                     , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
                     dateDataConsultaInicial.getMillis()+valorAux
-                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor*slotConsultas, false);
+                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),duracaoConsultaHorario*slotConsultas, false);
             if(1<slotConsultas){
                 c1.setConsultaMultiplaPai(true);
             }

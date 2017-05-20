@@ -93,7 +93,7 @@ public class AgendaController {
     public void setAgendaDiaria(Activity tela, ArrayList<Consulta> consultas) {
         Collections.sort(DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios());
         ArrayList<Horario> horarios = new ArrayList<>();
-        int indexHoje = DateTime.now().dayOfWeek().get() - 1;
+        int indexHoje = AgendaController.getInstance().getDataAux().getDayOfWeek() - 1;
         for (Horario h : DentistaController.getInstance().getDentistaLogado().getAgenda().getHorarios()) {
             if (h.getDiasSemana().get(indexHoje)) {
                 horarios.add(h);
@@ -108,6 +108,7 @@ public class AgendaController {
         }
         int i = consultasHoje.size();
         int f = horarios.size();
+
         populaAgendaDiaria(tela, horarios, consultasHoje, R.id.consultasDiarias);
         populaAgendaLateral(tela, AgendaController.getInstance().getConsultasSemestre());
 
@@ -228,10 +229,19 @@ public class AgendaController {
     }
 
     private void populaAgendaDiaria(Activity tela, ArrayList<Horario> horarios, ArrayList<Consulta> consultasMarcadas, int id) {
+
         LinearLayout horarioDiario = (LinearLayout) tela.findViewById(id);
         if (horarioDiario == null)
             return;
         horarioDiario.removeAllViews();
+
+        if(consultasMarcadas==null ||consultasMarcadas.size()==0|| consultasMarcadas.get(0)==null){}
+        else{
+            AgendaController.getInstance().setDiaAtual(consultasMarcadas.get(0).getDataFormat().getYear()
+                    ,consultasMarcadas.get(0).getDataFormat().getMonthOfYear(),consultasMarcadas.get(0).getDataFormat().getDayOfMonth(),12);
+           // DentistaAgendaDiaria.setTextoData( AgendaController.getInstance().getDataAux(
+            }
+
         if (horarios.isEmpty()) {
             TextView text = new TextView(tela);
             text.setText("Dia não disponivel para consultas");
@@ -721,6 +731,7 @@ public class AgendaController {
 
     public void setDiaAtual(int ano, int mes, int dia, int hora) {
         auxiliar = new DateTime(ano, mes, dia, hora, 0);
+        //DentistaAgendaDiaria.setTextoData(auxiliar);
     }
 
     public DateTime getDataAux() {
@@ -818,6 +829,14 @@ public class AgendaController {
     }
 
 
+    public void limpaDados(Activity tela) {
+        LinearLayout f1 = (LinearLayout)tela.findViewById(R.id.consultasDiarias);
+        f1.removeAllViews();
+        f1 = (LinearLayout)tela.findViewById(R.id.consultasDiarias2);
+        f1.removeAllViews();
+        f1 = (LinearLayout)tela.findViewById(R.id.consultasDiarias3);
+        f1.removeAllViews();
+    }
 }
 
 

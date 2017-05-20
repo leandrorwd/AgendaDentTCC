@@ -134,8 +134,41 @@ public class TemplatePacienteConsultasAgendadas extends RelativeLayout {
         textoTipoConsulta.setText(consulta.getTipoConsulta());
 
         TextView textoDuracao = (TextView) findViewById(R.id.textoDuracao);
-        Date date = new Date(consulta.getDuracao());
-        Format formato = new SimpleDateFormat("mm");
-        textoDuracao.setText(formato.format(date) + "min");
+        DateTime datinha = new DateTime(consulta.getDuracao());
+        try {
+            String operador = datinha.toString().substring(23, 26);
+            int valor = Integer.parseInt(datinha.toString().substring(24, 26));
+            if (operador.contains("+")) {
+                datinha = datinha.minusHours(valor);
+            } else {
+                datinha = datinha.plusHours(valor);
+            }
+        } catch (Exception e) {
+           if(datinha.getYear()==1969){
+              // datinha = datinha.plusHours(1);
+           }
+        }
+        String duracao= "";
+        if(datinha.getHourOfDay()>0){
+
+            duracao = datinha.getHourOfDay() +":";
+
+            if(datinha.getMinuteOfHour()<10){
+                duracao = duracao + "0"+datinha.getMinuteOfHour() +"h";
+            }
+            else{
+                duracao = duracao + datinha.getMinuteOfHour() +"h";
+            }
+        }
+        else{
+            if(datinha.getMinuteOfHour()<10){
+                duracao =   "0"+datinha.getMinuteOfHour() +"min";
+            }
+            else{
+                duracao =  +datinha.getMinuteOfHour() +"min";
+            }
+        }
+
+        textoDuracao.setText(duracao);
     }
 }

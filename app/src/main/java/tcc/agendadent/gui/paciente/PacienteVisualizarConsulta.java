@@ -117,7 +117,43 @@ public class PacienteVisualizarConsulta extends AppCompatActivity {
 
             Date date = new Date(consulta.getDuracao());
             Format formato = new SimpleDateFormat("mm");
-            duracaoConsulta.setText(formato.format(date) + " minutos");
+            DateTime datinha = new DateTime(consulta.getDuracao());
+            try {
+                String operador = datinha.toString().substring(23, 26);
+                int valor = Integer.parseInt(datinha.toString().substring(24, 26));
+                if (operador.contains("+")) {
+                    datinha = datinha.minusHours(valor);
+                } else {
+                    datinha = datinha.plusHours(valor);
+                }
+            } catch (Exception e) {
+                if(datinha.getYear()==1969){
+                    // datinha = datinha.plusHours(1);
+                }
+            }
+            String duracao= "";
+            if(datinha.getHourOfDay()>0){
+
+                duracao = datinha.getHourOfDay() +":";
+
+                if(datinha.getMinuteOfHour()<10){
+                    duracao = duracao + "0"+datinha.getMinuteOfHour() +" horas";
+                }
+                else{
+                    duracao = duracao + datinha.getMinuteOfHour() +" horas";
+                }
+            }
+            else{
+                if(datinha.getMinuteOfHour()<10){
+                    duracao =   "0"+datinha.getMinuteOfHour() +" minutos";
+                }
+                else{
+                    duracao =  +datinha.getMinuteOfHour() +" minutos";
+                }
+            }
+
+            duracaoConsulta.setText(duracao);
+
 
         } else { //Paciente
             if (consulta == null) {
@@ -132,7 +168,6 @@ public class PacienteVisualizarConsulta extends AppCompatActivity {
         botaoDesmarcarConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogAux.dialogCarregandoSimples(PacienteVisualizarConsulta.this);
                 AgendaController.getInstance().desmarcarConsulta(PacienteVisualizarConsulta.this, consulta);
 
             }

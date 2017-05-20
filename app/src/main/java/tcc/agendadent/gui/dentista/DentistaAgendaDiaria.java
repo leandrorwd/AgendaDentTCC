@@ -24,24 +24,30 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
     private static ViewFlipper flipper;
     private Animation slide_in_left, slide_in_right, slide_out_left, slide_out_right;
     public static DateTime indiceSlider = DateTime.now();
-    private static TextView header;
+    public static TextView header;
     public static int idLayout;
     public static ImageButton setaDireita;
     public static ImageButton setaEsquerda;
+    private boolean firstTime;
 
 
     public DentistaAgendaDiaria(Activity activity, int id_janela) {
         super(activity);
+        firstTime = true;
         this.activity = activity;
+        this.id = id_janela;
+        firstTime = true;
         idLayout = R.id.consultasDiarias;
         View.inflate(activity, R.layout.dentista_agenda_diaria_conteudo, this);
-        buscaAgendaDiaria();
-        this.id = id_janela;
+        indiceSlider = DateTime.now();
+        //AgendaController.getInstance().limpaDados(activity);
         instanciaArtefatos();
         setEventos();
         setTextoData(DateTime.now());
         AgendaController.getInstance().setDiaAtual(DateTime.now().year().get(),DateTime.now().monthOfYear().get()
-                ,DateTime.now().dayOfMonth().get(),DateTime.now().hourOfDay().get());
+                    ,DateTime.now().dayOfMonth().get(),DateTime.now().hourOfDay().get());
+        buscaAgendaDiaria();
+
     }
 
     private void blala() {
@@ -155,13 +161,14 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
 
     @Override
     public void onResume() {
-        idLayout = R.id.consultasDiarias;
-        View.inflate(activity, R.layout.dentista_agenda_diaria_conteudo, this);
-        buscaAgendaDiaria();
-        instanciaArtefatos();
-        setEventos();
-        indiceSlider = DateTime.now();
-        setTextoData(DateTime.now());
+        if(activity==null){
+            return;
+        }
+        if(firstTime){
+            firstTime = false;
+            return;
+        }
+        activity.recreate();
     }
 
     @Override

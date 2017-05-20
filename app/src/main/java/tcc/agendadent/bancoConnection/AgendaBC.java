@@ -237,7 +237,6 @@ public class AgendaBC {
     }
 
     public void desmarcarConsulta(final Activity tela, final Consulta consulta, String semestreAno) {
-//        AgendaController.getInstance().setCount(0);
         try {
             firebaseDatabaseReference.child("agendaSub")
                     .child(consulta.getIdDentista() + "")
@@ -336,9 +335,8 @@ public class AgendaBC {
 
 
 
-
-            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
         }
+        DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
     }
 
 //    public void incrCount() {

@@ -30,7 +30,6 @@ public class DentistaAgendarConsultaEspecial extends AppCompatActivity implement
         instanciaArtefatos();
         setEventos();
         buscaAgenda();
-
     }
 
     private void setEventos() {
