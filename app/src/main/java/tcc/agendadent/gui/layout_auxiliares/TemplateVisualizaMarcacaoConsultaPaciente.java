@@ -1,6 +1,8 @@
 package tcc.agendadent.gui.layout_auxiliares;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
@@ -16,6 +18,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.controllers.EventosController;
 import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.objetos.Consulta;
@@ -99,7 +102,36 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
     }
 
     private void setEventosNegado(boolean ocupado) {
-        //TODO WHAT?
+        if(ocupado){
+            setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new AlertDialog.Builder(tela)
+                            .setTitle("Aviso")
+                            .setMessage("Você deseja ser notificado caso está consulta seja cancelada?")
+                            .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    EventosController.getInstance().getKeyConsulta(consulta,tela);
+                                    //EventosController.getInstance().esperaConsulta(consulta);
+                                }
+                            })
+                            .setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+
+                                }
+                            }).show();
+
+                }
+            });
+
+
+        }
     }
 
     private void preencheHorario(Consulta c) {

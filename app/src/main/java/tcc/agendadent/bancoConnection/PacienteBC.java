@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.UsuarioDentista;
@@ -212,6 +213,26 @@ public class PacienteBC {
                     });
         } catch (Exception e) {
 
+        }
+    }
+
+    public void getDentistaViaId(final Activity activity, long idDentista, final PacienteMarcaConsulta pacienteMarcaConsulta) {
+        final UsuarioDentista[] dentista = new UsuarioDentista[1];
+        try {
+            firebaseDatabaseReference.child("dentistas").child(idDentista+"")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                dentista[0] = new UsuarioDentista(dataSnapshot);
+
+                            pacienteMarcaConsulta.instanciaArtefatosNotificacao(dentista[0]);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
         }
     }
 }

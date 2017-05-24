@@ -1,11 +1,14 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
+
+import java.text.SimpleDateFormat;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
@@ -41,26 +46,73 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
     private Button botaoSalvar;
     private Button cancelar;
     private KillReceiver mKillReceiver;
-
+    private Consulta consultaNotificao;
     private ImageView fotoPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paciente_marca_consulta);
-
-        dentista = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta();
-        instanciaArtefatos();
-        setEventos();
-        mKillReceiver = new KillReceiver();
-        registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+        if(PacienteController.getInstance().getConsultaNotificao()==null){
+            dentista = PacienteController.getInstance().getUsuarioDentistaMarcaConsulta();
+            instanciaArtefatos();
+            setEventos();
+            mKillReceiver = new KillReceiver();
+            registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+        }
+        else{
+            DialogAux.dialogCarregandoSimples(PacienteMarcaConsulta.this);
+            consultaNotificao = PacienteController.getInstance().getConsultaNotificao();
+            PacienteController.getInstance().getDentistaViaId(activity,consultaNotificao.getIdDentista(),this);
+            PacienteController.getInstance().setConsultaNotificao(null);
+        }
 
 
     }
+
+    public void instanciaArtefatosNotificacao(UsuarioDentista usuarioDentista) {
+        dentista = usuarioDentista;
+        fotoPerfil = (ImageView) findViewById(R.id.fotoDentistaImageView);
+        nome = (TextView) findViewById(R.id.textViewNome);
+        nota = (TextView) findViewById(R.id.nota);
+        especialidades = (TextView) findViewById(R.id.especialidades);
+        endereco = (TextView) findViewById(R.id.endereco);
+        email = (TextView) findViewById(R.id.email);
+        telefone = (TextView) findViewById(R.id.telefone);
+        data = (TextView) findViewById(R.id.data);
+        hora = (TextView) findViewById(R.id.hora);
+        email = (TextView) findViewById(R.id.email);
+        tipoConsulta = (TextView) findViewById(R.id.tipoConsulta);
+        botaoSalvar = (Button) findViewById(R.id.botaoSalvar);
+        cancelar =(Button) findViewById(R.id.botaCancela);
+        layout = (CardView) findViewById(R.id.card_view);
+        nome.setText(dentista.getNomeCompleto());
+        nota.setText("5.0");
+        especialidades.setText(dentista.getEspecializacoesString());
+        endereco.setText("Endereço: "+dentista.getEndereco().toString());
+        email.setText("Email: "+dentista.getEmail());
+        telefone.setText("Telefone: "+dentista.getTelefone());
+        tipoConsulta.setText("Tipo consulta: "+ consultaNotificao.getTipoConsulta());
+        DateTime aux = new DateTime(consultaNotificao.getDataConsultaPrimaria());
+        DateTime aux2 = new DateTime(consultaNotificao.getDataConsultaPrimaria()+consultaNotificao.getDuracao());
+
+        data.setText("Data: "+aux.getDayOfMonth()+"/"+
+                aux.getMonthOfYear()+"/"+
+                aux.getYear());
+       // hora.setText("Hora: "+aux.getHourOfDay() +":" +aux.getMinuteOfHour() + " - "+aux2.getHourOfDay() +":" +aux2.getMinuteOfHour());
+        DentistaController.getInstance().setImagemPerfilLoading(PacienteMarcaConsulta.this,dentista.getUrlFotoPerfil(),fotoPerfil);
+        DialogAux.dialogCarregandoSimplesDismiss();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mKillReceiver);
+        if(consultaNotificao!=null){
+            consultaNotificao = null;
+        }
+        else{
+            unregisterReceiver(mKillReceiver);
+        }
     }
     private final class KillReceiver extends BroadcastReceiver {
         @Override
@@ -140,6 +192,7 @@ public class PacienteMarcaConsulta extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
 
     private void instanciaArtefatos() {
         fotoPerfil = (ImageView) findViewById(R.id.fotoDentistaImageView);

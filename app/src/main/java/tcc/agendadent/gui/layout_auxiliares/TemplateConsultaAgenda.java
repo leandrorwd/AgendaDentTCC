@@ -271,7 +271,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
             Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                     , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
                     dateDataConsultaInicial.getMillis()+valorAux
-                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),duracaoConsultaHorario*slotConsultas, false);
+                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),duracaoConsultaHorario*(slotConsultas-1), false);
             if(1<slotConsultas){
                 c1.setConsultaMultiplaPai(true);
             }

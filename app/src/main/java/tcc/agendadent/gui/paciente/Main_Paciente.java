@@ -43,7 +43,6 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
         carregaProximasConsultas();
         mKillReceiver = new KillReceiver();
         registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
-
     }
     @Override
     protected void onDestroy() {

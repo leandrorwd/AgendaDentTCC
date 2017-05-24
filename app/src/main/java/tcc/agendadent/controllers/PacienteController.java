@@ -11,6 +11,7 @@ import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
 import tcc.agendadent.gui.paciente.Main_Paciente;
+import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
@@ -420,5 +421,16 @@ public class PacienteController {
                 Integer.parseInt(numero),Integer.parseInt(cepAux));
 
         pacienteBC.atualizaEndereco(activity,e1);
+    }
+    private Consulta consultaNotificao;
+    public void setConsultaNotificao(Consulta consulta) {
+        consultaNotificao = consulta;
+    }
+    public Consulta getConsultaNotificao(){
+       return consultaNotificao;
+    }
+
+    public void getDentistaViaId(Activity activity, long idDentista, PacienteMarcaConsulta pacienteMarcaConsulta) {
+        pacienteBC.getDentistaViaId(activity,idDentista,pacienteMarcaConsulta);
     }
 }

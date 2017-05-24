@@ -71,7 +71,7 @@ public class PacienteVisualizaHorariosMarcacao extends AppCompatActivity impleme
                 .setFirstDayOfWeek(Calendar.SUNDAY)
                 .setMinimumDate(CalendarDay.from(2017, 1, 1))
                 .setMaximumDate(CalendarDay.from(2018, 7, 7))
-                .setCalendarDisplayMode(CalendarMode.WEEKS)
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         calendario.setDateSelected(DateTime.now().toDate(),true);
     }
