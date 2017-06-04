@@ -33,43 +33,43 @@ public class TemplateCardHorario extends LinearLayout {
         textHorarios = (TextView) findViewById(R.id.textoHorario);
         textHorarios.setText(horario.getHoraInicial() + " - " + horario.getHoraFinal() + " ("+ horario.getDuracao()+")");
         String dias = "";
-        if(horario.getDiasSemana().get(0)){
+        if(horario.getDiasSemana().get(6)){
             if(dias.equals("")){
                 dias = tela.getResources().getString(R.string.Domingo);
             }
 
-        }if(horario.getDiasSemana().get(1)){
+        }if(horario.getDiasSemana().get(0)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.Segunda);
             }
             else
                 dias = dias + ", " + tela.getResources().getString(R.string.Segunda);
 
-        } if(horario.getDiasSemana().get(2)){
+        } if(horario.getDiasSemana().get(1)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.Terca);
             }
             else
                 dias = dias + ", " + tela.getResources().getString(R.string.Terca);
-        } if(horario.getDiasSemana().get(3)){
+        } if(horario.getDiasSemana().get(2)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.quarta);
             }
             else
                 dias = dias + ", " + tela.getResources().getString(R.string.quarta);
-        } if(horario.getDiasSemana().get(4)){
+        } if(horario.getDiasSemana().get(3)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.quinta);
             }
             else
                 dias = dias + ", " + tela.getResources().getString(R.string.quinta);
-        } if(horario.getDiasSemana().get(5)){
+        } if(horario.getDiasSemana().get(4)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.sexta);
             }
             else
                 dias = dias + ", " + tela.getResources().getString(R.string.sexta);
-        } if(horario.getDiasSemana().get(6)){
+        } if(horario.getDiasSemana().get(5)){
             if(dias.equals("")){
                 dias = dias + tela.getResources().getString(R.string.sabado);
             }

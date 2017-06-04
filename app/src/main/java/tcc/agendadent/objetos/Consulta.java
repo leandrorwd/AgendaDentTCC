@@ -24,6 +24,7 @@ public class Consulta implements Serializable {
     private boolean cancelada;
     private boolean consultaMultipla;
     private boolean consultaMultiplaPai;
+    private boolean tentarRemarcar;
 
     public Consulta() {
     }
@@ -72,6 +73,12 @@ public class Consulta implements Serializable {
         catch (Exception e){
             consultaMultipla = false;
         }
+        try{
+            this.tentarRemarcar = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("tentarRemarcar").getValue()));}
+        catch (Exception e){
+            tentarRemarcar = false;
+        }
+
 
     }
 
@@ -137,6 +144,8 @@ public class Consulta implements Serializable {
 
     public void setIdConsulta(String idConsulta) { this.idConsulta = idConsulta; }
 
+    public String getIdConsulta(){return idConsulta;}
+
     public boolean getCancelada() { return cancelada; }
 
     public void setCancelada(boolean cancelada) { this.cancelada = cancelada; }
@@ -147,6 +156,10 @@ public class Consulta implements Serializable {
 
     public void setConsultaMultipla(boolean consultaMultipla) {
         this.consultaMultipla = consultaMultipla;
+    }
+
+    public void setDuracao(long duracao) {
+        this.duracao = duracao;
     }
 
     public long getDataConsultaPrimaria() {
@@ -166,5 +179,13 @@ public class Consulta implements Serializable {
 
     public void setConsultaMultiplaPai(boolean consultaMultiplaPai) {
         this.consultaMultiplaPai = consultaMultiplaPai;
+    }
+
+    public boolean isTentarRemarcar() {
+        return tentarRemarcar;
+    }
+
+    public void setTentarRemarcar(boolean tentarRemarcar) {
+        this.tentarRemarcar = tentarRemarcar;
     }
 }

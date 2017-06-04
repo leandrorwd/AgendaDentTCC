@@ -13,6 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import tcc.agendadent.controllers.AgendaController;
+import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.controllers.EventosController;
+import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.objetos.AgendaSub;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.UsuarioDentista;
@@ -54,12 +58,14 @@ public class AgendaBC {
 
     }
 
-    public void insertConsulta(final Activity activity, final Consulta consulta, final String idDentista, final String semestreAno) {
+    public void insertConsulta(final Activity activity, final Consulta consulta, final String idDentista, final String semestreAno, final boolean direta) {
         try {
+            consulta.setCancelada(false);
             firebaseDatabaseReference.child("agendaSub").orderByKey().limitToLast(1)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            consulta.setCancelada(false);
                             firebaseDatabaseReference
                                     .child("agendaSub")
                                     .child(idDentista)
@@ -67,7 +73,11 @@ public class AgendaBC {
                                     .setValue(consulta);
                             Intent intent = new Intent("kill");
                             intent.setType("text/plain");
-                            activity.sendBroadcast(intent);
+                            if(direta)
+                                activity.finish();
+
+                            else
+                                activity.sendBroadcast(intent);
                             DialogAux.dialogCarregandoSimplesDismiss();
                         }
 
@@ -79,6 +89,7 @@ public class AgendaBC {
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            consulta.setCancelada(false);
                             firebaseDatabaseReference
                                     .child("agendaSubPaciente")
                                     .child(consulta.getIdPaciente() + "").push()
@@ -139,12 +150,40 @@ public class AgendaBC {
     }
 
 
-    public void getConsultaSemestre(long idDentista, String anoSemestre, final Activity tela) {
+    public void getConsultaSemestre(final long idDentista, final String anoSemestre, final Activity tela) {
         final ArrayList<Consulta> consultas = new ArrayList<>();
         try {
             firebaseDatabaseReference.child("agendaSub")
                     .child(idDentista + "")
                     .child(anoSemestre)
+                    .child("consultasMarcadas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                Consulta s1 = new Consulta(consultaBanco);
+                                s1.setIdConsulta(consultaBanco.getKey());
+                                if(!s1.getCancelada()){
+                                    consultas.add(s1);
+                                }
+
+                            }
+                            getConsultaSemestreNext(idDentista,anoSemestre,tela,consultas);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+
+    private void getConsultaSemestreNext(final long id, final String anoSemestre, final Activity tela, final ArrayList<Consulta> consultas) {
+        try {
+            firebaseDatabaseReference.child("agendaSub")
+                    .child(id + "")
+                    .child("20172")
                     .child("consultasMarcadas")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -169,12 +208,40 @@ public class AgendaBC {
         }
     }
 
-    public void getConsultaSemestreCompleto(long idDentista, String anoSemestre, final Activity tela) {
+    public void getConsultaSemestreCompleto(final long idDentista, final String anoSemestre, final Activity tela) {
         final ArrayList<Consulta> consultas = new ArrayList<>();
         try {
             firebaseDatabaseReference.child("agendaSub")
                     .child(idDentista + "")
                     .child(anoSemestre)
+                    .child("consultasMarcadas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                Consulta s1 = new Consulta(consultaBanco);
+                                s1.setIdConsulta(consultaBanco.getKey());
+                                if(!s1.getCancelada()){
+                                    consultas.add(s1);
+                                }
+                            }
+                            getConsultaSemestreCompletoNext(idDentista,anoSemestre,tela,consultas);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            System.out.println("batata");
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+
+    private void getConsultaSemestreCompletoNext(final long idDentista, final String anoSemestre, final Activity tela, final ArrayList<Consulta> consultas) {
+        try {
+            firebaseDatabaseReference.child("agendaSub")
+                    .child(idDentista + "")
+                    .child("20172")
                     .child("consultasMarcadas")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -331,25 +398,114 @@ public class AgendaBC {
             } catch (Exception e) {
             }
 
-
-
-
-
         }
-        DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta removida com sucesso.");
+        if(tela!=null){
+            DialogAux.dialogOkSimplesFinish(tela, "Confirmação", "Consulta desmarcada com sucesso.");
+        }
+        DentistaController.getInstance().callResume();
+
     }
 
-//    public void incrCount() {
-//        count++;
-//    }
-//
-//    public void setCount(int i) {
-//        count = i;
-//    }
-//
-//    public int getCount(){
-//        return count;
-//    }
+    public void reativaConsulta(final Activity tela, final Consulta consulta, String semestreAno) {
+        try {
+            firebaseDatabaseReference.child("agendaSub")
+                    .child(consulta.getIdDentista() + "")
+                    .child(semestreAno)
+                    .child("consultasMarcadas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
+                                    consultaBanco.getRef().child("cancelada").setValue(true);
+                                    DentistaController.getInstance().callResume();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+
+        try {
+            firebaseDatabaseReference.child("agendaSubPaciente")
+                    .child(consulta.getIdPaciente() + "")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString()))
+                                        && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
+                                    consultaBanco.getRef().child("cancelada").setValue(true);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+
+        if(consulta.isConsultaMultiplaPai()) {
+
+            try {
+                firebaseDatabaseReference.child("agendaSub")
+                        .child(consulta.getIdDentista() + "")
+                        .child(semestreAno)
+                        .child("consultasMarcadas")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                    try{
+                                        if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsultaPrimaria").getValue().toString())) {
+                                            consultaBanco.getRef().child("cancelada").setValue(true);
+                                        }
+                                    }catch (Exception e){
+                                        continue;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+
+            } catch (Exception e) {
+            }
+
+            try {
+                firebaseDatabaseReference.child("agendaSubPaciente")
+                        .child(consulta.getIdPaciente() + "")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                    try{
+                                        if ((String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsultaPrimaria").getValue().toString()))
+                                                && (String.valueOf(consulta.getIdDentista()).equals(consultaBanco.child("idDentista").getValue().toString()))) {
+                                            consultaBanco.getRef().child("cancelada").setValue(true);
+                                        }}catch (Exception e) {continue;}
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+            } catch (Exception e) {
+            }
+
+        }
+    }
+
 
     public void getPacienteViaMarcacaoConsulta(String email, final Activity activity, final int numeroHorarios) {
         final UsuarioPaciente[] p1 = new UsuarioPaciente[1];
@@ -374,4 +530,61 @@ public class AgendaBC {
         }
     }
 
+    public void getConsultasListaEspera(final Activity activity) {
+        final ArrayList<String> indices = new ArrayList<>();
+        try {
+            firebaseDatabaseReference.child("pacientes")
+                    .child(String.valueOf(PacienteController.getInstance().getPacienteLogado().getIdPaciente()))
+                    .child("listaEspera")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                indices.add(String.valueOf(consultaBanco.getValue()));
+                            }
+                            EventosController.getInstance().carregaListenersEspera(activity,indices);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+
+    public void checkConsultaLivre(final Consulta consulta, final String semestreAno) {
+        try {
+            firebaseDatabaseReference.child("agendaSub")
+                    .child(consulta.getIdDentista() + "")
+                    .child(semestreAno)
+                    .child("consultasMarcadas")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            boolean nenhumaMarcada = true;
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                if (String.valueOf(consulta.getDataConsulta()).equals(consultaBanco.child("dataConsulta").getValue().toString())) {
+                                    if(!Boolean.parseBoolean(String.valueOf(consultaBanco.child("cancelada").getValue()))){
+                                        nenhumaMarcada = false;
+                                    }
+                                }
+                            }
+                            if(nenhumaMarcada){
+                                PacienteMarcaConsulta.salvar();
+                                //desmarcarConsulta(null,consulta,semestreAno);
+                            }
+                            else{
+                                PacienteMarcaConsulta.dialogErro();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
 }

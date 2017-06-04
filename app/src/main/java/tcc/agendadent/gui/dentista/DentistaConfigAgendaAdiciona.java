@@ -1,11 +1,11 @@
 package tcc.agendadent.gui.dentista;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.app.DialogFragment;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;

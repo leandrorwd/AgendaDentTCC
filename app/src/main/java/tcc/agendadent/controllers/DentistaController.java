@@ -15,6 +15,7 @@ import tcc.agendadent.R;
 import tcc.agendadent.bancoConnection.DentistaBC;
 import tcc.agendadent.gui.dentista.Main_Dentista;
 import tcc.agendadent.gui.layout_auxiliares.TemplateCardHorario;
+import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.objetos.Agenda;
 import tcc.agendadent.objetos.Endereco;
 import tcc.agendadent.objetos.Horario;
@@ -332,10 +333,24 @@ public class DentistaController {
 
     }
     private Main_Dentista main_Dentista;
+    private Main_Paciente main_paciente;
     public void setMainClass(Main_Dentista main_Dentista) {
         this.main_Dentista = main_Dentista;
+        main_paciente = null;
     }
     public void callResume() {
-        main_Dentista.onResumeAux();
+        if(main_Dentista!=null){
+            main_Dentista.onResumeAux();
+            return;
+        }
+        if(main_paciente!=null){
+            main_paciente.onResumeAux();
+            return;
+        }
+    }
+
+    public void setMainClassPaciente(Main_Paciente main_paciente) {
+        this.main_paciente = main_paciente;
+        main_Dentista = null;
     }
 }

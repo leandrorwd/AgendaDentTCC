@@ -23,6 +23,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.controllers.EventosController;
 import tcc.agendadent.controllers.PacienteController;
 
 public class Main_Paciente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,19 +38,28 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.paciente_menu);
+        DentistaController.getInstance().setMainClassPaciente(this);
         activity = Main_Paciente.this;
+        EventosController.getInstance().setActivity(activity);
         pilhaTelas = new ArrayList<>();
         layoutMaster = (LinearLayout) findViewById(R.id.layoutPacienteMaster);
         configuraMenu();
         carregaProximasConsultas();
+        EventosController.getInstance().carregaListenersEspera(activity);
         mKillReceiver = new KillReceiver();
         registerReceiver(mKillReceiver, IntentFilter.create("kill", "text/plain"));
+
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mKillReceiver);
     }
+
+    public void onResumeAux() {
+        onResume();
+    }
+
     private final class KillReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -119,6 +130,11 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
                 finish();
                 return;
             }
+            if (pilhaTelas.size() == 2) {
+                animacaoTrocaJanelaVolta();
+                ((ClassesPaciente) getViewAtual()).onResume();
+                return;
+            }
             animacaoTrocaJanelaVolta();
         }
     }
@@ -177,6 +193,7 @@ public class Main_Paciente extends AppCompatActivity implements NavigationView.O
     }
 
     private void navegaJanelaPaciente(final int id_janela) {
+        firstTime = false;
             layoutMaster.animate().alpha(0).setDuration(300).setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
                 @Override
                 public void run() {

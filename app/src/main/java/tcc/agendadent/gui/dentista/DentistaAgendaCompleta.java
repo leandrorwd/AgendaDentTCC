@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.joda.time.DateTime;
+
 import java.util.Calendar;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;

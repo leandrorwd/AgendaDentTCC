@@ -33,6 +33,7 @@ public class DentistaAgendaDiaria extends LinearLayout implements Interface_Dent
 
     public DentistaAgendaDiaria(Activity activity, int id_janela) {
         super(activity);
+
         firstTime = true;
         this.activity = activity;
         this.id = id_janela;
