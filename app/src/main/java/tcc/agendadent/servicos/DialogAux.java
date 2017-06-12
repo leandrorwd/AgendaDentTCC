@@ -21,7 +21,7 @@ import tcc.agendadent.gui.paciente.Main_Paciente;
 
 public class DialogAux {
     public static ProgressDialog loadingDialog;
-
+    private static boolean aberto;
     public static void dialogOkSimples(Activity tela,String titulo, String mensagem){
         new AlertDialog.Builder(tela)
                 .setTitle(titulo)
@@ -104,14 +104,22 @@ public class DialogAux {
     }
 
     public static void dialogCarregandoSimples(Activity tela) {
-        loadingDialog = new ProgressDialog(tela);
-        loadingDialog.setTitle(tela.getResources().getString(R.string.Aguarde));
-        loadingDialog.setMessage(tela.getResources().getString(R.string.Carregando));
-        loadingDialog.setCancelable(true);
-        loadingDialog.show();
+        try{
+            if(aberto) return;
+            aberto = true;
+            loadingDialog = new ProgressDialog(tela);
+            loadingDialog.setTitle(tela.getResources().getString(R.string.Aguarde));
+            loadingDialog.setMessage(tela.getResources().getString(R.string.Carregando));
+            loadingDialog.setCancelable(true);
+            loadingDialog.show();
+        }
+        catch (Exception e){}
     }
     public static void dialogCarregandoSimplesDismiss() {
-        loadingDialog.dismiss();
+        aberto = false;
+        try{
+            loadingDialog.dismiss();
+         }catch (Exception e){}
     }
 
 

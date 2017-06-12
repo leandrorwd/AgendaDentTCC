@@ -38,7 +38,9 @@
 
     </LinearLayout>
 
-
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/background_material_light"
+        android:layout_height="match_parent" android:layout_width="match_parent">
     <ViewFlipper
         android:id="@+id/idViewFlipper"
         android:layout_width="wrap_content"
@@ -64,6 +66,6 @@
             android:orientation="vertical"></LinearLayout>
 
     </ViewFlipper>
-
+</ScrollView>
 
 </LinearLayout>

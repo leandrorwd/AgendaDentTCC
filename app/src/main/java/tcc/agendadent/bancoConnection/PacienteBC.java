@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.gui.layout_auxiliares.TemplateListaEspera;
 import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.objetos.Consulta;
 import tcc.agendadent.objetos.Endereco;
@@ -226,10 +227,81 @@ public class PacienteBC {
                                 dentista[0] = new UsuarioDentista(dataSnapshot);
 
                             pacienteMarcaConsulta.instanciaArtefatosNotificacao(dentista[0]);
+
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+    public void getDentistaViaId(final Activity activity, long idDentista, final TemplateListaEspera listaEspera) {
+        final UsuarioDentista[] dentista = new UsuarioDentista[1];
+        try {
+            firebaseDatabaseReference.child("dentistas").child(idDentista+"")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            dentista[0] = new UsuarioDentista(dataSnapshot);
+
+                            listaEspera.setDentista(dentista[0]);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+
+    public void getListaEspera(final Activity activity) {
+        final ArrayList<String> indices = new ArrayList<>();
+        try {
+            firebaseDatabaseReference.child("pacientes")
+                    .child(String.valueOf(PacienteController.getInstance().getPacienteLogado().getIdPaciente()))
+                    .child("listaEspera")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                indices.add(String.valueOf(consultaBanco.getValue()));
+                            }
+                            getConsultasViaId(activity,indices);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        } catch (Exception e) {
+        }
+    }
+
+    private void getConsultasViaId(final Activity activity, final ArrayList<String> indices) {
+         final ArrayList<Consulta> consultas = new ArrayList<>();
+        try {
+            firebaseDatabaseReference.child("agendaSubPaciente")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot consultaBanco : dataSnapshot.getChildren()) {
+                                for (DataSnapshot todasConsultasPaciente : consultaBanco.getChildren()) {
+                                    if(indices.contains(String.valueOf(todasConsultasPaciente.getKey()))){
+                                        consultas.add(new Consulta(todasConsultasPaciente));
+                                    }
+                                }
+                            }
+                            PacienteController.getInstance().populaTelaListaEspera(activity,consultas);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
         } catch (Exception e) {

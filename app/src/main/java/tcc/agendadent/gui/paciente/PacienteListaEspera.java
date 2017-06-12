@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import tcc.agendadent.R;
+import tcc.agendadent.controllers.PacienteController;
+import tcc.agendadent.servicos.DialogAux;
 
 /**
  * Created by Leandro on 25/03/2017.
@@ -20,6 +22,8 @@ public class PacienteListaEspera extends LinearLayout implements ClassesPaciente
         this.activity = activity;
         View.inflate(activity, R.layout.paciente_lista_espera, this);
         this.id = id_janela;
+        DialogAux.dialogCarregandoSimples(activity);
+        PacienteController.getInstance().getListaEspera(activity);
     }
 
     @Override

@@ -190,9 +190,11 @@ public class TemplateVisualizaMarcacaoConsultaPaciente extends RelativeLayout {
                             }
                         }
                     }
+                    PacienteController.getInstance().setConsultaNotificao(null);
                     PacienteController.getInstance().setHorarioConsulta(horario);
                     PacienteController.getInstance().setHoraConsultaInicial(horaInicial);
                     Intent intent = new Intent(tela, PacienteMarcaConsulta.class);
+
                     tela.startActivity(intent);
                 }
 

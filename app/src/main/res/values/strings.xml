@@ -221,12 +221,15 @@
     <string name="endeNotCad">Endereço não cadastrado.</string>
     <string name="erroLocalAtual">Ocorreu um erro ao coletar sua localização atual, tente novamente ou digite seu endereço.</string>
     <string name="erroSuspender">Não é possivel suspender um horario no passado.</string>
-    <string name="erroMarcarConsultaPassado">Não é possivel marcar uma consulta neste horario.</string>
+    <string name="erroMarcarConsultaPassado">Não é possivel marcar uma consulta no passsado.</string>
     <string name="SlotsHorario">Quantidade de slots usados para a consulta:</string>
     <string name="PacienteCadastrado">Paciente já cadastrado no sistema?</string>
     <string name="emailpaciente2">Email do Paciente:</string>
     <string name="abrir_agenda">Abrir agenda</string>
     <string name="confirmaConsulta">Tem certeza que deseja marcar está consulta?</string>
+    <string name="desmarcarConsulta">Você tem certeza que deseja desmarcar está consulta?</string>
+    <string name="reabilitarConsulta">Você deseja reativar este horario?</string>
+    <string name="notifique_me_caso_um_horario_mais_cedo_seja_disponibilizado">Notifique-me caso um horario mais cedo seja disponibilizado</string>
 
 
 </resources>

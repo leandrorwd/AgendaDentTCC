@@ -40,6 +40,7 @@ public class DentistaPerfil extends LinearLayout implements Interface_Dentista {
 
     public DentistaPerfil(Activity activity, int id_janela) {
         super(activity);
+
         this.id_janela = id_janela;
         DialogAux.dialogCarregandoSimples(activity);
         this.activity = activity;

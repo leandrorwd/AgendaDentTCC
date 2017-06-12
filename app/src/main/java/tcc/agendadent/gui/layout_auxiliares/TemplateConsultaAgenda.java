@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.DentistaController;
+import tcc.agendadent.controllers.PacienteController;
 import tcc.agendadent.gui.dentista.DentistaAgendaDiaria;
 import tcc.agendadent.gui.dentista.DentistaVisualizarConsulta;
 import tcc.agendadent.objetos.Consulta;
@@ -51,7 +52,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
     }
 
 
-    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario,Horario horario) {
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, Horario horario) {
         super(tela);
         this.tela = tela;
         this.horario = horario;
@@ -63,7 +64,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         horarioLivre(horaInicial);
     }
 
-    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, boolean tempo,Horario horario) {
+    public TemplateConsultaAgenda(Activity tela, String horaInicial, String usuario, boolean tempo, Horario horario) {
         super(tela);
         this.tela = tela;
         isLivre = true;
@@ -71,7 +72,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         usuarioTipo = usuario;
         View.inflate(tela, R.layout.template_consulta_agenda, this);
         this.horaInicial = horaInicial;
-       // setEventos();
+        // setEventos();
         horarioLivre(horaInicial, tempo);
     }
 
@@ -154,33 +155,47 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                     Intent i = new Intent(tela, DentistaVisualizarConsulta.class);
                     if (usuarioTipo.equals("dentista")) {
                         if (tela.getLocalClassName().equals("gui.dentista.DentistaAgendarConsultaEspecial")) {
-                           if(isLivre()){
-                            new AlertDialog.Builder(tela)
-                                    .setTitle(tela.getResources().getString(R.string.Salvar))
-                                    .setMessage(tela.getResources().getString(R.string.confirmaConsulta))
-                                    .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which)
-                                        {
-                                            DialogAux.dialogCarregandoSimples(tela);
-                                            salvaConsultaEspecial(true,null);
-                                        }
-                                    }).setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which)
-                                        {
-                                        }
-                                    })
-                                    .show();
-                        }
+                            if (isLivre()) {
+                                new AlertDialog.Builder(tela)
+                                        .setTitle(tela.getResources().getString(R.string.Salvar))
+                                        .setMessage(tela.getResources().getString(R.string.confirmaConsulta))
+                                        .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                DialogAux.dialogCarregandoSimples(tela);
+                                                salvaConsultaEspecial(true, null);
+                                            }
+                                        }).setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                        .show();
+                            }
 
                         } else {
                             if (consulta != null) {
-                                i.putExtra("consulta", consulta);
-                                i.putExtra("user", usuarioTipo);
-                                tela.startActivity(i);
+                                if(consulta.getNomePaciente().contains("Indisponivel")){
+                                    new AlertDialog.Builder(tela)
+                                            .setTitle(tela.getResources().getString(R.string.Aviso))
+                                            .setMessage(tela.getResources().getString(R.string.reabilitarConsulta))
+                                            .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                   AgendaController.getInstance().reativaConsulta(tela,consulta);
+                                                }
+                                            }).setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                            .show();
+                                }
+                                else{
+                                    i.putExtra("consulta", consulta);
+                                    i.putExtra("user", usuarioTipo);
+                                    tela.startActivity(i);
+                                }
                             } else {
                                 if (AgendaController.getInstance().getDataAux().getYear() <= DateTime.now().getYear()) {
                                     if (AgendaController.getInstance().getDataAux().getDayOfYear() <= DateTime.now().getDayOfYear()) {
@@ -196,6 +211,9 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                                             DialogAux.dialogOkSimples(tela, tela.getString(R.string.erro), tela.getString(R.string.erroSuspender));
                                             return;
                                         }
+                                    }
+                                    else{
+                                        dialogSuspender();
                                     }
                                 } else {
                                     dialogSuspender();
@@ -218,18 +236,17 @@ public class TemplateConsultaAgenda extends RelativeLayout {
         }
     }
 
-    public void salvaConsultaEspecial(boolean principal,Consulta consultaMestre) {
+    public void salvaConsultaEspecial(boolean principal, Consulta consultaMestre) {
 
-        int slotConsultas = AgendaController.getInstance().getNumeroHorarios()+1;
+        int slotConsultas = AgendaController.getInstance().getNumeroHorarios() + 1;
         ArrayList<TemplateConsultaAgenda> lista = AgendaController.getInstance().getListaDia();
         long duracaoConsultaHorario = 0;
         String tipoConsultaString = "";
-        if(AgendaController.getInstance().getTipoConsultaEspecial().equals("Convênio")){
-            tipoConsultaString=AgendaController.getInstance().getTipoConsultaEspecial()+ " - "
-                    +(AgendaController.getInstance().getPlanoSaudeEspecial());
-        }
-        else{
-            tipoConsultaString =AgendaController.getInstance().getTipoConsultaEspecial();
+        if (AgendaController.getInstance().getTipoConsultaEspecial().equals("Convênio")) {
+            tipoConsultaString = AgendaController.getInstance().getTipoConsultaEspecial() + " - "
+                    + (AgendaController.getInstance().getPlanoSaudeEspecial());
+        } else {
+            tipoConsultaString = AgendaController.getInstance().getTipoConsultaEspecial();
         }
 
         String[] parts = horaInicial.split(":");
@@ -241,62 +258,59 @@ public class TemplateConsultaAgenda extends RelativeLayout {
 
         String[] parts2 = horario.getDuracao().split(":");
 
-        long valor =((Integer.parseInt(parts2[0])*60) + Integer.parseInt(parts2[1]))*60000 ;
+        long valor = ((Integer.parseInt(parts2[0]) * 60) + Integer.parseInt(parts2[1])) * 60000;
         duracaoConsultaHorario = valor;
         int mes = DateTime.now().monthOfYear().get();
         String anoSemestre;
-        if(mes>=7){
-            anoSemestre = DateTime.now().year().get() +"A2";
-        }
-        else
-            anoSemestre = DateTime.now().year().get() +"A1";
-        anoSemestre = anoSemestre.replace("A","");
+        if (mes >= 7) {
+            anoSemestre = DateTime.now().year().get() + "A2";
+        } else
+            anoSemestre = DateTime.now().year().get() + "A1";
+        anoSemestre = anoSemestre.replace("A", "");
         long valorAux = 0;
-        try{
-            String operador = DateTime.now().toString().substring(23,26);
-            valorAux = Integer.parseInt( DateTime.now().toString().substring(24,26));
-            if(operador.contains("+")){
+        try {
+            String operador = DateTime.now().toString().substring(23, 26);
+            valorAux = Integer.parseInt(DateTime.now().toString().substring(24, 26));
+            if (operador.contains("+")) {
                 valorAux = valorAux * 3600000;
+            } else {
+                valorAux = (valorAux * 3600000) - (valorAux * 3600000) * 2;
             }
-            else{
-                valorAux = (valorAux * 3600000) - (valorAux * 3600000)*2;
-            }
-        }catch (Exception e){
-            valorAux =0;
+        } catch (Exception e) {
+            valorAux = 0;
         }
 
-        if(principal){
-            String s = dateDataConsultaInicial.getMillis()+"";
-            String s2 = valorAux+"";
+        if (principal) {
+            String s = dateDataConsultaInicial.getMillis() + "";
+            String s2 = valorAux + "";
             Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                     , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
-                    dateDataConsultaInicial.getMillis()+valorAux
-                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),duracaoConsultaHorario*(slotConsultas-1), false);
-            if(1<slotConsultas){
+                    dateDataConsultaInicial.getMillis() + valorAux
+                    , 5, tipoConsultaString, AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(), duracaoConsultaHorario * (slotConsultas - 1), false);
+            if (1 < slotConsultas) {
                 c1.setConsultaMultiplaPai(true);
             }
-                AgendaController.getInstance().insertConsulta(tela,c1,
-                        DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre);
+            AgendaController.getInstance().insertConsulta(tela, c1,
+                    DentistaController.getInstance().getDentistaLogado().getIdDentista() + "", anoSemestre);
 
 
             DialogAux.dialogCarregandoSimplesDismiss();
-            for(int i =1;i<slotConsultas;i++){
-                lista.get(indexTela).salvaConsultaEspecial(false,c1);
+            for (int i = 1; i < slotConsultas; i++) {
+                lista.get(indexTela).salvaConsultaEspecial(false, c1);
                 indexTela++;
             }
 
             DialogAux.dialogCarregandoSimplesDismiss();
             tela.finish();
-        }
-        else{
+        } else {
             Consulta c1 = new Consulta(DentistaController.getInstance().getDentistaLogado().getIdDentista()
                     , AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getIdPaciente(),
-                    dateDataConsultaInicial.getMillis()+valorAux
-                    ,5, tipoConsultaString,AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(),valor, false);
+                    dateDataConsultaInicial.getMillis() + valorAux
+                    , 5, tipoConsultaString, AgendaController.getInstance().getUsuarioPacienteConsultaEspecial().getNome(), valor, false);
             c1.setConsultaMultipla(true);
             c1.setDataConsultaPrimaria(consultaMestre.getDataConsulta());
-            AgendaController.getInstance().insertConsultaSecundaria(tela,c1,
-                    DentistaController.getInstance().getDentistaLogado().getIdDentista()+"",anoSemestre,consultaMestre);
+            AgendaController.getInstance().insertConsultaSecundaria(tela, c1,
+                    DentistaController.getInstance().getDentistaLogado().getIdDentista() + "", anoSemestre, consultaMestre);
 
         }
     }
@@ -335,7 +349,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
                         anoSemestre = anoSemestre.replace("A", "");
                         AgendaController.getInstance().insertConsulta(tela, c1, DentistaController.getInstance().getDentistaLogado().getIdDentista() + ""
                                 , anoSemestre);
-                        DentistaController.getInstance().callResume();
+
 
                     }
                 })
@@ -357,6 +371,7 @@ public class TemplateConsultaAgenda extends RelativeLayout {
     }
 
     private int indexTela;
+
     public void setIndexTela(int indexTela) {
         this.indexTela = indexTela;
     }

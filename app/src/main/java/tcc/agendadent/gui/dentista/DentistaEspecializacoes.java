@@ -3,13 +3,13 @@ package tcc.agendadent.gui.dentista;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.DentistaController;
 import tcc.agendadent.objetos.Especializacoes;
-
-import android.widget.CheckBox;
-import android.widget.Button;
 
 public class DentistaEspecializacoes extends LinearLayout implements Interface_Dentista {
     private Especializacoes espec;
@@ -28,6 +28,7 @@ public class DentistaEspecializacoes extends LinearLayout implements Interface_D
 
     public DentistaEspecializacoes(Activity activity, int id_janela) {
         super(activity);
+
         this.id_janela = id_janela;
         this.activity = activity;
         View.inflate(activity, R.layout.dentista_especializacoes, this);

@@ -33,7 +33,7 @@
         android:background="?android:selectableItemBackground"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardBackgroundColor="@color/background_material_light"
-        android:clickable="true"
+        android:clickable="false"
         android:focusable="true"
         card_view:cardElevation="@dimen/cardElevation"
         card_view:cardUseCompatPadding="true"
@@ -42,165 +42,257 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            >
-            <android.support.v7.widget.CardView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="5dp"
-                android:elevation="12dp"
-                android:id="@+id/fotoDentista"
-                card_view:cardCornerRadius="40dp"
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thicknessRatio="1.9">
-                <ImageView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                >
+                <android.support.v7.widget.CardView
                     android:layout_width="70dp"
-                    android:id="@+id/fotoDentistaImageView"
                     android:layout_height="70dp"
-                    android:src="@drawable/ic_photo"
-                    /></android.support.v7.widget.CardView>
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="5dp"
+                    android:elevation="12dp"
+                    android:id="@+id/fotoDentista"
+                    card_view:cardCornerRadius="40dp"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9">
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:id="@+id/fotoDentistaImageView"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_photo"
+                        /></android.support.v7.widget.CardView>
 
+                <android.support.percent.PercentRelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/textNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/fotoDentista"
+                    android:layout_marginLeft="10dp">
+                    <TextView android:id="@+id/textViewNome"
+                        app:layout_widthPercent="85%"
+                        android:textColor="@color/FontTitle"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                       />
+                    <TextView android:id="@+id/nota"
+                        android:layout_width="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        android:textColor="@color/yellow"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/textViewNome"
+                        android:textSize="16dp"
+                        android:text=""/>
+                </android.support.percent.PercentRelativeLayout>
+
+                <TextView android:id="@+id/especialidades"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/fotoDentista"
+                    android:layout_below="@+id/textNome"
+                    android:textSize="14dp"
+                    android:text=""/>
+                <TextView android:id="@+id/endereco"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/especialidades"
+                    android:textSize="14dp"
+                    android:text=""/>
+                <TextView android:id="@+id/email"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/endereco"
+                    android:textSize="14dp"
+                    android:text=""/>
+
+                <TextView android:id="@+id/telefone"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/email"
+                    android:textSize="14dp"
+                    android:text=""/>
+                <TextView android:id="@+id/data"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/telefone"
+                    android:textSize="14dp"
+                    android:text="Data:"/>
+                <TextView android:id="@+id/hora"
+                    android:layout_toRightOf="@id/data"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/telefone"
+                    android:textSize="14dp"
+                    android:text="Hora:"/>
+                <TextView android:id="@+id/tipoConsulta"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hora"
+                    android:textSize="14dp"
+                    android:text="Tipo consulta:"/>
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardViewEscolha"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_below="@+id/tipoConsulta"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:background="?android:selectableItemBackground"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    card_view:cardBackgroundColor="@color/background_material_light"
+                    android:focusable="true"
+                    card_view:cardElevation="@dimen/cardElevation"
+                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                    card_view:cardUseCompatPadding="true"
+                    card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView  android:text="@string/tipo_consulta"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="match_parent"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/FontTitle"
+                            android:textSize="16dp"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/gray" />
+                        <Spinner
+                            android:id="@+id/tipoSpinnerConsulta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/FontConteudo"
+                            android:drawSelectorOnTop="true"
+                            android:fontFamily="sans-serif-light"
+                            android:entries="@array/picker_tipo_consulta"
+                            />
+                        <Spinner
+                            android:id="@+id/idPlanosDeSaude"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/FontConteudo"
+                            android:drawSelectorOnTop="true"
+                            android:fontFamily="sans-serif-light"
+                            android:entries="@array/picker_planos_saude"
+                            />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/cardViewNot"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_below="@+id/cardViewEscolha"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:background="?android:selectableItemBackground"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    card_view:cardBackgroundColor="@color/background_material_light"
+                    android:focusable="true"
+                    card_view:cardElevation="@dimen/cardElevation"
+                    card_view:contentPaddingBottom="@dimen/contentPaddingBottom"
+                    card_view:cardUseCompatPadding="true"
+                    card_view:cardCornerRadius="@dimen/cardCornerRadius">
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                   <CheckBox
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:id="@+id/checkboxRemarcar"
+                       android:text="@string/notifique_me_caso_um_horario_mais_cedo_seja_disponibilizado"/>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+            </RelativeLayout>
             <android.support.percent.PercentRelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/textNome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/fotoDentista"
-                android:layout_marginLeft="10dp">
-                <TextView android:id="@+id/textViewNome"
-                    app:layout_widthPercent="85%"
-                    android:textColor="@color/FontTitle"
-                    android:fontFamily="sans-serif-light"
+                android:layout_marginStart="23dp"
+                android:layout_marginEnd="23dp"
+                android:layout_height="match_parent"
+                >
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    app:layout_widthPercent="49%"
+                    android:id="@+id/botaCancela"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="Nome Dentista"/>
-                <TextView android:id="@+id/nota"
-                    android:layout_width="match_parent"
+                    android:background="@color/corBotao"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@color/yellow"
+                    android:text="@string/cancela"
+                    android:textColor="@color/backgroundWhite" />
 
+                <android.support.v7.widget.AppCompatButton
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    app:layout_widthPercent="49%"
+                    android:id="@+id/botaoSalvar"
+                    android:text="@string/confirmar"
+                    android:layout_marginStart="10dp"
+                    android:layout_toRightOf="@+id/botaCancela"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/textViewNome"
-                    android:textSize="16dp"
-                    android:text="5,0"/>
+                    android:background="@color/corBotao"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/backgroundWhite" />
+
             </android.support.percent.PercentRelativeLayout>
-
-            <TextView android:id="@+id/especialidades"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/fotoDentista"
-                android:layout_below="@+id/textNome"
-                android:textSize="14dp"
-                android:text="Espec1,espec2,espec3"/>
-            <TextView android:id="@+id/endereco"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/especialidades"
-                android:textSize="14dp"
-                android:text="Endereço maroto lalalalaallalalalaallalalalaal 14048548"/>
-            <TextView android:id="@+id/email"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/endereco"
-                android:textSize="14dp"
-                android:text="email@xaxa.com"/>
-
-            <TextView android:id="@+id/telefone"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:textSize="14dp"
-                android:text="5182913136"/>
-            <TextView android:id="@+id/data"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/telefone"
-                android:textSize="14dp"
-                android:text="Data: 21/04/1002"/>
-            <TextView android:id="@+id/hora"
-                android:layout_toRightOf="@id/data"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/telefone"
-                android:textSize="14dp"
-                android:text="Hora: 14:00"/>
-            <TextView android:id="@+id/tipoConsulta"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif-light"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/hora"
-                android:textSize="14dp"
-                android:text="Tipo consulta:"/>
-
-        </RelativeLayout>
-        <android.support.percent.PercentRelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_marginStart="23dp"
-            android:layout_marginEnd="23dp"
-            android:layout_height="match_parent"
-            >
-            <android.support.v7.widget.AppCompatButton
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                app:layout_widthPercent="49%"
-                android:id="@+id/botaCancela"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/corBotao"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/cancela"
-                android:textColor="@color/backgroundWhite" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                app:layout_widthPercent="49%"
-                android:id="@+id/botaoSalvar"
-                android:text="@string/confirmar"
-                android:layout_marginStart="10dp"
-                android:layout_toRightOf="@+id/botaCancela"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/corBotao"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-light"
-                android:textColor="@color/backgroundWhite" />
-
-        </android.support.percent.PercentRelativeLayout></LinearLayout>
+        </LinearLayout>
 
 
     </android.support.v7.widget.CardView>

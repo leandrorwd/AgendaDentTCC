@@ -3,13 +3,17 @@ package tcc.agendadent.controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 
 import tcc.agendadent.R;
-import tcc.agendadent.bancoConnection.AgendaBC;
 import tcc.agendadent.bancoConnection.PacienteBC;
+import tcc.agendadent.gui.layout_auxiliares.TemplateListaEspera;
+import tcc.agendadent.gui.layout_auxiliares.TemplateSemConsultas;
 import tcc.agendadent.gui.paciente.Main_Paciente;
 import tcc.agendadent.gui.paciente.PacienteMarcaConsulta;
 import tcc.agendadent.gui.paciente.PacienteVisualizaDentistas;
@@ -432,5 +436,47 @@ public class PacienteController {
 
     public void getDentistaViaId(Activity activity, long idDentista, PacienteMarcaConsulta pacienteMarcaConsulta) {
         pacienteBC.getDentistaViaId(activity,idDentista,pacienteMarcaConsulta);
+    }
+    public void getDentistaViaId(Activity activity, long idDentista, TemplateListaEspera espera) {
+        pacienteBC.getDentistaViaId(activity,idDentista,espera);
+    }
+
+    public void getListaEspera(Activity activity) {
+        pacienteBC.getListaEspera(activity);
+    }
+
+    public void populaTelaListaEspera(Activity activity, ArrayList<Consulta> consultas) {
+        LinearLayout layoutPrincipal = (LinearLayout) activity.findViewById(R.id.layoutListaEspera);
+        boolean inseriuAlguem = false;
+        for (Consulta c : consultas){
+            boolean insert = true;
+            if(c.getDataFormat().isAfter(DateTime.now())){
+                for(Consulta consultaMarcada : AgendaController.getInstance().getProximasConsultas()){
+                    if(consultaMarcada.getIdDentista()==c.getIdDentista()){
+                        if((consultaMarcada.getDataConsulta()+"").equals(c.getDataConsulta()+"")){
+                            insert = false;
+                        }
+                    }
+                }
+                if(insert) {
+                    layoutPrincipal.addView(new TemplateListaEspera(activity, c));
+                    inseriuAlguem = true;
+                }
+            }
+        }
+        if(!inseriuAlguem){
+            TemplateSemConsultas semconsulta = new TemplateSemConsultas(activity);
+            layoutPrincipal.addView(semconsulta);
+        }
+        DialogAux.dialogCarregandoSimplesDismiss();
+    }
+
+    private Consulta consultaDesmarc;
+    public void setConsultaNotificaoDesmarc(Consulta consulta) {
+        consultaDesmarc = consulta;
+    }
+
+    public Consulta getConsultaDesmarc() {
+        return consultaDesmarc;
     }
 }

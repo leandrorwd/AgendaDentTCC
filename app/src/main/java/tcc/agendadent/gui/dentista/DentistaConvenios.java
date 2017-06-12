@@ -33,6 +33,7 @@ public class DentistaConvenios extends LinearLayout implements Interface_Dentist
 
     public DentistaConvenios(Activity activity, int id_janela) {
         super(activity);
+
         this.id_janela = id_janela;
         this.activity = activity;
         View.inflate(activity, R.layout.dentista_convenios, this);

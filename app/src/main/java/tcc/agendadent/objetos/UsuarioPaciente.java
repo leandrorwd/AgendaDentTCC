@@ -12,7 +12,7 @@ public class UsuarioPaciente {
     private String celular;
     private String sobreNome;
     private Endereco endereco;
-    private  boolean masculino;
+    private boolean masculino;
     private long idPaciente;
 
     public UsuarioPaciente() {

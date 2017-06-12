@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -58,6 +60,7 @@ public class AgendaController {
     private String planoSaudeEspecial;
     private DateTime auxiliar;
     private ArrayList<TemplateConsultaAgenda> listaDia;
+    private ArrayList<Consulta> proximasConsultas;
 
 
     private AgendaController() {
@@ -72,7 +75,10 @@ public class AgendaController {
     }
 
     public void insertConsulta(Activity activity, Consulta consulta, String idDentista, String semestreAno) {
-        agendaBC.insertConsulta(activity, consulta, idDentista, semestreAno);
+        agendaBC.insertConsulta(activity, consulta, idDentista, semestreAno,false);
+    }
+    public void insertConsulta(Activity activity, Consulta consulta, String idDentista, String semestreAno,boolean direta) {
+        agendaBC.insertConsulta(activity, consulta, idDentista, semestreAno,direta);
     }
     public void insertConsultaSecundaria(Activity activity, Consulta consulta, String idDentista, String semestreAno,Consulta consultaMestre) {
         agendaBC.insertConsultaSecundaria(activity, consulta, idDentista, semestreAno,consultaMestre);
@@ -694,6 +700,7 @@ public class AgendaController {
 
     public void buscaAgendaBCAgendadas(ArrayList<UsuarioDentista> dentistas, boolean consultaVerif) {
         boolean existeConsulta = false;
+        ArrayList<Consulta> proximasConsultas = new ArrayList<>();
         if (horarioDiario != null)
             horarioDiario.removeAllViews();
         for (Consulta consulta : consultasBC) {
@@ -701,6 +708,7 @@ public class AgendaController {
             if ((consultaVerif && consulta.getIdPaciente() == PacienteController.getInstance().getPacienteLogado().getIdPaciente() && consulta.getDataConsulta() > DateTime.now().getMillis()) && !consulta.getCancelada()) {
 //                DialogAux.dialogOkSimples(tela, "msg", String.valueOf(consulta.getCancelada()));
                 TemplatePacienteConsultasAgendadas popular = new TemplatePacienteConsultasAgendadas(tela, consulta, dentistas);
+                proximasConsultas.add(consulta);
                 existeConsulta = true;
                 horarioDiario.addView(popular);
             } else
@@ -711,6 +719,8 @@ public class AgendaController {
                     horarioDiario.addView(popular);
                 }
         }
+        setProximasConsultas(proximasConsultas);
+        EventosController.getInstance().carregaListenersRemarcacao();
         DialogAux.dialogCarregandoSimplesDismiss();
         if (!existeConsulta) {
             TemplateSemConsultas semconsulta = new TemplateSemConsultas(tela);
@@ -718,7 +728,41 @@ public class AgendaController {
         }
     }
 
-    public void desmarcarConsulta(Activity tela, Consulta consulta) {
+    private void setProximasConsultas(ArrayList<Consulta> proximasConsultas) {
+        this.proximasConsultas = proximasConsultas;
+    }
+
+    public void desmarcarConsulta(final Activity tela, final Consulta consulta) {
+        new AlertDialog.Builder(tela)
+                .setTitle(tela.getResources().getString(R.string.Aviso))
+                .setMessage(tela.getResources().getString(R.string.desmarcarConsulta))
+                .setPositiveButton(tela.getResources().getString(R.string.sim), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        int mes = consulta.getDataFormat().monthOfYear().get();
+                        String ano = String.valueOf(consulta.getDataFormat().year().get());
+
+                        if (mes <= 6) {
+                            ano += "1";
+                        } else ano += "2";
+
+                        agendaBC.desmarcarConsulta(tela, consulta, ano);
+                    }
+                })
+                .setNegativeButton(tela.getResources().getString(R.string.nao), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                    }
+                })
+                .show();
+    }
+
+    public void reativaConsulta(final Activity tela, final Consulta consulta) {
         int mes = consulta.getDataFormat().monthOfYear().get();
         String ano = String.valueOf(consulta.getDataFormat().year().get());
 
@@ -726,7 +770,7 @@ public class AgendaController {
             ano += "1";
         } else ano += "2";
 
-        agendaBC.desmarcarConsulta(tela, consulta, ano);
+        agendaBC.reativaConsulta(tela, consulta, ano);
     }
 
     public void setDiaAtual(int ano, int mes, int dia, int hora) {
@@ -836,6 +880,26 @@ public class AgendaController {
         f1.removeAllViews();
         f1 = (LinearLayout)tela.findViewById(R.id.consultasDiarias3);
         f1.removeAllViews();
+    }
+
+    public void getConsultasListaEspera(Activity activity) {
+        agendaBC.getConsultasListaEspera(activity);
+    }
+
+    public ArrayList<Consulta> getProximasConsultas() {
+        return proximasConsultas;
+    }
+
+    public void checkConsultaLivre(Consulta consultaNotificao) {
+            int mes = consultaNotificao.getDataFormat().monthOfYear().get();
+            String ano = String.valueOf(consultaNotificao.getDataFormat().year().get());
+
+            if (mes <= 6) {
+                ano += "1";
+            } else ano += "2";
+
+
+        agendaBC.checkConsultaLivre(consultaNotificao,ano);
     }
 }
 

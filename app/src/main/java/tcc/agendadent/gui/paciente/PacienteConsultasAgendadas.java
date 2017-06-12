@@ -1,18 +1,13 @@
 package tcc.agendadent.gui.paciente;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import tcc.agendadent.R;
 import tcc.agendadent.controllers.AgendaController;
 import tcc.agendadent.controllers.PacienteController;
-import tcc.agendadent.gui.dentista.DentistaConfigAgendaAdiciona;
 import tcc.agendadent.servicos.DialogAux;
 
 /**
@@ -25,10 +20,12 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
     FloatingActionButton fab;
     FloatingActionButton fab2;
     LinearLayout layout;
+    boolean firstTime;
 
     public PacienteConsultasAgendadas(Activity activity, int id_janela) {
         super(activity);
         this.activity = activity;
+        firstTime = true;
         View.inflate(activity, R.layout.paciente_consultas_agendadas, this);
         this.id = id_janela;
         instanciaArtefatos();
@@ -73,7 +70,7 @@ public class PacienteConsultasAgendadas extends LinearLayout implements ClassesP
 
     @Override
     public boolean needResume() {
-        return false;
+        return true;
     }
 
     @Override
